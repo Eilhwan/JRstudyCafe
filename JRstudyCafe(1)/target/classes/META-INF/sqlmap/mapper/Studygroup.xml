@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Studygroup">
+ 	<select id="">
+ 	
+ 	</select>
+ 	<insert id="studygroup_open" parameterType="Studygroup">
+ 		INSERT INTO STUDYGROUP(SG_NO, SG_NAME, U_ID, SG_PERSON, SG_EXPLAIN, ST_NO)
+ 		 VALUES(SG_NO_SQ.NEXTVAL, #{sg_name}, #{u_id}, 1, #{sg_explain}, #{st_no})
+ 	</insert>
+ 	
+ </mapper>

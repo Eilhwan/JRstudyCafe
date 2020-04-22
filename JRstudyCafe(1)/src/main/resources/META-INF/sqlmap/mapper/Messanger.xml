@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Messanger">
+	<insert id="messangerSend" parameterType="Messanger">
+		INSERT INTO  MESSANGER (M_NO, M_TITLE, M_CONTENT, M_STATUS, M_RECIEVER, M_SENDER) VALUES(M_NO_SQ.NEXTVAL, #{m_title}, #{m_content}, 2, #{m_reciever}, #{m_sender})
+	</insert>
+	<select id="messangerList" parameterType="Messanger" resultType="Messanger">
+		SELECT * FROM 
+		(SELECT ROWNUM RN, A.* FROM (SELECT * FROM MESSANGER WHERE M_RECIEVER = #{m_reciever} ORDER BY M_STATUS DESC, M_NO DESC) A) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="unReadMsgCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MESSANGER WHERE M_RECIEVER = #{u_id} and m_status = 2
+	</select>
+	<select id="msgCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MESSANGER WHERE M_RECIEVER = #{u_id}
+	</select>
+	
+	<select id="messageDetail" parameterType="int" resultType="Messanger">
+		SELECT * FROM MESSANGER WHERE M_NO = #{m_no}
+	</select>
+	<delete id="deleteMessage" parameterType="int">
+		DELETE FROM MESSANGER WHERE M_NO = #{m_no}
+	</delete>
+	<update id="readMessage" parameterType="int">
+		UPDATE MESSANGER SET M_STATUS = 1 WHERE M_NO = #{m_no}
+	</update>
+</mapper>

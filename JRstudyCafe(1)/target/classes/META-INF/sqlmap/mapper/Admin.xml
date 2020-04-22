@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+
+
+	<select id="loginCheck_admin" parameterType="Admin"
+		resultType="int">
+		SELECT COUNT(*) FROM ADMIN WHERE A_ID = #{a_id} AND A_PW =
+		#{a_pw}
+	</select>
+	<select id="list_users" parameterType="Users" resultType="Users">
+		SELECT
+		* FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM USERS ORDER BY U_ID)
+		A) WHERE RN BETWEEN #{startRow} AND #{endRow} AND U_STATUS > 0
+	</select>
+	<select id="get_users_tot" resultType="int">
+		SELECT count(*) FROM USERS
+		WHERE U_STATUS > 0
+	</select>
+	<select id="users_profile" parameterType="String"
+		resultType="Users">
+		SELECT * FROM USERS WHERE U_ID = #{u_id} and U_STATUS > 0
+	</select>
+
+	<select id="get_admin" parameterType="Admin" resultType="Admin">
+		SELECT *
+		FROM ADMIN WHERE A_ID = #{a_id}
+	</select>
+	<select id="search_user" parameterType="Admin"
+		resultType="Users">
+		<if test="key == 'u_name'">
+			SELECT * FROM USERS WHERE U_NAME LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="key == 'u_id'">
+			SELECT * FROM USERS WHERE U_ID LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="key == 'u_tel'">
+			SELECT * FROM USERS WHERE U_TEL LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="key == 'u_email'">
+			SELECT * FROM USERS WHERE U_EMAIL LIKE
+			'%'||#{keyword}||'%'
+		</if>
+	</select>
+	<insert id="insert_admin" parameterType="Admin">
+		INSERT INTO ADMIN (A_ID,
+		A_PW, A_NAME, A_STATUS)
+		VALUES(#{a_id}, #{a_pw}, #{a_name}, 1)
+	</insert>
+	<update id="delete_admin" parameterType="Admin">
+		UPDATE ADMIN SET
+		A_STATUS = 0 WHERE A_ID = #{a_id}
+	</update>
+	<update id="black_user" parameterType="String">
+		UPDATE USERS SET U_STATUS = 0 WHERE U_ID = #{u_id}	
+	</update>
+	<select id="get_admins_tot" resultType="int">
+		SELECT count(*) FROM
+		ADMIN WHERE A_STATUS > 0
+	</select>
+	<select id="list_admins" parameterType="Admin"
+		resultType="Admin">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM
+		ADMIN WHERE A_STATUS > 0 ORDER BY A_ID ) A)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="a_idConfirm" resultType="int" parameterType="String">
+		SELECT
+		COUNT(*) FROM ADMIN WHERE A_ID=#{a_id}
+	</select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="Room">
+	<resultMap type="Room" id="OptionMap">
+		<result property="ro_air" column="ro_air"/>
+		<result property="ro_chair" column="ro_chair"/>
+		<result property="ro_print" column="ro_print"/>
+		<result property="ro_smoke" column="ro_smoke"/>
+		<result property="ro_pc" column="ro_pc"/>
+		<result property="ro_tv" column="ro_tv"/>
+		<result property="ro_wifi" column="ro_wifi"/>
+		<result property="ro_board" column="ro_board"/>
+	</resultMap>
+	<resultMap type="Room" id="RoomMap">
+		<result property="r_no" column="r_no"/>
+		<result property="r_name" column="r_name"/>
+		<result property="r_image" column="r_image"/>
+		<result property="r_ppr" column="r_ppr"/>
+		<result property="r_pph" column="r_pph"/>
+		<result property="r_status" column="r_status"/>
+	</resultMap>
+	
+	<select id="room_detail" parameterType="int" resultType="Room">
+		SELECT * FROM ROOM R, ROOMOPTION O WHERE R.R_NO = O.R_NO AND R.R_NO = #{r_no} AND R_STATUS > 0
+	</select>
+	<select id="room_list" parameterType="Room" resultMap="RoomMap">
+		SELECT * FROM (SELECT ROWNUM RN, R.* FROM (SELECT * FROM ROOM) R) M, ROOMOPTION O WHERE M.R_NO = O.R_NO AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="room_cnt" resultType="int">
+		SELECT COUNT(*) FROM ROOM WHERE R_STATUS > 0
+	</select>
+	
+	
+	<insert id="room_register" parameterType="Room">
+		INSERT INTO ROOM (R_NO, R_NAME, R_IMAGE, R_PPR, R_PPH, R_STATUS)
+            VALUES(R_NO_SQ.NEXTVAL, #{r_name}, #{r_image}, #{r_ppr}, #{r_pph}, 1)
+	</insert>
+	<insert id="room_option_register" parameterType="Room">
+		INSERT INTO ROOMOPTION (R_NO, RO_AIR, RO_CHAIR, RO_PRINT, RO_SMOKE, RO_PC, RO_TV, RO_WIFI, RO_BOARD)
+                VALUES ((SELECT MAX(R_NO) FROM ROOM), #{ro_air}, #{ro_chair}, #{ro_print}, #{ro_smoke}, #{ro_pc}, #{ro_tv}, #{ro_wifi}, #{ro_board})
+	</insert>
+	<update id="room_modify" parameterType="Room">
+		UPDATE ROOM SET R_NAME = #{r_name}, R_IMAGE= #{r_image}, R_PPR = #{r_ppr}, R_PPH = #{r_pph} WHERE R_NO = #{r_no}
+	</update>
+	<update id="room_option_modfiy" parameterType="Room">
+		UPDATE ROOMOPTION SET RO_AIR = #{ro_air}, RO_CHAIR = #{ro_chair}, RO_PRINT = #{ro_print}, RO_SMOKE=#{ro_smoke}, RO_PC=#{ro_pc}, RO_TV=#{ro_tv}, RO_WIFI=#{ro_wifi}, RO_BOARD=#{ro_board} WHERE R_NO = #{r_no}
+	</update>
+	<update id="room_delete" parameterType="int">
+		UPDATE ROOM SET R_STATUS = 0 WHERE R_NO = #{r_no}
+	</update>
+	
+</mapper>

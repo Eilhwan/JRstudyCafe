@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="Users" type="com.jr.studycafe.dto.Users"/>
+		<typeAlias alias="Admin" type="com.jr.studycafe.dto.Admin"/>
+		<typeAlias alias="Room" type="com.jr.studycafe.dto.Room"/>
+		
+	</typeAliases>
+	<mappers>
+		<mapper resource="META-INF/sqlmap/mapper/Users.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Admin.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Room.xml"/>
+	</mappers>
+</configuration>

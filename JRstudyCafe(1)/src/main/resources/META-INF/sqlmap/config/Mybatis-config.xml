@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="Users" type="com.jr.studycafe.dto.Users"/>
+		<typeAlias alias="Admin" type="com.jr.studycafe.dto.Admin"/>
+		<typeAlias alias="Room" type="com.jr.studycafe.dto.Room"/>
+		<typeAlias alias="Messanger" type="com.jr.studycafe.dto.Messanger"/>
+		<typeAlias alias="Studygroup" type="com.jr.studycafe.dto.Studygroup"/>
+		<typeAlias alias="RecruitBoard" type="com.jr.studycafe.dto.RecruitBoard"/>
+		<typeAlias alias="RecruitComments" type="com.jr.studycafe.dto.RecruitComments"/>
+		
+	</typeAliases>
+	<mappers>
+		<mapper resource="META-INF/sqlmap/mapper/Users.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Admin.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Room.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Messanger.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Studygroup.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/RecruitBoard.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/RecruitComments.xml"/>
+	</mappers>
+</configuration>

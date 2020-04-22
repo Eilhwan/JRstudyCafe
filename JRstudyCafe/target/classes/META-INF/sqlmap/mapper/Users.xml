@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Users">
+	<resultMap type="Users" id="UsersResult">
+		<result column="u_id" property="u_id"/>
+		<result column="u_pw" property="u_pw"/>
+		<result column="u_name" property="u_name"/>
+		<result column="u_nickname" property="u_nickname"/>
+		<result column="u_phone" property="u_phone"/>
+		<result column="u_tel" property="u_tel"/>
+		<result column="u_email" property="u_email"/>
+		<result column="u_addr" property="u_addr"/>
+		<result column="u_birth" property="u_birth"/>
+		<result column="u_status" property="u_status"/>
+		<result column="u_image" property="u_image"/>
+	</resultMap>
+	
+	<insert id="u_join" parameterType="Users">
+		<if test="u_image!=''">
+		
+			INSERT INTO USERS (u_id, u_pw, u_name, u_nickname, u_phone, u_tel, u_email, u_addr, u_birth, u_status, u_image)
+				VALUES 
+    			(#{u_id}, #{u_pw}, #{u_name}, #{u_nickname}, #{u_phone}, #{u_tel}, #{u_email}, #{u_addr}, #{u_birth},1,#{u_image})
+		</if>
+		<if test="u_image==''">
+			INSERT INTO USERS (u_id, u_pw, u_name, u_nickname, u_phone, u_tel, u_email, u_addr, u_birth, u_status)
+    				    VALUES 
+    						  (#{u_id}, #{u_pw}, #{u_name}, #{u_nickname}, #{u_phone}, #{u_tel}, #{u_email}, #{u_addr}, #{u_birth},1)
+		</if>	
+	</insert>
+	
+	<select id="u_idCofirm" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM USERS WHERE U_ID=#{u_id}
+	</select>
+	<select id="u_getUsers" resultMap="UsersResult" parameterType="String">
+		SELECT * FROM USERS WHERE u_id = #{u_id}
+	</select>
+	<select id="u_idfind" resultMap="UsersResult" parameterType="Users">
+		SELECT * FROM USERS WHERE U_NAME=#{u_name} AND U_TEL=#{u_tel}
+	</select>
+	<update id="u_modify" parameterType="Users">
+		UPDATE Users SET u_pw=#{u_pw},
+		                 u_nickname=#{u_nickname},
+		                 u_phone=#{u_phone},
+		                 u_tel=#{u_tel},
+		                 u_email= #{u_email},
+		                 u_addr= #{u_addr},
+		                 u_birth= #{u_birth}
+		<if test="u_image!='' and u_image!=null">
+						,u_image= #{u_image}
+		</if>   
+		           WHERE u_id=#{u_id}
+	</update>
+	
+</mapper>
