@@ -24,7 +24,7 @@ import com.jr.studycafe.dto.RecruitBoard;
 public class RecruitBoardServiceImpl implements RecruitBoardService{
 	@Autowired
 	private RecruitBoardDao rbdao;
-	private String backupPath = "D:/java2/source/2nd_project/JRstudyCafe(1)/src/main/webapp/backup_rb";
+	private String backupPath = "D:/java2/source/2nd_project/JRstudyCafe(1)/src/main/webapp/backup_rb/";
 	@Override
 	public List<RecruitBoard> list_rb(RecruitBoard recruitBoard) {
 		return rbdao.list_rb(recruitBoard);
@@ -43,7 +43,7 @@ public class RecruitBoardServiceImpl implements RecruitBoardService{
 
 	@Override
 	public int modify_rb(MultipartHttpServletRequest mRequest, RecruitBoard recruitBoard, Model model) {
-		String uploadPath = mRequest.getRealPath("fileUp/");
+		String uploadPath = mRequest.getRealPath("backup_rb/");
 		Iterator<String> params = mRequest.getFileNames();
 		String filename = "";
 		
@@ -96,13 +96,13 @@ public class RecruitBoardServiceImpl implements RecruitBoardService{
 	}
 
 	@Override
-	public int cnt_rb() {
-		return rbdao.cnt_rb();
+	public int cnt_rb(RecruitBoard recruitBoard) {
+		return rbdao.cnt_rb(recruitBoard);
 	}
 
 	@Override
 	public int write_rb(MultipartHttpServletRequest mRequest, RecruitBoard recruitBoard) {
-		String uploadPath = mRequest.getRealPath("fileUp/");
+		String uploadPath = mRequest.getRealPath("backup_rb/");
 		Iterator<String> params = mRequest.getFileNames();
 		String filename = "";
 		if(params.hasNext()) {
@@ -130,8 +130,8 @@ public class RecruitBoardServiceImpl implements RecruitBoardService{
 	@Override
 	public FileUpDto fileUp(FileUpDto fileUpDto, HttpServletRequest request) {
 		String rootPath = request.getRealPath("/");
-		String attachPath = "fileUp/";
-		String uploadPath = request.getRealPath("fileUp/");
+		String attachPath = "backup_rb/";
+		String uploadPath = request.getRealPath("backup_rb/");
 		System.out.println("서버로 여기로 보낸다 : "+rootPath + attachPath);
 		MultipartFile upload = fileUpDto.getUpload();
 		String filename = "";

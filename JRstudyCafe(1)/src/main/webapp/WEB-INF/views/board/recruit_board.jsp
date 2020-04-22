@@ -150,13 +150,13 @@ input[type='submit'] {
 			</tbody>
 		</table>
 		<table id="table_bottom">
-			<tr>
-				<td><input type="button" value="글쓰기"
-					onclick="location.href='${conPath }/rbWriteView.do'"
-					class="button is-link is-focused"><input type="button"
-					value="목록" onclick="location.href='${conPath }/rbWriteView.do'"
-					class="button is-link is-focused"></td>
-			</tr>
+			<c:if test="${not empty sessionScope.users }">
+				<tr>
+					<td>
+						<input type="button" value="글쓰기" onclick="location.href='${conPath }/rbWriteView.do'" class="button is-link is-focused">
+					</td>
+				</tr>
+			</c:if>
 			<tr>
 				<td>
 					<div class="paging">
@@ -185,13 +185,12 @@ input[type='submit'] {
 			</tr>
 		</table>
 		<div id="select_div">
-			<form action="${conPath }/list.do">
-				<input type="hidden" name="method" value="list"> <select
-					name="schItem">
-					<option value="">검색조건</option>
-					<option value="all">글제목+작성자</option>
-					<option value="title">글제목</option>
-					<option value="writer">작성자</option>
+			<form action="${conPath }/rbSearch.do">
+				<select name="schItem">
+					<option value="1">작성자 ID</option>
+					<option value="2">제목</option>
+					<option value="3">내용</option>
+					<option value="4">제목 + 내용</option>
 				</select> <input type="text" name="schWord" value="${param.schWord }">
 				<input type="submit" value="검색" class="button is-small">
 			</form>

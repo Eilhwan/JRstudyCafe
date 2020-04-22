@@ -6,6 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${empty admin }">
+	<script>
+		alert('비정상적인 접근입니다.');
+		history.back();
+	</script>
+</c:if>
 <meta charset="UTF-8">
 <title>메시지 보내기</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>

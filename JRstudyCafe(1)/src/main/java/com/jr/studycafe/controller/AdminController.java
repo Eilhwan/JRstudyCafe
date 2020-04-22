@@ -44,10 +44,10 @@ public class AdminController {
 	}
 	@RequestMapping(value="adminLogin", method=RequestMethod.POST)
 	public String adminLogin(Admin admin, HttpSession session, Model model) {
-		aService.login_admin(admin, session);
 		if (aService.loginChk_admin(admin) == 0) {
 			model.addAttribute("result_msg", "아이디와 비밀번호를 확인해주세요.");
 		}else {
+			aService.login_admin(admin, session);
 			model.addAttribute("result_msg", "로그인 되었습니다.");
 			
 		}

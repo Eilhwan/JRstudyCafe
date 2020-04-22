@@ -35,9 +35,12 @@ public class MainController {
 		session.invalidate();
 		return "redirect:main.do";
 	}
-	@RequestMapping(value="profile", method = RequestMethod.GET)
-	public String profile(HttpSession session) {
-		session.invalidate();
-		return "member/profile";
+	@RequestMapping(value="introCafe", method = RequestMethod.GET)
+	public String introCafe() {
+		return "main/intro";
+	}
+	@RequestMapping(value="infoCafe", method = RequestMethod.GET)
+	public String infCafe() {
+		return "main/info";
 	}
 }

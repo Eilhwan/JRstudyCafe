@@ -45,10 +45,24 @@ public class BoardController {
 		if (pageNum == null) {
 			pageNum = "1";
 		}
-		Paging paging = new Paging(rbService.cnt_rb(), pageNum, pageSize, blockSize);
+		Paging paging = new Paging(rbService.cnt_rb(recruitBoard), pageNum, pageSize, blockSize);
 		recruitBoard.setStartRow(paging.getStartRow());
 		recruitBoard.setEndRow(paging.getEndRow());
 		model.addAttribute("recruitboards", rbService.list_rb(recruitBoard));
+		model.addAttribute("paging", paging);
+		return "board/recruit_board";
+	}
+	@RequestMapping(value="rbSearch", method = RequestMethod.GET)
+	public String rbSearch(RecruitBoard recruitBoard, String pageNum, Model model) {
+		int blockSize = 10;
+		int pageSize = 10;
+		if (pageNum == null) {
+			pageNum = "1";
+		}
+		Paging paging = new Paging(rbService.cnt_rb(recruitBoard), pageNum, pageSize, blockSize);
+		recruitBoard.setStartRow(paging.getStartRow());
+		recruitBoard.setEndRow(paging.getEndRow());
+		model.addAttribute("recruitboards", rbService.search_rb(recruitBoard));
 		model.addAttribute("paging", paging);
 		return "board/recruit_board";
 	}
@@ -72,9 +86,16 @@ public class BoardController {
 	}
 	@RequestMapping(value="rbModifyView", method = {RequestMethod.POST, RequestMethod.GET})
 	public String rbModifyView(int rb_no, Model model) {
+		model.addAttribute("rb", rbService.detail_rb(rb_no));
 		
-		
-		return "board/recruit_detail";
+		return "board/recruit_modify";
+	}
+	@RequestMapping(value="rbModify", method = RequestMethod.POST)
+	public String rbModify(RecruitBoard recruitBoard, MultipartHttpServletRequest mRequest, HttpSession session, Model model) {
+		Users users = (Users) session.getAttribute("users");
+		recruitBoard.setU_id(users.getU_id());
+		rbService.modify_rb(mRequest, recruitBoard, model);
+		return "redirect:recruitBoard.do";
 	}
 	@RequestMapping(value="rbDelete.do", method = {RequestMethod.POST, RequestMethod.GET})
 	public String rbDelete(int rb_no, Model model) {

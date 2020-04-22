@@ -6,6 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${empty admin }">
+	<script>
+		alert('비정상적인 접근입니다.');
+		history.back();
+	</script>
+</c:if>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script
@@ -57,7 +63,7 @@
 }
 </style>
 <script>
-	function open_messanger (){
+	function open_admin_messanger (){
 		window.open('${conPath}/admin/adminMessagner.do?u_id=${param.u_id}', '관리자 메시지', 'width=400, height=450')
 		}
 </script>
@@ -87,7 +93,7 @@
 		<div class="card">
 			<div class="card-image">
 				<div id="card_button">
-					<button class="button" onclick="open_messanger()">메시지 보내기</button>
+					<button class="button" onclick="open_admin_messanger()">메시지 보내기</button>
 					<button class="button" onclick="is_active()">블랙리스트 추가</button>
 				</div>
 			</div>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="FreeBoard">
+	<resultMap type="FreeBoard" id="FreeBoardResult">
+		<result column="fb_no" property="fb_no"/>
+		<result column="fb_name" property="fb_name"/>
+		<result column="fb_content" property="fb_content"/>
+		<result column="fb_status" property="fb_status"/>
+		<result column="fb_name" property="fb_name"/>
+		<result column="fb_hit" property="fb_hit"/>
+		<result column="u_id" property="u_id"/>
+		<result column="a_id" property="a_id"/>
+	</resultMap>
+	<select id="freeBoardList" parameterType="FreeBoard" resultMap="FreeBoardResult">
+		SELECT * FROM
+    		(SELECT A.*, ROWNUM RN FROM
+    		(SELECT fb_no, (SELECT u_nickname FROM FreeBoard F, Users U WHERE F.u_id=U.u_id AND FreeBoard.fb_no=fb_no)|| 
+        (SELECT a_name FROM FreeBoard F, Admin A WHERE A.a_id=F.a_id AND FreeBoard.fb_no=fb_no) WRITER,
+    	fb_name, fb_content, fb_status, fb_hit, (SELECT COUNT(*) FROM FreeLikes L WHERE FreeBoard.fb_no =fb_no) LIKECNT
+    	from FreeBoard 
+    	<if test="schItem=='' or schItem==null">
+    		WHERE fb_status !=0 
+    	</if>
+	    <if test="schItem=='fb_name'">
+	    	WHERE fb_status !=0 AND fb_name like '%'|| #{schWord} ||'%' 
+	    </if>
+	    <if test="schItem=='fb_content'">
+	    	WHERE fb_status !=0 AND fb_content like '%'|| #{schWord} ||'%' 
+	    </if>
+	    <if test="schItem=='fb_namecontent'">
+	    	WHERE fb_status !=0 AND (fb_name like '%'|| #{schWord} ||'%' OR fb_content like '%'|| #{schWord} ||'%') 
+	    </if>
+	    <if test="schItem=='fb_writer'">
+	    	WHERE fb_status !=0 AND 
+    		((SELECT u_nickname FROM FreeBoard F, Users U WHERE F.u_id=U.u_id AND FreeBoard.fb_no=fb_no)|| 
+       		(SELECT a_name FROM FreeBoard F, Admin A WHERE A.a_id=F.a_id AND FreeBoard.fb_no=fb_no) like '%'|| #{schWord} ||'%') 
+	    </if>
+	   ORDER BY fb_status, fb_no DESC) A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="freeBoardCnt" parameterType="FreeBoard" resultType="int">
+		SELECT COUNT(*) FROM FreeBoard
+	    <if test="schItem=='' or schItem==null">
+    		WHERE fb_status !=0 
+    	</if>
+	    <if test="schItem=='fb_name'">
+	    	WHERE fb_status !=0 AND fb_name like '%'|| #{schWord} ||'%' 
+	    </if>
+	    <if test="schItem=='fb_content'">
+	    	WHERE fb_status !=0 AND fb_content like '%'|| #{schWord} ||'%' 
+	    </if>
+	    <if test="schItem=='fb_namecontent'">
+	    	WHERE fb_status !=0 AND (fb_name like '%'|| #{schWord} ||'%' OR fb_content like '%'|| #{schWord} ||'%') 
+	    </if>
+	    <if test="schItem=='fb_writer'">
+	    	WHERE fb_status !=0 AND 
+    		((SELECT u_nickname FROM FreeBoard F, Users U WHERE F.u_id=U.u_id AND FreeBoard.fb_no=fb_no)|| 
+       		(SELECT a_name FROM FreeBoard F, Admin A WHERE A.a_id=F.a_id AND FreeBoard.fb_no=fb_no) like '%'|| #{schWord} ||'%') 
+	    </if>
+	</select>
+	<insert id="freeBoardUserWrite" parameterType="FreeBoard">
+		INSERT INTO FreeBoard (fb_no, fb_name, fb_content, fb_status, fb_hit, u_Id, a_id) 
+    	VALUES (fb_no.NEXTVAL, #{fb_name},#{fb_content},1,0,#{u_id},NULL)
+	</insert>
+	<insert id="freeBoardAdminWrite" parameterType="FreeBoard">
+		INSERT INTO FreeBoard (fb_no, fb_name, fb_content, fb_status, fb_hit, u_Id, a_id) 
+    	VALUES (fb_no.NEXTVAL, #{fb_name},#{fb_content},-1,0,NULL,#{a_id})
+	</insert>
+	<select id="freeBoardDetail" parameterType="int" resultType="FreeBoard">
+		SELECT fb_no, (SELECT u_nickname FROM FreeBoard F, Users U WHERE F.u_id=U.u_id AND FreeBoard.fb_no=fb_no)|| 
+        (SELECT a_name FROM FreeBoard F, Admin A WHERE A.a_id=F.a_id AND FreeBoard.fb_no=fb_no) WRITER,
+    	fb_name, fb_content, fb_hit, fb_status, (SELECT COUNT(*) FROM FreeLikes L WHERE FreeBoard.fb_no =fb_no) LIKECNT
+    	from FreeBoard WHERE fb_no=#{fb_no}
+	</select>
+	<update id="freeBoardUpdate" parameterType="FreeBoard">
+		UPDATE FreeBoard SET fb_name=#{fb_name}, fb_content=#{fb_content} WHERE fb_no=#{fb_no}
+	</update>
+	<update id="freeBoardDelete" parameterType="int">
+		UPDATE FreeBoard SET fb_status=0 WHERE fb_no=#{fb_no}
+	</update>
+	<update id="freeBoardHit" parameterType="int">
+		UPDATE FreeBoard SET fb_hit = fb_hit + 1 WHERE fb_no=#{fb_no}
+	</update>
+	<insert id="freeLikesInsert" parameterType="FreeBoard">
+		INSERT INTO FreeLikes (likeno,fb_no,u_id) VALUES (likeno.NEXTVAL, #{fb_no},#{u_id})
+	</insert>
+	<select id="freeLikesCnt" resultType="int" parameterType="FreeBoard">
+		SELECT COUNT(*) FROM FreeLikes WHERE fb_no=#{fb_no} and u_id=#{u_id}
+	</select>
+</mapper>

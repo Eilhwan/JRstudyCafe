@@ -12,8 +12,8 @@ public class RecruitBoard {
  private Timestamp rb_rdate;
  private int startRow;
  private int endRow;
- private String key;
- private String keyword;
+ private String schItem;
+ private String schWord;
  
 public int getRb_no() {
 	return rb_no;
@@ -71,23 +71,24 @@ public void setEndRow(int endRow) {
 	this.endRow = endRow;
 }
 
-public String getKey() {
-	return key;
+public String getSchItem() {
+	return schItem;
 }
-public void setKey(String key) {
-	this.key = key;
+public void setSchItem(String schItem) {
+	this.schItem = schItem;
 }
-public String getKeyword() {
-	return keyword;
+public String getSchWord() {
+	return schWord;
 }
-public void setKeyword(String keyword) {
-	this.keyword = keyword;
+public void setSchWord(String schWord) {
+	this.schWord = schWord;
 }
 @Override
 public String toString() {
 	return "RecruitBoard [rb_no=" + rb_no + ", rb_name=" + rb_name + ", rb_content=" + rb_content + ", rb_status="
-			+ rb_status + ", rb_hit=" + rb_hit + ", u_id=" + u_id + ", rb_rdate=" + rb_rdate + "]";
+			+ rb_status + ", rb_hit=" + rb_hit + ", u_id=" + u_id + ", rb_rdate=" + rb_rdate + ", startRow=" + startRow
+			+ ", endRow=" + endRow + ", schItem=" + schItem + ", schWord=" + schWord + "]";
 }
- 
+
  
 }

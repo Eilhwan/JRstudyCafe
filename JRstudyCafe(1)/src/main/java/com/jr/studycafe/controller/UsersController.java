@@ -230,5 +230,10 @@ public class UsersController {
 		}
 		return "redirect:MessangerList.do";
 	}
+	@RequestMapping(value="userProfile", method=RequestMethod.GET)
+	public String userProfile(String u_id, Model model) {
+		model.addAttribute("user", uService.u_getUsers(u_id));
+		return "users/user_profile";
+	}
 
 }

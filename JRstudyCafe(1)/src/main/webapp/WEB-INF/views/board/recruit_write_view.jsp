@@ -163,6 +163,8 @@ input[type='submit'] {
 					<th>본문</th>
 					<td>
 						<textarea rows="20" cols="30" name="rb_content" class="rb_content"></textarea>
+						<input type="hidden" class="bfile" class="btn"> &nbsp;
+						<input type="file" id="bfile" name="tempBfile" style="display: none;">
 					</td>
 				</tr>
 			</tbody>

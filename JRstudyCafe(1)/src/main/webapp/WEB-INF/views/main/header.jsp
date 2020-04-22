@@ -35,13 +35,13 @@
 				<nav class="clearfix">
 					<ul class="main-menu">
 						<li><a href="${conPath }/main.do">메인</a></li>
-						<li><a href="">소개</a></li>
-						<li><a href="">이용안내</a></li>
-						<li><a href="${conPath }/board.do">자유게시판</a></li>
-						<li><a href="">사용후기</a></li>
+						<li><a href="${conPath }/introCafe.do">소개</a></li>
+						<li><a href="${conPath }/infoCafe.do">이용안내</a></li>
+						<li><a href="${conPath }/freeBoardList.do">자유게시판</a></li>
+						<li><a href="${conPath }/reviewListView.do">사용후기</a></li>
 						<li><a href="${conPath }/recruitBoard.do">스터디모집 게시판</a></li>
 						<li><a href="${conPath }/book.do">스터디룸 예약</a></li>
-						<li><a href="">Q&A</a></li>
+						<li><a href="${conPath }/askListView.do">Q&A</a></li>
 					</ul>
 					<ul class="user-menu">
 						<!-- 사용자 로그인 상태일때 -->

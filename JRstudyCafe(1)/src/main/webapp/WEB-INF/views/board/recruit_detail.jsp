@@ -24,84 +24,66 @@
 <link rel="stylesheet" href="${conPath }/css/bulma.min.css" />
 <script src="${conPath }/js/script.js"></script>
 <style>
-* {
-	text-align: center;
-}
-
-#content_wrap {
-	height: 1000px;
-}
-
-.card {
-	position: fixed;
-	top: 240px;
-	left: 30px;
-	z-index: 99999;
-	width:250px;
-	border:1px solid lightgray;
-}
-
-caption {
-	font-size: 1.8em;
-	margin: 15px;
-}
-
-table {
-	width: 1100px;
-	margin: 10px auto;
-}
-
-table:not(#table_bottom) {
-	border-bottom: 2px solid black;
-	border-top: 2px solid black;
-}
 
 #content_hole {
 	height: 120px;
 	background-image: url('images/mainslide_02.jpg');
 }
 
-#table_bottom tr td {
+
+.card {
+	position: fixed;
+	top: 240px;
+	left: 50px;
+	z-index: 99999;
+	width: 250px;
+	border: 1px solid lightgray;
+}
+
+.card footer p a, tbody tr td a {
+	color: #998675;
+}
+
+table {
+	width: 950px;
+	border: 1px solid gray;
+	margin: 50px auto;
+}
+table td {
+	padding: 20px;
+}
+
+table ul {
+	overflow: hidden;
+}
+
+table ul li {
+	float: left;
+	padding-right: 15px;
+}
+
+#line_div {
+	border-bottom: 1px dashed gray;
+	width: 970px;
+	box-sizing: border;
+	margin: 10px 0;
+}
+#bottom_div {
+	width: 970px;
+	margin: 0 auto;
+}
+#content_div {
+	text-align: left;
+	padding: 10px;
+}
+b {
+	font-weight: bold;
+}
+#bottom_div {
+	width: 970px;
+	margin:0 auto 50px auto;
 	text-align: right;
 }
-
-#table_bottom tr {
-	height: 70px;
-}
-
-#table_bottom tr td input {
-	margin-right: 5px;
-	height: 35px;
-}
-
-#table_bottom tr td nav a {
-	height: 25px;
-}
-
-#table_bottom tr td nav {
-	width: 620px;
-	margin-left: 480px;
-}
-
-#select_div {
-	margin-top: 20px;
-}
-
-#select_div select {
-	height: 25px;
-}
-
-input[type='submit'] {
-	height: 25px;
-}
-.card footer p a, tbody tr td a {
-	color:#998675;
-}
-.pagination-list b{
-	background-color: #998675;
-	border-color: #c7b299;
-}
-#998675
 </style>
 </head>
 <script>
@@ -123,46 +105,58 @@ input[type='submit'] {
 	</c:if>
 	<jsp:include page="../main/header.jsp" />
 		<div id="content_hole"></div>
-		<div id="content_wrap">
-			<table class="table is-striped is-narrow is-hoverable">
-				<caption>Review</caption>
-				<tbody>
-				<tr>
-					<th>
-						제목
-					</th>
-					<td>
-						${rb.rb_name }
-					</td>
-				</tr>
-				<tr>
-					<th>
-						조회수
-					</th>
-					<td>
-						${rb.rb_hit }
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						${rb.rb_content }
-					</td>
-				</tr>
-				</tbody>
-			</table>
-		
-			<table id="table_bottom">
-			<tr>
-				<td>
-					<c:if test="${sessionScope.users.u_id eq rb.u_id }">
-					<button onclick="location.href='${conPath }/rbModifyView.do?rb_no=${rb.rb_no }&pageNum=${pageNum }'" class="button is-link is-focused">글수정</button>
-					<button class="button is-link is-focused" onclick='location.href="${conPath}/rbDelete.do?rb_no=${rb.rb_no}"'>글삭제</button>
-					</c:if>
-					<button onclick="location.href='${conPath }/recruitBoard.do?pageNum=${param.pageNum }'" class="button is-link is-focused">목록</button>
-				</td>
-			</tr>
-			</table>
+	<div id="content_wrap">
+		<div class="card">
+			<div class="card-content">
+				<p class="title">“토익스피킹, 오픽 스터디원 모집합니다 (~05/07)”</p>
+				<p class="subtitle">* 팀장 닉네임</p>
+			</div>
+			<footer class="card-footer">
+				<p class="card-footer-item">
+					<span> Goto Profile <a href="#">닉네임</a>
+					</span>
+				</p>
+				<p class="card-footer-item">
+					<span> Share on <a href="#">Facebook</a>
+					</span>
+				</p>
+			</footer>
 		</div>
+		<table>
+			<tr>
+				<td><b>모집 | ${rb.rb_name }(<a href="${conPath }/userProfile.do?u_id=${rb.u_id}">${rb.u_id }</a>)</b>
+				<div id="line_div"></div>
+			</tr>
+			<tr>
+				<td><div id="content_div">${rb.rb_content }</div></td>
+			</tr>
+			<tr>
+				<td><div>
+						<ul>
+							<li>댓글</li>
+							<li>3</li>
+							<li>|</li>
+							<li>조회수</li>
+							<li>${rb.rb_hit }</li>
+							
+						</ul>
+					</div></td>
+			</tr>
+		</table>
+		<div id="bottom_div">
+			<c:if test="${sessionScope.users.u_id eq rb.u_id }">
+				<input type="button" value="수정"	 
+					onclick="location.href='${conPath }/rbModifyView.do?rb_no=${rb.rb_no }&pageNum=${pageNum }'"
+					class="button is-link is-focused">
+				<input type="button" value="삭제"				
+					onclick='location.href="${conPath}/rbDelete.do?rb_no=${rb.rb_no}"'
+					class="button is-link is-focused">
+			</c:if>
+			<input type="button"
+					value="목록" onclick="location.href='${conPath }/recruitBoard.do?pageNum=${param.pageNum }'"
+					class="button is-link is-focused">
+		</div>
+	</div>
 		<c:if test="${not empty users }">
 		<div class="container">
 			<form action="${conPath}/rcWrite.do" method="post">
@@ -187,7 +181,7 @@ input[type='submit'] {
 			<div class="container">
 				<c:forEach items="${rcs }" var="rc">
 					<div>
-						<span>${rc.u_id}</span>
+						<span><a href='${conPath }/userProfile.do?u_id=${rc.u_id}'>${rc.u_id}</a></span>
 					</div>
 					<div>
 						<pre>${rc.c_content}</pre>

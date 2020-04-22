@@ -11,7 +11,7 @@ public interface RecruitBoardDao {
 	public int modify_rb(RecruitBoard recruitBoard);
 	public int delete_rb(int rb_no);
 	public int hit_rb(int rb_no);
-	public int cnt_rb();
+	public int cnt_rb(RecruitBoard recruitBoard);
 	public int write_rb(RecruitBoard recruitBoard);
 	
 }

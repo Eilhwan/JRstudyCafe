@@ -45,8 +45,8 @@ public class RecruitBoardDaoImpl implements RecruitBoardDao {
 	}
 
 	@Override
-	public int cnt_rb() {
-		return template.selectOne("cnt_rb");
+	public int cnt_rb(RecruitBoard recruitBoard) {
+		return template.selectOne("cnt_rb", recruitBoard);
 	}
 
 	@Override

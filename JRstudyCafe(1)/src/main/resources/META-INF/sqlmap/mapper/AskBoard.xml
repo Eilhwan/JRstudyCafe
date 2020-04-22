@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AskBoard">
+  <resultMap type="AskBoard" id="AskBoardResult">
+    <result column="ab_no" property="ab_no"/>
+    <result column="ab_name" property="ab_name"/>
+    <result column="ab_content" property="ab_content"/>
+    <result column="ab_rdate" property="ab_rdate"/>
+    <result column="ab_status" property="ab_status"/>
+    <result column="ab_hit" property="ab_hit"/>
+    <result column="ab_group" property="ab_group"/>
+    <result column="ab_step" property="ab_step"/>
+    <result column="ab_indent" property="ab_indent"/>
+    <result column="u_id" property="u_id"/>
+    <result column="a_id" property="a_id"/>
+  </resultMap>
+  
+  <select id="ask_boardList" resultMap="AskBoardResult" parameterType="Askboard">
+  	SELECT * FROM (SELECT ROWNUM RN, A.* FROM
+    (SELECT ab_no, (SELECT u_name FROM ASKBOARD B, Users U WHERE B.u_id=U.u_id AND ASKBOARD.ab_no=ab_no)|| 
+        (SELECT a_name FROM ASKBOARD B, Admin A WHERE A.a_id=B.a_id AND askboard.ab_no=ab_no) WRITER,
+    ab_name, ab_content, ab_hit, ab_rdate
+    from ASKBOARD 
+       <if test="schItem=='' or schItem==null">
+          WHERE ab_status !=0 
+       </if>
+       <if test="schItem=='ab_name'">
+          WHERE ab_status !=0 AND ab_name like '%'|| #{schWord} ||'%' 
+       </if>
+       <if test="schItem=='ab_content'">
+          WHERE ab_status !=0 AND ab_content like '%'|| #{schWord} ||'%' 
+       </if>
+       <if test="schItem=='all'">
+          WHERE ab_status !=0 AND (ab_name like '%'|| #{schWord} ||'%' OR ab_content like '%'|| #{schWord} ||'%') 
+       </if>
+      ORDER BY ab_group DESC, ab_step) A)
+      WHERE RN BETWEEN #{startRow} AND #{endRow}
+  </select>
+  <select id="ask_boardcnt" parameterType="AskBoard" resultType="int">
+      SELECT COUNT(*) FROM AskBoard
+       <if test="schItem=='' or schItem==null">
+          WHERE ab_status !=0 
+       </if>
+       <if test="schItem=='ab_name'">
+          WHERE ab_status !=0 AND ab_name like '%'|| #{schWord} ||'%' 
+       </if>
+       <if test="schItem=='ab_content'">
+          WHERE ab_status !=0 AND ab_content like '%'|| #{schWord} ||'%' 
+       </if>
+       <if test="schItem=='all'">
+          WHERE ab_status !=0 AND (ab_name like '%'|| #{schWord} ||'%' OR ab_content like '%'|| #{schWord} ||'%') 
+       </if>
+       
+   </select>
+  
+  <insert id="ask_write" parameterType="AskBoard">
+    INSERT INTO ASKBOARD (ab_no, ab_name, ab_content, ab_group, ab_step, ab_indent, u_id)
+    VALUES(ASKBOARD_SEQ.NEXTVAL, #{ab_name}, #{ab_content, jdbcType=VARCHAR}, ASKBOARD_SEQ.CURRVAL, 0, 0, #{u_id, jdbcType=VARCHAR})
+  </insert>
+  <update id="ask_hitUp" parameterType="int">
+    UPDATE ASKBOARD SET AB_HIT = AB_HIT+1 WHERE AB_NO=#{ab_no}
+  </update>
+  <select id="ask_contentboard" parameterType="int" resultType="Askboard">
+    SELECT * FROM ASKBOARD WHERE AB_NO=#{ab_no}
+  </select>
+  <select id="ask_modifyView_replyView" parameterType="int" resultType="Askboard">
+    SELECT * FROM ASKBOARD WHERE AB_NO=#{ab_no}
+  </select>
+  <update id="ask_boardmodify" parameterType="AskBoard">
+    UPDATE ASKBOARD SET ab_name=#{ab_name}, ab_content=#{ab_content} WHERE ab_no=#{ab_no}
+  </update>
+  <update id="ask_preReplyStepA" parameterType="AskBoard">
+  	UPDATE ASKBOARD SET AB_STEP = AB_STEP+1 WHERE AB_GROUP=#{ab_group} AND AB_STEP>#{ab_step}
+  </update>
+  <insert id="ask_reWrite" parameterType="AskBoard">
+    INSERT INTO ASKBOARD (ab_no, ab_name, ab_content, ab_group, ab_step,ab_indent, u_id, a_id)
+     VALUES (ASKBOARD_SEQ.NEXTVAL, #{ab_name}, #{ab_content}, #{ab_group}, #{ab_step}+1, #{ab_indent}+1, null, #{a_id})
+  </insert>
+  <update id="ask_boarddelete" parameterType="int">
+    UPDATE ASKBOARD SET ab_status=0 where ab_no=#{ab_no}
+  </update>
+  
+</mapper>
