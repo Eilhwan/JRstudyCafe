@@ -18,6 +18,7 @@ import com.jr.studycafe.dao.UsersDao;
 import com.jr.studycafe.dto.Messanger;
 import com.jr.studycafe.dto.Users;
 import com.jr.studycafe.service.MessangerService;
+import com.jr.studycafe.service.StudygroupService;
 import com.jr.studycafe.service.UsersService;
 import com.jr.studycafe.util.Paging;
 
@@ -29,7 +30,8 @@ public class UsersController {
 	private UsersDao usersDao;
 	@Autowired
 	private MessangerService mService;
-
+	@Autowired
+	private StudygroupService sgService;
 	
 	@ModelAttribute
 	public String messageCnt(HttpSession session, Model model) {
@@ -231,7 +233,8 @@ public class UsersController {
 		return "redirect:MessangerList.do";
 	}
 	@RequestMapping(value="userProfile", method=RequestMethod.GET)
-	public String userProfile(String u_id, Model model) {
+	public String userProfile(String u_id, HttpSession session, Model model) {
+		model.addAttribute("groups", sgService.leader_studygroup_list(session));
 		model.addAttribute("user", uService.u_getUsers(u_id));
 		if (uService.boards_lists(uService.u_getUsers(u_id), model) == 1) {
 			

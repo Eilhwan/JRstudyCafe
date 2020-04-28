@@ -118,8 +118,7 @@ public class StudygroupServiceImpl implements StudygroupService {
 
 	@Override
 	public int studygroup_invite(Studymember studymember) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sdao.studygroup_invite(studymember);
 	}
 
 

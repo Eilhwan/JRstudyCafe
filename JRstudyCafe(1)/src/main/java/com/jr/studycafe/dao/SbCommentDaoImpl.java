@@ -42,4 +42,9 @@ public class SbCommentDaoImpl implements SbCommentDao{
 		return template.selectList("detail_sc", sb_no);
 	}
 
+	@Override
+	public int write_sc(SbComment sc) {
+		return template.insert("write_sc", sc);
+	}
+
 }

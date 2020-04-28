@@ -23,6 +23,10 @@
 		FROM SB_COMMENT 
 		WHERE SB_NO = #{sb_no} AND C_STATUS > 0
 	</select>
+	<insert id="write_sc">
+		INSERT INTO SB_COMMENT (SC_NO, U_ID, C_CONTENT, SB_NO, SG_NO)
+            VALUES(SC_NO_SQ.NEXTVAL, #{u_id}, #{c_content}, #{sb_no}, #{sg_no})
+	</insert>
 	<update id="modify_sc" parameterType="SbComment">
 		UPDATE SB_COMMENT 
 		SET C_CONTENT = #{c_content}, C_RDATE = SYSTIMESTAMP 

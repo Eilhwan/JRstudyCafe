@@ -81,6 +81,16 @@ public class StudygroupController {
 		return "studygroup/studygroup_view";
 		
 	}
+	@RequestMapping(value="studygroupJoin", method = RequestMethod.GET)
+	public String studygroupJoin(Studymember studymember, HttpSession session, Model model) {
+		Users users = (Users) session.getAttribute("users");
+		studymember.setU_id(users.getU_id());
+		studymember.setSm_status(1);
+		sgService.studygroup_invite(studymember);
+		
+		return "studygroup/studygroup_view";
+		
+	}
 	@RequestMapping(value="studyNotice", method = RequestMethod.GET)
 	public String studyNotice(StudyBoard studyBoard, Model model) {
 		model.addAttribute("notices", sbService.notice_sb(studyBoard));
@@ -137,6 +147,16 @@ public class StudygroupController {
 		sgService.studygroupOpen(studygroup, mRequest);
 		sgService.studygroup_invite(member);
 		return "studygroup/studygroup_form";
+	}
+	@RequestMapping(value="sbCommentWrite", method = RequestMethod.POST)
+	public String sbCommentWrite(SbComment sc, HttpSession session, Model model) {
+		if (session.getAttribute("users") == null) {
+			return "";
+		}else {
+			scService.write_sc(sc, session);
+		}
+		model.addAttribute("comments", scService.list_sc(sc));
+		return "studygroup/s";
 	}
 	
 }

@@ -128,8 +128,9 @@ header {
 					    $('.modal').html(data);
 				    }
 				  }); //ajax - 테이블 받아오기
-
-				$('.modal').css('display', 'block');
+				setTimeout(function(){
+					$('.modal').css('display', 'block');
+				}, 500);
 			});	
 			$('.close').click(function(){
 				$('.modal').css('display', 'none');

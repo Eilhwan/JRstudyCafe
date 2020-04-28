@@ -52,8 +52,12 @@
 .media-left figure img {
 	border-radius: 50px;
 }
+
 .message {
-	margin-top:50px;
+	margin-top: 50px;
+}
+.modal{
+	z-index: 10000;
 }
 </style>
 </head>
@@ -61,11 +65,37 @@
 	<jsp:include page="../main/header.jsp" />
 	<div id="content_hole"></div>
 	<div id="content">
+		<div class="modal">
+			<div class="modal-background"></div>
+			<div class="modal-card">
+				<header class="modal-card-head">
+					<p class="modal-card-title">그룹으로 초대하기</p>
+					<button class="delete" aria-label="close"></button>
+				</header>
+				<section class="modal-card-body">
+					<select name="sg_no" id = "sg_no">
+						<c:forEach items="${groups }" var="sg">
+							<option value="${sg.sg_no }">${sg.sg_name }</option>
+						</c:forEach>
+					</select><br>
+					<label for="m_title">보내실 메시지</label><input type="text" name="m_title" id="m_title">
+				</section>
+				<footer class="modal-card-foot">
+					<button class="button is-success">초대하기</button>
+					<button class="button cancel">취소</button>
+				</footer>
+			</div>
+		</div>
 		<div class="card">
 			<div class="card-image">
 				<div id="card_button">
-					<button class="button" onclick="location.href='${conPath}/fbSearch.do?schItem=fb_writer&schWord=${user.u_id }'">전 게시글 보기</button>
-					<button class="button">스터디로 초대하기</button>
+					<button class="button"
+						onclick="location.href='${conPath}/fbSearch.do?schItem=fb_writer&schWord=${user.u_id }'">
+						전 게시글 보기</button>
+					<c:if
+						test="${sessionScope.users.u_id ne user.u_id}"> <!-- not empty sessionScope.users -->
+						<button class="button" id="invite_group">스터디로 초대하기</button>
+					</c:if>
 				</div>
 			</div>
 			<div class="card-content">
@@ -83,8 +113,9 @@
 				</div>
 
 				<div class="content">
-					신촌, 홍대, 합정 근처 거주 / 컴퓨터대학교 컴퓨터공학과 4학년 재학중입니다. 같이 프로그래밍 할 팀원구하고 있습니다. <br>
-					<a>@bulmaio</a>. <a href="#">#css</a> <a href="#">#spring</a> <br>
+					신촌, 홍대, 합정 근처 거주 / 컴퓨터대학교 컴퓨터공학과 4학년 재학중입니다. 같이 프로그래밍 할 팀원구하고 있습니다.
+					<br> <a>@bulmaio</a>. <a href="#">#css</a> <a href="#">#spring</a>
+					<br>
 					<time datetime="2016-1-1">스터디 가능 시간 : (11:00 AM ~ 04:30 PM /
 						2020-04-20 ~ 2020-06-01 )</time>
 				</div>
@@ -96,19 +127,17 @@
 						<c:if test="${not empty result }">
 							<div class="message-body">
 								<h3>작성된 게시물이 없습니다.</h3>
-							</div>						
+							</div>
 						</c:if>
-						<c:forEach items="${rb_list }" var="rb" >
-								<div class="message-body" onclick="location.href='${conPath}/rbDetail.do?rb_no=${rb.rb_no}'">
-								${rb.rb_name } | 스터디 모집
-									${rb.rb_content }
-								</div>							
+						<c:forEach items="${rb_list }" var="rb">
+							<div class="message-body"
+								onclick="location.href='${conPath}/rbDetail.do?rb_no=${rb.rb_no}'">
+								${rb.rb_name } | 스터디 모집 ${rb.rb_content }</div>
 						</c:forEach>
-						<c:forEach items="${fb_list }" var="fb" >
-								<div class="message-body" onclick="location.href='${conPath}/freeBoardDetail.do?fb_no=${fb.fb_no}&u_id='">
-								${fb.fb_name } | 자유게시판
-									${fb.fb_content }
-								</div>							
+						<c:forEach items="${fb_list }" var="fb">
+							<div class="message-body"
+								onclick="location.href='${conPath}/freeBoardDetail.do?fb_no=${fb.fb_no}&u_id='">
+								${fb.fb_name } | 자유게시판 ${fb.fb_content }</div>
 
 						</c:forEach>
 					</article>
@@ -118,5 +147,34 @@
 	</div>
 	<jsp:include page="../main/side.jsp" />
 	<jsp:include page="../main/footer.jsp" />
+	<script>
+		$(function() {
+			$('#invite_group').click(function() {
+				$('.modal').css('display', 'block');
+			});
+			$('.modal-background, .delete, .cancel').click(function() {
+				$('.modal').css('display', 'none');
+			});
+			$('.is-success').click(function(){
+				var m_title = $('#m_title').val();
+				var sg_no = $('#sg_no option:selected').val();
+				var group = $('#sg_no option:selected').text();
+				console.log('뭐니' + sg_no);
+				console.log('아이디' + group);
+				
+				var m_content = '<a href="${conPath}/studygroupJoin.do?sg_no='+ sg_no +'">초대 수락</a>' + '<br/>${users.u_id}님께서 ' + group +'로 초대 신청을 보내셨어요!';
+				$.ajax({
+					url : "${conPath}/userMessagnerSend.do",
+					type : "POST",
+					dataType : "html",
+					data : "m_reciever=" + "${user.u_id}" + "&m_content=" + m_content + "&m_title=" + m_title,
+					success : function(data){
+							
+						}
+				});
+			
+			});
+		});
+	</script>
 </body>
 </html>

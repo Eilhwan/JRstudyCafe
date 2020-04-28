@@ -3,7 +3,6 @@
 ALTER TABLE Messanger modify(
     m_sendtime varchar2(50) default sysdate) ;
 	
-	
     
 SELECT * FROM MESSANGER;
 

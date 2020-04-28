@@ -2,11 +2,14 @@ package com.jr.studycafe.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jr.studycafe.dao.SbCommentDao;
 import com.jr.studycafe.dto.SbComment;
+import com.jr.studycafe.dto.Users;
 
 @Service
 public class SbCommentServiceImpl implements SbCommentService{
@@ -41,6 +44,16 @@ public class SbCommentServiceImpl implements SbCommentService{
 	@Override
 	public List<SbComment> detail_sc(int sb_no) {
 		return scDao.detail_sc(sb_no);
+	}
+
+	@Override
+	public int write_sc(SbComment sc, HttpSession session) {
+		Users users = (Users) session.getAttribute("users");
+		sc.setU_id(users.getU_id());
+		if (scDao.write_sc(sc) == 1) {
+			return 1;
+		}
+		return 0;
 	}
 
 }

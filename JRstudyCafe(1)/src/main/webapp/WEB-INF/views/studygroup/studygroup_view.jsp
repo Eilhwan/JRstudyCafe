@@ -12,6 +12,8 @@
 <title>Document</title>
 <link rel="stylesheet" href="${conPath }/css/main.css" />
 <link rel="stylesheet" href="${conPath }/css/studygroup.css">
+<link rel="stylesheet" href="${conPath }/css/modal.css">
+
 <script src="${conPath }/js/jquery.js"></script>
 <style>
 #content_hole {
@@ -97,7 +99,7 @@ header {
 						<h4 class="notice-line">등록된 공지사항이 없습니다.</h4>
 					</c:if>
 					<c:forEach items="${notice }" var="no">
-						<h4 class="notice-line">${no.sb_title }</h4>
+						<h4 class="notice-line" id="${no.sb_no }">${no.sb_title }</h4>
 					</c:forEach>
 
 				</div>
@@ -137,10 +139,19 @@ header {
 						<div class="btn" style="border-bottom: 1px solid #ccc">공유하기</div>
 					</div>
 					<div class="comment-footer">
-						<c:forEach items="${comments }" var="sc">
-							<c:if test="">
-
+						<div class="comment-form">
+							<c:if test="${sessionScope.users.u_name ne null}">
+								<label class="id">${sessionScope.users.u_name }</label>
+								<div>
+									<textarea rows="5" cols="20" name="c_content" id="${sb.sb_no }content" placeholder="내용을 입력하세요."></textarea>
+									<button type="button" class="comment-writer" id="${sb.sb_no }cmt">등록</button>
+								</div>
 							</c:if>
+							<c:if test="${sessionScope.users.u_name eq null}">
+								<h3>로그인 후에 이용해 주세요.</h3>
+							</c:if>
+						</div>
+						<c:forEach items="${comments }" var="sc">
 							<c:if test="${sc.sb_no eq sb.sb_no }">
 								<div id="comment_area">
 									<div class="comment_inner">
@@ -163,6 +174,20 @@ header {
 			</c:forEach>
 		</div>
 	</div>
+	<div class="modal">
+		<div class="modal-content">
+			<div class="modal-header">
+				<span class="close">&times;</span>
+				<h2></h2>
+			</div>
+			<div class="modal-body">
+				
+			</div>
+			<div class="modal-footer">
+				<h3>댓글</h3>
+			</div>
+		</div>
+	</div>
 	<script>
 		$(document).ready(function(){
 			$('#join-btn').click(function(){
@@ -173,12 +198,59 @@ header {
 				
 				}// no
 			});
-
-			$('.content-box').click(function({
+			$('.comment-writer').click(function(){
+				if($('#'+sb_no+'content').text("")){
+					alert('댓글을 입력해주세요.');
+					return false;
+					}
+				var sb_no = $(this).attr('id').subString(0, $(this).attr('id').length - 3);
+				var c_content = $('#'+sb_no+'content').text();
+				$.ajax({
+					url: "${conPath}/sbCommentWrite.do",
+					type : "POST",
+					dataType : "html",
+					data : "sb_no=" + sb_no + "&c_content=" + c_content + "&sg_no=" = "${param.sg_no}",
+					success : function(data){
+						
+					}
+				});
+			});
 				
-				
-				}));
 		});
+	</script>
+	<!-- Notice Page Open -->
+	<script>
+		$(function(){
+			$('.notice-line').click(function(){
+				var sb_no = $(this).attr('id');
+				$.ajax({
+				    url: "${conPath}/studyNoticeDetail.do",
+				    type: "GET",
+				    dataType: "html",
+				    data: "sb_no="+sb_no,
+				    success: function(data){
+					    $('.modal').html(data);
+				    }
+				  }); //ajax - 테이블 받아오기
+				setTimeout(function(){
+					$('.modal').css('display', 'block');
+				}, 500);
+			});	
+			$('.close').click(function(){
+				$('.modal').css('display', 'none');
+			});	
+			$('.modal').click(function(){
+				$('.modal').css('display', 'none');				
+			});
+			$(this).keyup(function(e) {
+			     if (e.keyCode == 27) {
+					$('.modal').css('display', 'none');								     
+			    }
+			});
+			
+	
+		}); //jquery
+		
 	</script>
 </body>
 
