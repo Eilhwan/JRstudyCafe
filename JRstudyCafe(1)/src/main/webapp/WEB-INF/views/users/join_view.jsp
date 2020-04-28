@@ -8,7 +8,85 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+ul{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+.login_wrap{
+	max-width: 400px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+.users_title{
+	margin-bottom: 20px;
+    color: #000;
+    font-size: 25px;
+    font-weight: 500;
+    text-align: center;
+	
+}
+.tab_cnt{
+	width:100%;
+	padding-top: 18px;
+    border-top: 4px solid #000;
+}
+.inpbx{
+	width: 100%;
+    height: 40px;
+    border: 1px solid lightgray;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.inpbx input{
+	box-sizing:border-box;
+	display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    padding: 0 14px;
+    font-size: 1.1em;
+}
+.insub{
+	width: 100%;
+    height: 60px;
+    margin: 30px 0;
+    background: #000;
+    color: #fff;
+    font-size: 16px;
+    line-height: 60px;
+    font-weight: 500;
+    border: none;
+}
+.tab_cnt ul{
+    display: flex;
+    justify-content: center;
+}
+.tab_cnt ul li{
+	position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+.li1{
+	border-right: 1px solid lightgray;
+}
+b{
+	color: red;
+}
+#idConfirmResult, #pwChkResult, #pwResult{
+	color: red;
+}
 
+</style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="${conPath }/js/address.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
@@ -16,33 +94,52 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 	$( function() {
-		   $( "#datepicker" ).datepicker({
-			   dateFormat : 'yy-mm-dd',
-			   monthNames : ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
-			   showMonthAferYear : true,
-		   	   yearSuffix : "년", //2020년 3월
-		   	   showOtherMonths : true,
-		   	   dayNamesMin : ['일','월','화','수','목','금','토']
-		   });
-		});
+		$( "#datepicker" ).datepicker(
+	    		{	dateFormat : 'yy-mm-dd',
+	    			changeMonth : true, //월 셀렉트박스
+	    			changeYear : true,  //년도 셀렉트박스
+					monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+					showMonthAfterYear : true,
+					yearSuffix : '년', // "2018년 7월"
+					yearRange: "1900:true",
+					showOtherMonths : true, // 다른 달도 화면에 출력
+					dayNamesMin : ['일','월','화','수','목','금','토']
+	    		}
+	    	);
+		} );
 	$(document).ready(function(){
+		 var idPattern = /^[a-zA-Z0-9]{4,12}$/;
+	     var pwPattern = /^[a-zA-Z0-9]{4,12}$/;
+	     var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	     var phonePattern = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
 			$('.u_id').keyup(function(){
 				var u_id = $('.u_id').val();
-				$.ajax({
-					url : '${conPath}/idConfirm.do',
-					dataType : 'html',
-					data : "u_id="+u_id,
-					success : function(data){
+				if(!idPattern.test($('.u_id').val())) {
+					$('#idConfirmResult').html('아이디는 4~12자의 영문 대소문자와 숫자로만 입력');
+				}else{
+					$.ajax({
+						url : '${conPath}/idConfirm.do',
+						dataType : 'html',
+						data : "u_id="+u_id,
+						success : function(data){
 							$('#idConfirmResult').html(data);
-					}
-				});
+						}
+					});
+				}
 			});
-			
+			$('.u_pw').keyup(function(){
+				var u_pw = $('.u_pw').val();
+				 if(!pwPattern.test($('.u_pw').val())){
+					 $('#pwResult').html('비밀번호는 4~12자의 영문 대소문자와 숫자로만 입력');
+				 }else{
+					 $('#pwResult').html('');
+				 }		 
+			});
 			$('.u_pwChk').keyup(function(){
-				var mPw = $('.u_pw').val();
-				var mPwchk = $(this).val();
-				if(mPw == mPwchk){
-					$('#pwChkResult').html('비밀번호 일치');
+				var u_pw = $('.u_pw').val();
+				var u_pwChk = $(this).val();
+				if(u_pw == u_pwChk){
+					$('#pwChkResult').html('');
 				}else{
 					$('#pwChkResult').html('비밀번호 불일치');
 				}
@@ -53,7 +150,6 @@
 			     var pwPattern = /^[a-zA-Z0-9]{4,12}$/;
 			     var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 			     var phonePattern = /(^02.{0}|^01.{1}|[0-9]{3})([0-9]+)([0-9]{4})/g;
-			   
 			       if($('.u_id').val()==''){
 			           alert("ID를 입력하세요");
 			           $('.u_id').focus();
@@ -84,16 +180,16 @@
 			    	   $('.u_pw').focus();
 				       return false;
 			       }
-			       if($('.u_email').val()==''){
-				       alert("e-mail 를 입력하세요");
-				       $('.u_email').focus();
+			       if($('.u_name').val()==''){
+				       alert("이름을 입력하세요");
+				       return false;
+				       $('.u_name').focus();
+				   }
+			       if($('.u_nickname').val()==''){
+				       alert("닉네임 을 입력하세요");
+				       $('.u_nickname').focus();
 				       return false;
 				   }
-			       if(!emailPattern.test($('.u_email').val())){
-			    	   alert("e-mail을 잘못입력하셨습니다 ");
-			    	   $('.u_email').focus();
-				       return false;
-			       }
 			       if($('.u_tel').val()==''){
 				       alert("전화번호를 입력하세요");
 				       return false;
@@ -104,10 +200,26 @@
 			    	   $('.u_tel').focus();
 				       return false;
 			       }
-			       if($('.u_name').val()==''){
-				       alert("이름을 입력하세요");
+				   
+			       if($('.u_email').val()==''){
+				       alert("e-mail 를 입력하세요");
+				       $('.u_email').focus();
 				       return false;
-				       $('.u_name').focus();
+				   }
+			       if(!emailPattern.test($('.u_email').val())){
+			    	   alert("e-mail을 잘못입력하셨습니다 ");
+			    	   $('.u_email').focus();
+				       return false;
+			       }
+			       if($('.u_addr').val()==''){
+				       alert("주소 를 입력하세요");
+				       $('.u_addr').focus();
+				       return false;
+				   }
+			       if($('#datepicker').val()==''){
+				       alert("생일을 입력하세요");
+				       $('#datepicker').focus();
+				       return false;
 				   }
 			       
 			});
@@ -115,134 +227,69 @@
 </script>	
 </head>
 <body>
-	<div id ="wrap">
-			<div class="join">
-				<form action="${conPath }/join.do" method="post"  enctype="multipart/form-data">
-					<h3>회원가입</h3>
-					<hr>
-					<br>
-						<table>
-							<tr>
-								<th>
-									<p class="info">기본정보</p>
-								</th>
-								<td>
-									<p class="required"><b>*</b>필수 입력사항</p>
-								</td>
-							</tr>
-							<tr>
-								<th>
-									프로필사진<b>*</b>
-								</th>
-								<td>
-									<input type="file" name="file" class="u_image" >
-								</td>
+	<div class="login_wrap">
+    <h4 class="users_title">회원가입</h4>
 
-							</tr>
-							<tr>
-								<th>
-									아이디<b>*</b>
-								</th>
-								<td>
-									<input type="text" name="u_id" class="u_id" >
-									<span id="idConfirmResult"></span>
-									(4~12자의 영문 대소문자와 숫자로만 입력)
-								</td>
-
-							</tr>
-							<tr>
-								<th>
-									비밀번호<b>*</b>
-								</th>
-								<td>
-									<input type="password" name="u_pw" class="u_pw">
-									(4~12자의 영문 대소문자와 숫자로만 입력)
-								</td>
-							</tr>
-							<tr>
-								<th>
-									비밀번호 확인<b>*</b>
-								</th>
-								<td>
-									<input type="password" name="u_pwChk" class="u_pwChk">
-									<span id="pwChkResult"></span>
-								</td>
-							</tr>
-							<tr>
-								<th>
-									이름<b>*</b>
-								</th>
-								<td>
-									<input type="text" name="u_name" class="u_name">
-								</td>
-							</tr>
-							<tr>
-								<th>
-									닉네임<b>*</b>
-								</th>
-								<td>
-									<input type="text" name="u_nickname" class="u_nickname">
-								</td>
-							</tr>
-							<tr>
-								<th>
-									전화번호<b>*</b>
-								</th>
-								<td>
-									<input type="tel" name="u_tel" class="u_tel" >
-								</td>
-							</tr>
-							<tr>
-								<th>
-									예비번호
-								</th>
-								<td>
-									<input type="tel" name="u_phone" class="u_phone" >
-								</td>
-							</tr>
-							<tr>
-								<th>
-									이메일<b>*</b>
-								</th>
-								<td>
-									<input type="email" name="u_email" class="u_email" >
-								</td>
-							</tr>
-							<tr>
-								<th>
-									주소 <b>*</b>
-								</th>
-								<td>
-									<input type="text" id="sample4_postcode" class="text_box"  placeholder="우편번호" readonly="readonly">
-									<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
-								</td>
-								<td>
-									<input type="text" id="sample4_roadAddress" name="u_addr" class="u_addr" placeholder="도로명주소" class="maddr">
-									<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
-									<span id="guide"></span>
-								</td>
-							</tr>
-							<tr>
-								<th>
-									생일 <b>*</b>
-								</th>
-								<td>
-									<input type="text" name="u_birth" id="datepicker" >
-								</td>
-							</tr>
-						</table>
-						<br>
-						<br>
-						<br>
-						<br>
-						<p class="subtn">
-							<input type="submit" value="회원가입" class="joinbtn">
-							&nbsp;
-							<input type="button" value="회원가입 취소" class="resetbtn"
-								onclick="location.href='${conPath}/main/main.jsp'">
-						</p>			
-				</form>
-			</div>
+    <div class="tab_cnt">
+        <form action="${conPath }/join.do" method="post"  enctype="multipart/form-data">
+        	<div>프로필 사진 <input type="file" name="file" class="u_img" ></div>
+        	<br>
+        	<div>아이디<b>*</b></div>
+            <div class="inpbx">
+    			<input type="text" name="u_id" class="u_id" placeholder="(4~12자의 영문 대소문자와 숫자로만 입력)">
+    		</div>
+    		<div id="idConfirmResult"></div>
+    		<div>비밀번호<b>*</b></div>
+            <div class="inpbx">
+    			<input type="password" name="u_pw" class="u_pw" placeholder="(4~12자의 영문 대소문자와 숫자로만 입력)">
+    		</div>
+    		<div id="pwResult"></div>
+    		<div class="inpbx">
+    			<input type="password" name="u_pwChk" class="u_pwChk" placeholder="비밀번호 확인">
+    		</div>
+    		<div id="pwChkResult"></div>
+    		<div>이름<b>*</b></div>
+            <div class="inpbx">
+    			<input type="text" name="u_name" class="u_name">
+    		</div>
+    		
+    		<div>닉네임<b>*</b></div>
+            <div class="inpbx">
+    			<input type="text" name="u_nickname" class="u_nickname">
+    		</div>
+    		
+    		<div>전화번호<b>*</b></div>
+            <div class="inpbx">
+    			<input type="text" name="u_tel" class="u_tel" >
+    		</div>
+    		
+    		<div>비상연락</div>
+            <div class="inpbx">
+    			<input type="text" name="u_phone" class="u_phone" >
+    		</div>
+    		
+    		<div>이메일<b>*</b></div>
+            <div class="inpbx">
+    			<input type="text" name="u_email" class="u_email" >
+    		</div>
+    		
+    		<div style="display: inline;">주소<b>*</b></div> &nbsp;
+    		<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기" >
+            <div class="inpbx">
+    			<input type="text" id="sample4_postcode" class="text_box"  placeholder="우편번호" readonly="readonly" style="width: 80%;">
+				
+    		</div>
+    		<div class="inpbx">
+    		<input type="text" id="sample4_roadAddress" name="u_addr" class="u_addr" placeholder="도로명주소" class="maddr">
+			<input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
+    		</div>
+    		<div>생일<b>*</b></div>
+            <div class="inpbx">
+    			<input type="text" name="u_birth" id="datepicker" >
+    		</div>
+    		<input type="submit" value="가입완료" class="insub">
+        </form>
 		</div>
+	</div>
 </body>
 </html>

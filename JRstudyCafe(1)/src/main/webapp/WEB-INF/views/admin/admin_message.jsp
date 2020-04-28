@@ -6,12 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:if test="${empty admin }">
-	<script>
-		alert('비정상적인 접근입니다.');
-		history.back();
-	</script>
-</c:if>
 <meta charset="UTF-8">
 <title>메시지 보내기</title>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -35,11 +29,11 @@ $(function() {
 		</tr>
 		<tr>
 			<th>수신자</th>
-			<td><input type="text" name="m_reciever" readonly="readonly" value="${param.u_id }"></td>
+			<td><input type="text" name="u_reciever"></td>
 		</tr>
 		<tr>
 			<th>본문</th>
-			<td><textarea rows="20" cols="5" maxlength="160" id="content" name="m_content"></textarea> </td>
+			<td><textarea rows="20" cols="5" maxlength="160" id="content"></textarea> </td>
 		</tr>
 		<tr>
 

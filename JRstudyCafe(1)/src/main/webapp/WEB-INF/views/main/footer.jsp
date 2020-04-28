@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="conPath" value="${pageContext.request.contextPath }" />
+<c:set var="conPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +89,7 @@ footer p {color:#555; font-size:14px;}
 						<h3>Call Us Free</h3>
 						<ul class="phone">
 							<li><img src="images/전화기.png" alt="전화기아이콘" width="55"/></li>
-							<li><a href="${conPath}/admin/adminLoginView.do">관리자로그인</a></li>
+							<li></li>
 							<li> (+123)<br> 456 789</li>	
 							<li> </li>	
 							<li> Fax.02-123-4567</li>			

@@ -17,8 +17,6 @@
 	<resources mapping="/css/**" location="/css/" />
 	<resources mapping="/images/**" location="/images/" />
 	<resources mapping="/js/**" location="/js/" />
-	<resources mapping="/optionImages/**" location="/js/" />
-	<resources mapping="/usersImgFileUp/**" location="/usersImgFileUp/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -38,8 +36,8 @@
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<beans:property name="host" value="smtp.gmail.com"/>
 		<beans:property name="port" value="587"/>
-		<beans:property name="username" value=""/>
-		<beans:property name="password" value=""/>
+		<beans:property name="username" value="studyroom1125"/>
+		<beans:property name="password" value="1q2w3e#@!"/>
 		<beans:property name="javaMailProperties">
 			<beans:props>
 				<beans:prop key="mail.smtp.auth">true</beans:prop>

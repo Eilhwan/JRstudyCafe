@@ -6,11 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:if test="${not empty sessionScope.admin || not empty sessionScope.users }">
-	<script>
-		alert('로그아웃 후에 이용해주세요.');
-	</script>	
-</c:if>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
