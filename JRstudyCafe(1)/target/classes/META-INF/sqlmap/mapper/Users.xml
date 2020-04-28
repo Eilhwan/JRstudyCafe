@@ -37,8 +37,8 @@
 	<select id="u_getUsers" resultMap="UsersResult" parameterType="String">
 		SELECT * FROM USERS WHERE u_id = #{u_id}
 	</select>
-	<select id="u_idfind" resultMap="UsersResult" parameterType="Users">
-		SELECT * FROM USERS WHERE U_NAME=#{u_name} AND U_TEL=#{u_tel}
+	<select id="u_idfind" resultType="String" parameterType="Users">
+		SELECT * FROM USERS WHERE U_NAME=#{u_name} AND U_TEL=#{u_email}
 	</select>
 	<update id="u_modify" parameterType="Users">
 		UPDATE Users SET u_pw=#{u_pw},
@@ -52,6 +52,9 @@
 						,u_image= #{u_image}
 		</if>   
 		           WHERE u_id=#{u_id}
+	</update>
+	<update id="u_pwfind" parameterType="Users">
+		UPDATE USERS SET u_pw=#{u_pw} WHERE u_id=#{u_id}
 	</update>
 	
 </mapper>
