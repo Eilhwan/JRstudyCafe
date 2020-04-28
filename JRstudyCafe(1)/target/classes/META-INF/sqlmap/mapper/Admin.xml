@@ -14,7 +14,7 @@
 	<select id="list_users" parameterType="Users" resultType="Users">
 		SELECT
 		* FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM USERS ORDER BY U_ID)
-		A) WHERE RN BETWEEN #{startRow} AND #{endRow}
+		A) WHERE RN BETWEEN #{startRow} AND #{endRow} AND U_STATUS > 0
 	</select>
 	<select id="get_users_tot" resultType="int">
 		SELECT count(*) FROM USERS
@@ -53,6 +53,9 @@
 	<update id="delete_admin" parameterType="Admin">
 		UPDATE ADMIN SET
 		A_STATUS = 0 WHERE A_ID = #{a_id}
+	</update>
+	<update id="black_user" parameterType="String">
+		UPDATE USERS SET U_STATUS = 0 WHERE U_ID = #{u_id}	
 	</update>
 	<select id="get_admins_tot" resultType="int">
 		SELECT count(*) FROM
