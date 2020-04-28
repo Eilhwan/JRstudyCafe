@@ -276,7 +276,7 @@ b {
 							    			<br>
 							    			${coment_list.c_content }
 							    			<br>
-							    			작성일${coment_list.rb_rdate}
+							    			작성일${coment_list.c_rdate}
 							    			<br>
 							    			<c:if test="${users.u_id eq coment_list.u_id }">
 							    			<a class="reviewcoment_modify" type="button" data-rno="${coment_list.c_no}">수정</a>						    											    				

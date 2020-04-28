@@ -55,7 +55,10 @@ UPDATE Users SET u_pw='222',
                  u_birth='1999-02-11',
                  u_image='noImg.png'
                  WHERE u_id='bbb';
-                
+SELECT * FROM USERS;
 UPDATE USERS SET u_status=1;
 
 COMMIT;
+
+
+SELECT * FROM USERS U, FREEBOARD F, RECRUITBOARD RB, REVIEWBOARD RV, ASKBOARD A WHERE F.U_ID = U.U_ID AND RB.U_ID = U.U_ID AND RV.U_ID = U.U_ID;

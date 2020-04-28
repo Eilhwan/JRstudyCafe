@@ -3,6 +3,7 @@ package com.jr.studycafe.dao;
 import java.util.List;
 
 import com.jr.studycafe.dto.FreeBoard;
+import com.jr.studycafe.dto.Users;
 
 public interface FreeBoardDao {
 	public List<FreeBoard> freeBoardList(FreeBoard b);
@@ -15,4 +16,5 @@ public interface FreeBoardDao {
 	public int freeBoardHit(int fb_no);
 	public int freeLikesInsert(FreeBoard b);
 	public int freeLikesCnt(FreeBoard b);
+	public List<FreeBoard> user_fb_post(Users users);
 }

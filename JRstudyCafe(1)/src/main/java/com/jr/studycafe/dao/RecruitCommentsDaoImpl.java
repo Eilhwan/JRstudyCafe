@@ -36,4 +36,9 @@ public class RecruitCommentsDaoImpl implements RecruitCommentsDao {
 		return template.update("delete_rb_co", recruitComments);
 	}
 
+	@Override
+	public int cnt_rb_co(int rb_no) {
+		return template.selectOne("cnt_rb_co", rb_no);
+	}
+
 }

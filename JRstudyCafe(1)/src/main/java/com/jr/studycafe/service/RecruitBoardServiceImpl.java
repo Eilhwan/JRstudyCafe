@@ -24,7 +24,7 @@ import com.jr.studycafe.dto.RecruitBoard;
 public class RecruitBoardServiceImpl implements RecruitBoardService{
 	@Autowired
 	private RecruitBoardDao rbdao;
-	private String backupPath = "D:/java2/source/2nd_project/JRstudyCafe(1)/src/main/webapp/backup_rb/";
+	private String backupPath = "D:/tj/source/2nd_project/JRstudyCafe(1)/src/main/webapp/backup_rb/";
 	@Override
 	public List<RecruitBoard> list_rb(RecruitBoard recruitBoard) {
 		return rbdao.list_rb(recruitBoard);

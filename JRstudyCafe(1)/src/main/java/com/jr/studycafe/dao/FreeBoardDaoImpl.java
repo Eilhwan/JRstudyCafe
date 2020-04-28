@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jr.studycafe.dto.FreeBoard;
+import com.jr.studycafe.dto.Users;
 @Repository
 public class FreeBoardDaoImpl implements FreeBoardDao {
 	@Autowired
@@ -48,5 +49,9 @@ public class FreeBoardDaoImpl implements FreeBoardDao {
 	@Override
 	public int freeLikesCnt(FreeBoard b) {
 		return sessionTemplate.selectOne("freeLikesCnt", b);
+	}
+	@Override
+	public List<FreeBoard> user_fb_post(Users users) {
+		return sessionTemplate.selectList("user_fb_post", users);
 	}
 }

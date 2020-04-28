@@ -15,6 +15,10 @@
 		<typeAlias alias="ReviewComent" type="com.jr.studycafe.dto.ReviewComent"/>
 		<typeAlias alias="AskBoard" type="com.jr.studycafe.dto.AskBoard"/>
 		<typeAlias alias="FreeBoard" type="com.jr.studycafe.dto.FreeBoard"/>
+		<typeAlias alias="Studymember" type="com.jr.studycafe.dto.Studymember"/>
+		<typeAlias alias="StudyBoard" type="com.jr.studycafe.dto.StudyBoard"/>
+		<typeAlias alias="SbComment" type="com.jr.studycafe.dto.SbComment"/>
+		
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mapper/Users.xml"/>
@@ -28,5 +32,7 @@
 		<mapper resource="META-INF/sqlmap/mapper/ReviewComent.xml"/>
 		<mapper resource="META-INF/sqlmap/mapper/AskBoard.xml"/>
 		<mapper resource="META-INF/sqlmap/mapper/FreeBoard.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/StudyBoard.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/SbComment.xml"/>
 	</mappers>
 </configuration>

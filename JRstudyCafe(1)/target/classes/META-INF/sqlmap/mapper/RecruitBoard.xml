@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="RecruitBoard">
 	<select id="list_rb" parameterType="RecruitBoard" resultType="RecruitBoard">
-		SELECT * FROM 
+		SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  FROM 
 		(SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
 		WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
@@ -30,22 +30,22 @@
 	</select>
 	<select id="search_rb" parameterType="RecruitBoard" resultType="RecruitBoard">
 		<if test="schItem == 1">
-			SELECT * 
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE 
 			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
 			WHERE RN BETWEEN #{startRow} AND #{endRow} AND U_ID LIKE '%'||#{schWord}||'%'
 		</if>
 		<if test="schItem == 2">
-			SELECT * 
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  
 			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
 			WHERE RN BETWEEN #{startRow} AND #{endRow} AND RB_NAME LIKE '%'||#{schWord}||'%'
 		</if>
 		<if test="schItem == 3">
-			SELECT * 
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  
 			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
 			WHERE RN BETWEEN #{startRow} AND #{endRow} AND RB_CONTENT LIKE '%'||#{schWord}||'%'
 		</if>
 		<if test="schItem == 4">
-			SELECT * 
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  
 			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
 			WHERE RN BETWEEN #{startRow} AND #{endRow} AND RB_CONTENT LIKE '%'|| #{schWord} ||'%' OR RB_NAME LIKE '%'||#{schWord}||'%'
 		</if>
@@ -65,4 +65,7 @@
 		INSERT INTO RECRUITBOARD (RB_NO, RB_NAME, RB_CONTENT, RB_STATUS, RB_HIT, U_ID)
         VALUES(RB_SQ.NEXTVAL, #{rb_name}, #{rb_content}, 1, 0, #{u_id})
 	</insert>
+	<select id="user_rb_post" parameterType="Users" resultType="RecruitBoard">
+		select * from RECRUITBOARD WHERE U_ID = #{u_id} AND RB_STATUS > 0 ORDER BY rb_rdate DESC
+	</select>
 </mapper>

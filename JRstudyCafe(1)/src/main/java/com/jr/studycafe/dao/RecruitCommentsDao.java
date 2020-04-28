@@ -8,7 +8,8 @@ import com.jr.studycafe.dto.RecruitComments;
 public interface RecruitCommentsDao {
 	public List<RecruitComments> list_rb_co(int rb_no);
 	public int write_rb_co(RecruitComments recruitComments);
-	public int modify_rb_co(RecruitComments recruitCommentsBoard);
+	public int modify_rb_co(RecruitComments recruitComments);
 	public int delete_rb_co(RecruitComments recruitComments);
+	public int cnt_rb_co(int rb_no);
 	
 }

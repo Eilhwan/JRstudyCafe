@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jr.studycafe.dto.FreeBoard;
+import com.jr.studycafe.dto.RecruitBoard;
 import com.jr.studycafe.service.FreeBoardService;
 import com.jr.studycafe.util.Paging;
 
@@ -105,5 +106,21 @@ public class FreeBoardController {
 	public String freeBoardModify(FreeBoard b, MultipartHttpServletRequest mRequest) {
 			bService.freeBoardUpdate(mRequest, b);
 		return "forward:freeBoardList.do";
+	}
+	@RequestMapping(value="fbSearch", method = RequestMethod.GET)
+	public String fbSearch(FreeBoard b, String pageNum, Model model) {
+		int blockSize = 10;
+		int pageSize = 10;
+		hitable = 1;
+		if (pageNum == null) {
+			pageNum = "1";
+		}
+		Paging paging = new Paging(bService.freeBoardCnt(b), pageNum, pageSize, blockSize);
+		b.setStartRow(paging.getStartRow());
+		b.setEndRow(paging.getEndRow());
+		b.setSchItem("fb_writer");
+		model.addAttribute("recruitboards", bService.freeBoardList(b));
+		model.addAttribute("paging", paging);
+		return "freeBoard/list";
 	}
 }

@@ -1,4 +1,4 @@
-
+select * from admin;
 -- USER DETAIL
 SELECT * FROM ADMIN WHERE A_ID = 'admin';
 -- login check
@@ -27,3 +27,7 @@ CREATE SEQUENCE M_NO_SQ;
 
 INSERT INTO MESSANGER (M_NO, M_TITLE, M_CONTENT, M_STATUS, U_RECIEVER, U_SENDER)
             VALUES(M_NO_SQ.NEXTVAL, '첫번째 메시지', '내용', 1, 'aaa', 'aaa');
+            
+SELECT COUNT(*) FROM RECRUITBOARD WHERE U_ID LIKE '%aa%' AND RB_STATUS > 0;    
+UPDATE ADMIN SET A_PW = 'L4IxMVlINm9DQJltXjykvA==';
+COMMIT;

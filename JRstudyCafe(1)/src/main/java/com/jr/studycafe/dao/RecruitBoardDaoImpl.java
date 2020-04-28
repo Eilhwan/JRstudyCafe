@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jr.studycafe.dto.RecruitBoard;
+import com.jr.studycafe.dto.Users;
 
 @Repository
 public class RecruitBoardDaoImpl implements RecruitBoardDao {
@@ -52,6 +53,11 @@ public class RecruitBoardDaoImpl implements RecruitBoardDao {
 	@Override
 	public int write_rb(RecruitBoard recruitBoard) {
 		return template.insert("write_rb", recruitBoard);
+	}
+
+	@Override
+	public List<RecruitBoard> user_rb_post(Users users) {
+		return template.selectList("user_rb_post", users);
 	}
 	
 

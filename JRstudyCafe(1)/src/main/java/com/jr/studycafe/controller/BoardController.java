@@ -64,7 +64,7 @@ public class BoardController {
 		recruitBoard.setEndRow(paging.getEndRow());
 		model.addAttribute("recruitboards", rbService.search_rb(recruitBoard));
 		model.addAttribute("paging", paging);
-		return "board/recruit_board";
+		return "board/search_result";
 	}
 	@RequestMapping(value="rbWriteView", method = RequestMethod.GET)
 	public String rbWriteView() {
@@ -81,6 +81,7 @@ public class BoardController {
 	public String rbDetail(int rb_no, Model model) {
 		model.addAttribute("rb", rbService.detail_rb(rb_no));
 		model.addAttribute("rcs", rcService.list_rb_co(rb_no));
+		model.addAttribute("cnt_rc", rcService.cnt_rb_co(rb_no));
 		
 		return "board/recruit_detail";
 	}
@@ -109,6 +110,15 @@ public class BoardController {
 		
 		rcService.write_rb_co(recruitComments, session);
 		model.addAttribute("rb_no", recruitComments.getRb_no());
+		return "redirect:rbDetail.do";
+	}
+	@RequestMapping(value="rcDelete", method = {RequestMethod.POST, RequestMethod.GET})
+	public String rcDelete(RecruitComments recruitComments, int rb_no, Model model) {
+		
+		rcService.delete_rb_co(recruitComments);
+		model.addAttribute("rb_no", rb_no);
+		System.out.println(recruitComments.getRb_no());
+		
 		return "redirect:rbDetail.do";
 	}
 	

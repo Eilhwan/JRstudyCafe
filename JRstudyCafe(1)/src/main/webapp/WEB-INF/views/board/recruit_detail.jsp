@@ -134,7 +134,7 @@ b {
 				<td><div>
 						<ul>
 							<li>댓글</li>
-							<li>3</li>
+							<li>${cnt_rc }</li>
 							<li>|</li>
 							<li>조회수</li>
 							<li>${rb.rb_hit }</li>
@@ -187,7 +187,13 @@ b {
 						<pre>${rc.c_content}</pre>
 					</div>
 					<div>
-						<pre>${rc.c_rdate }</pre>
+						<pre>
+							${rc.c_rdate }
+							<c:if test="${rc.u_id eq users.u_id }">
+								<button type="button" onclick="location.href='${conPath}/rcDelete.do?c_no=${rc.c_no }&rb_no=${param.rb_no }'">댓글삭제</button>
+							</c:if>
+						
+						</pre>
 					</div>
 				</c:forEach>
 			</div>

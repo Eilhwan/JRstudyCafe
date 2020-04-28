@@ -5,7 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 
 import javax.mail.Message;
@@ -17,10 +19,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.jr.studycafe.dao.FreeBoardDao;
+import com.jr.studycafe.dao.RecruitBoardDao;
 import com.jr.studycafe.dao.UsersDao;
+import com.jr.studycafe.dto.FreeBoard;
+import com.jr.studycafe.dto.RecruitBoard;
 import com.jr.studycafe.dto.Users;
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -28,6 +35,10 @@ public class UsersServiceImpl implements UsersService {
 	private UsersDao uDao; 
 	@Autowired
 	private JavaMailSenderImpl mailSender;
+	@Autowired
+	private FreeBoardDao fDao;
+	@Autowired
+	private RecruitBoardDao rbDao;
 	@Override
 	public Users u_getUsers(String u_id) {
 		return uDao.u_getUsers(u_id);
@@ -224,6 +235,49 @@ public class UsersServiceImpl implements UsersService {
 			int result = uDao.u_pwfind(users);
 			
 			return result;
+	}
+	@Override
+	public int boards_lists(Users users, Model model) {
+		 List<FreeBoard> fb = fDao.user_fb_post(users);
+		 List<RecruitBoard> rb = rbDao.user_rb_post(users);
+		
+		 ArrayList<FreeBoard> result_fb = new ArrayList<FreeBoard>();
+		 ArrayList<RecruitBoard> result_rb = new ArrayList<RecruitBoard>();
+		 int idx = 0;
+		 int fb_idx = 0;
+		 int rb_idx = 0;
+		while(true) {
+			System.out.println(idx);
+			if (fb.size() == fb_idx && rb.size() == rb_idx && (fb_idx + rb_idx < 2)) {
+				return 0;
+			}
+			
+			if (fb.size() <= fb_idx) {
+				result_rb.add(rb.get(rb_idx));
+				rb_idx++;
+			}else if (rb.size() <= rb_idx) {
+				result_fb.add(fb.get(fb_idx));
+				fb_idx++;				
+			}
+			else if (rb.get(rb_idx).getRb_rdate().getTime() > fb.get(fb_idx).getFb_rdate().getTime()) {
+				result_rb.add(rb.get(rb_idx));
+				rb_idx++;
+			}else {
+				result_fb.add(fb.get(fb_idx));
+				fb_idx++;
+			}
+			if (idx == 2) {
+				break;
+			}
+			idx++;
+		}
+		if (users != null) {
+			model.addAttribute("fb_list", result_fb);
+			model.addAttribute("rb_list", result_rb);
+			
+			return 1;
+		}
+		return 0;
 	}
 
 }

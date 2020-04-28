@@ -64,7 +64,7 @@
 		<div class="card">
 			<div class="card-image">
 				<div id="card_button">
-					<button class="button" onclick="location.href='${conPath}/rbSearch.do?schItem=1&schWord=${user.u_id }'">전 게시글 보기</button>
+					<button class="button" onclick="location.href='${conPath}/fbSearch.do?schItem=fb_writer&schWord=${user.u_id }'">전 게시글 보기</button>
 					<button class="button">스터디로 초대하기</button>
 				</div>
 			</div>
@@ -92,19 +92,25 @@
 					<article class="message">
 						<div class="message-header">
 							<p>최근 게시글</p>
-							<button class="delete" aria-label="delete"></button>
 						</div>
-						<div class="message-body">
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque
-								risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum
-							rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et
-							dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend
-								lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin
-							porttitor, tortor urna tempor ligula, id porttitor mi magna a
-							neque. Donec dui urna, vehicula et sem eget, facilisis sodales
-							sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque
-								risus mi</strong>, tempus quis placerat ut, porta nec nulla.
-						</div>
+						<c:if test="${not empty result }">
+							<div class="message-body">
+								<h3>작성된 게시물이 없습니다.</h3>
+							</div>						
+						</c:if>
+						<c:forEach items="${rb_list }" var="rb" >
+								<div class="message-body" onclick="location.href='${conPath}/rbDetail.do?rb_no=${rb.rb_no}'">
+								${rb.rb_name } | 스터디 모집
+									${rb.rb_content }
+								</div>							
+						</c:forEach>
+						<c:forEach items="${fb_list }" var="fb" >
+								<div class="message-body" onclick="location.href='${conPath}/freeBoardDetail.do?fb_no=${fb.fb_no}&u_id='">
+								${fb.fb_name } | 자유게시판
+									${fb.fb_content }
+								</div>							
+
+						</c:forEach>
 					</article>
 				</div>
 			</div>

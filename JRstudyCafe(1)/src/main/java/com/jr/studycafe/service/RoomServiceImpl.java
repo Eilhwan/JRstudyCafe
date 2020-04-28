@@ -49,7 +49,7 @@ public class RoomServiceImpl implements RoomService {
 	public int room_register(Room room, MultipartHttpServletRequest mRequest) {
 		int isUpload = 0;
 		String uploadPath = mRequest.getRealPath("roomimgUpload/");
-		String backupPath = "D:/java2/source/2nd_project/JRstudyCafe/src/main/webapp/roomimgUpload/";
+		String backupPath = "D:/tj/source/2nd_project/JRstudyCafe/src/main/webapp/roomimgUpload/";
 		String fileName = "";
 		
 		Iterator<String> params = mRequest.getFileNames();	
@@ -91,7 +91,7 @@ public class RoomServiceImpl implements RoomService {
 	public int room_modify(Room room, MultipartHttpServletRequest mRequest) {
 		int isUpload = 0;
 		String uploadPath = mRequest.getRealPath("roomimgUpload/");
-		String backupPath = "D:/java2/source/2nd_project/JRstudyCafe/src/main/webapp/roomimgUpload/";
+		String backupPath = "D:/tj/source/2nd_project/JRstudyCafe/src/main/webapp/roomimgUpload/";
 		String fileName = "";
 		
 		Iterator<String> params = mRequest.getFileNames();	

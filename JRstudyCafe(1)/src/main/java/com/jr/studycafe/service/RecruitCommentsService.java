@@ -12,4 +12,5 @@ public interface RecruitCommentsService {
 	public int write_rb_co(RecruitComments recruitComments, HttpSession session);
 	public int modify_rb_co(RecruitComments recruitComments, HttpSession session);
 	public int delete_rb_co(RecruitComments recruitComments);
+	public int cnt_rb_co(int rb_no);
 }

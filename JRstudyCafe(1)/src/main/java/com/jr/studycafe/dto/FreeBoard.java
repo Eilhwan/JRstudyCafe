@@ -1,5 +1,6 @@
 package com.jr.studycafe.dto;
 
+import java.sql.Timestamp;
 
 public class FreeBoard {
 	private int fb_no;
@@ -16,6 +17,7 @@ public class FreeBoard {
 	private int startRow;
 	private int endRow;
 	private String bf_name;
+	private Timestamp fb_rdate;
 	public FreeBoard() { }
 	public int getFb_no() {
 		return fb_no;
@@ -100,6 +102,13 @@ public class FreeBoard {
 	}
 	public void setBf_name(String bf_name) {
 		this.bf_name = bf_name;
+	}
+	
+	public Timestamp getFb_rdate() {
+		return fb_rdate;
+	}
+	public void setFb_rdate(Timestamp fb_rdate) {
+		this.fb_rdate = fb_rdate;
 	}
 	@Override
 	public String toString() {

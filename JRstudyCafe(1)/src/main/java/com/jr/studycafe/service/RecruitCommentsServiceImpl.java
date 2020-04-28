@@ -37,8 +37,13 @@ public class RecruitCommentsServiceImpl implements RecruitCommentsService {
 
 	@Override
 	public int delete_rb_co(RecruitComments recruitComments) {
+		return rcdao.delete_rb_co(recruitComments);
 		
-		return 1;
+	}
+
+	@Override
+	public int cnt_rb_co(int rb_no) {
+		return rcdao.cnt_rb_co(rb_no);
 	}
 
 }

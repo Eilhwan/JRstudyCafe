@@ -233,6 +233,11 @@ public class UsersController {
 	@RequestMapping(value="userProfile", method=RequestMethod.GET)
 	public String userProfile(String u_id, Model model) {
 		model.addAttribute("user", uService.u_getUsers(u_id));
+		if (uService.boards_lists(uService.u_getUsers(u_id), model) == 1) {
+			
+		}else {
+			model.addAttribute("result", "게시물이 존재하지 않습니다.");			
+		}
 		return "users/user_profile";
 	}
 

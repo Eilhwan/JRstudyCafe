@@ -4,8 +4,10 @@ public class Studygroup {
 	private int sg_no;
 	private String sg_name;
 	private String u_id;
+	private String u_name;
 	private String sg_person;
 	private String sg_explain;
+	private String sg_img;
 	private int st_no;
 	public int getSg_no() {
 		return sg_no;
@@ -21,6 +23,13 @@ public class Studygroup {
 	}
 	public String getU_id() {
 		return u_id;
+	}
+	
+	public String getSg_img() {
+		return sg_img;
+	}
+	public void setSg_img(String sg_img) {
+		this.sg_img = sg_img;
 	}
 	public void setU_id(String u_id) {
 		this.u_id = u_id;
@@ -42,6 +51,13 @@ public class Studygroup {
 	}
 	public void setSt_no(int st_no) {
 		this.st_no = st_no;
+	}
+	
+	public String getU_name() {
+		return u_name;
+	}
+	public void setU_name(String u_name) {
+		this.u_name = u_name;
 	}
 	@Override
 	public String toString() {

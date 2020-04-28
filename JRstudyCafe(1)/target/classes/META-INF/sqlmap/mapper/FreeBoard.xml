@@ -88,4 +88,7 @@
 	<select id="freeLikesCnt" resultType="int" parameterType="FreeBoard">
 		SELECT COUNT(*) FROM FreeLikes WHERE fb_no=#{fb_no} and u_id=#{u_id}
 	</select>
+	<select id="user_fb_post" parameterType="Users" resultType="FreeBoard">
+		SELECT * FROM FREEBOARD WHERE U_ID = #{u_id} AND FB_STATUS > 0 ORDER BY FB_RDATE DESC
+	</select>
 </mapper>

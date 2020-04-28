@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="StudyBoard">
+	<select id="list_sb" parameterType="StudyBoard"
+		resultType="StudyBoard">
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT S.*, U.U_NAME, U.U_IMAGE FROM STUDYBOARD S, USERS U 
+		WHERE SB_STATUS = 1 AND U.U_ID = S.U_ID 
+		ORDER BY SB_RDATE DESC) A ) WHERE RN BETWEEN #{startRow} AND #{endRow} AND
+		SG_NO = #{sg_no}
+	</select>
+	<select id="notice_sb" parameterType="StudyBoard"
+		resultType="StudyBoard">
+		<if test="startRow != 0 and endRow != 0">
+			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM STUDYBOARD WHERE
+			SB_STATUS = 2 ORDER BY SB_RDATE DESC) A ) WHERE RN BETWEEN #{startRow} AND #{endRow} AND
+			SG_NO = #{sg_no}		
+		</if>
+		<if test="startRow == 0 and endRow == 0">
+			SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM STUDYBOARD WHERE
+			SB_STATUS = 2 ORDER BY SB_RDATE DESC) A ) WHERE SG_NO = #{sg_no}		
+		</if>
+	</select>
+	<select id="detail_sb" parameterType="int" resultType="StudyBoard">
+		SELECT * FROM STUDYBOARD WHERE SB_NO = #{sb_no}
+	</select>
+	<select id="cnt_sb" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM STUDYBOARD WHERE SB_NO = #{sb_no}
+	</select>
+	<insert id="write_sb" parameterType="StudyBoard">
+		<if test="sb_status == 2">
+			INSERT INTO STUDYBOARD (SB_NO, SB_TITLE, SB_CONTENT, SB_HIT, SB_STATUS, SG_NO, U_ID)
+                VALUES(SB_SQ.NEXTVAL, #{sb_title}, #{sb_content}, 0, 2, #{sg_no}, #{u_id})
+		</if>
+		<if test="sb_status == 1">
+			INSERT INTO STUDYBOARD (SB_NO, SB_TITLE, SB_CONTENT, SB_HIT, SB_STATUS, SG_NO, U_ID)
+                VALUES(SB_SQ.NEXTVAL, #{sb_title}, #{sb_content}, 0, 1, #{sg_no}, #{u_id})
+		</if>
+	</insert>
+	<update id="delete_sb" parameterType="int">
+		UPDATE STUDYBOARD SET SB_STATUS = 0 WHERE SB_NO = #{sb_no}
+	</update>
+	<update id="modify_sb" parameterType="StudyBoard">
+		UPDATE STUDYBOARD SET SB_CONTENT = #{sb_content}, SB_TITLE = #{sb_title}, SB_RDATE = SYSTIMESTAMP WHERE SB_NO = #{sb_no};
+	</update>
+	<update id="hitup_sb" parameterType="int">
+		UPDATE STUDYBOARD SET SB_HIT = SB_HIT + 1 WHERE SB_NO = #{sb_no}
+	</update>
+</mapper>
