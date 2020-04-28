@@ -6,12 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<c:if test="${empty admin }">
-	<script>
-		alert('비정상적인 접근입니다.');
-		history.back();
-	</script>
-</c:if>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script

@@ -69,11 +69,6 @@ public class AdminDaoImpl implements AdminDao {
 	public Users users_profile(String u_id) {
 		return template.selectOne("users_profile", u_id);
 	}
-
-	@Override
-	public int black_user(String u_id) {
-		return template.update("black_user", u_id);
-	}
 	
 
 

@@ -49,7 +49,7 @@ public class RoomServiceImpl implements RoomService {
 	public int room_register(Room room, MultipartHttpServletRequest mRequest) {
 		int isUpload = 0;
 		String uploadPath = mRequest.getRealPath("roomimgUpload/");
-		String backupPath = "D:/tj/source/2nd_project/JRstudyCafe/src/main/webapp/roomimgUpload/";
+		String backupPath = "D:/java2/source/2nd_project/JRstudyCafe/src/main/webapp/roomimgUpload/";
 		String fileName = "";
 		
 		Iterator<String> params = mRequest.getFileNames();	
@@ -84,44 +84,16 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public int room_option_register(Room room) {
+	
+		
+		
 		return rdao.room_option_register(room);
 	}
 
 	@Override
-	public int room_modify(Room room, MultipartHttpServletRequest mRequest) {
-		int isUpload = 0;
-		String uploadPath = mRequest.getRealPath("roomimgUpload/");
-		String backupPath = "D:/tj/source/2nd_project/JRstudyCafe/src/main/webapp/roomimgUpload/";
-		String fileName = "";
-		
-		Iterator<String> params = mRequest.getFileNames();	
-		String param = null;
-		if (params.hasNext()) {
-			param = params.next();
-		}
-		MultipartFile mFile = mRequest.getFile(param); // 파라미터의 파일 객체
-		String originalFileName = mFile.getOriginalFilename(); // 업로드 했을 때 원래 파일 이름
-		fileName = originalFileName;			
-		
-			
-		if(fileName != null && !fileName.equals("")) { // 첨부함
-			if(new File(uploadPath + fileName).exists()) {
-				// 첨부파일과 같은 이름의 파일이 서버에 존재하는 경우 -> 파일이름을 변경
-				fileName = System.currentTimeMillis() + fileName;
-			}// if - 파일이름 변경
-			try {
-				mFile.transferTo(new File(uploadPath+fileName));
-				isUpload = filecopy(uploadPath+fileName, backupPath + fileName);//backup
-			} catch (IOException e) {
-				System.out.println(e.getMessage());
-			} 
-		}//if
-		room.setR_image(fileName);
-		rdao.room_modify(room);
-		if (rdao.room_modify(room) != 0) {
-			room_option_modify(room);			
-		}
-		return isUpload;
+	public int room_modify(Room room) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -132,7 +104,8 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public int room_delete(int r_no) {
-		return rdao.room_delete(r_no);
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	private int filecopy(String serverFile, String backupFile) {
 		int isCopy = 0;
@@ -160,5 +133,11 @@ public class RoomServiceImpl implements RoomService {
 			}
 		}
 		return isCopy;
+	}
+
+	@Override
+	public List<Room> room_booklist() {
+		
+		return rdao.room_booklist();
 	}
 }

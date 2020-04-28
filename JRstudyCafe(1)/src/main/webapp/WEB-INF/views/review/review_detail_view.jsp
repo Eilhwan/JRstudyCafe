@@ -23,89 +23,94 @@
 <link rel="stylesheet" href="${conPath }/css/bulma.css" />
 <link rel="stylesheet" href="${conPath }/css/bulma.min.css" />
 <script src="${conPath }/js/script.js"></script>
-<script>
-	$(document).ready(function() {
-
-	});
-	function likeClicked() {
-		alert('이미 좋아요를 누르셨습니다');
-	}
-</script>
 <style>
+* {
+	text-align: center;
+}
+
+
+.card {
+	position: fixed;
+	top: 240px;
+	left: 30px;
+	z-index: 99999;
+	width:250px;
+	border:1px solid lightgray;
+}
+
+caption {
+	font-size: 1.8em;
+	margin: 15px;
+}
+
+table {
+	width: 1100px;
+	margin: 10px auto;
+}
+
+table:not(#table_bottom) {
+	border-bottom: 2px solid black;
+	border-top: 2px solid black;
+}
+
 #content_hole {
 	height: 120px;
 	background-image: url('images/mainslide_02.jpg');
 }
 
-.card {
-	position: fixed;
-	top: 240px;
-	left: 50px;
-	z-index: 99999;
-	width: 250px;
-	border: 1px solid lightgray;
-}
-
-.card footer p a, tbody tr td a {
-	color: #998675;
-}
-
-table {
-	width: 950px;
-	border: 1px solid gray;
-	margin: 50px auto;
-}
-
-table td {
-	padding: 20px;
-}
-
-table ul {
-	overflow: hidden;
-}
-
-table ul li {
-	float: left;
-	padding-right: 15px;
-}
-
-#line_div {
-	border-bottom: 1px dashed gray;
-	width: 970px;
-	box-sizing: border;
-	margin: 10px 0;
-}
-
-#bottom_div {
-	width: 970px;
-	margin: 0 auto;
-}
-
-#content_div {
-	text-align: left;
-	padding: 10px;
-}
-
-b {
-	font-weight: bold;
-}
-
-#bottom_div {
-	width: 970px;
-	margin: 0 auto 50px auto;
+#table_bottom tr td {
 	text-align: right;
+}
+
+#table_bottom tr {
+	height: 70px;
+}
+
+#table_bottom tr td input {
+	margin-right: 5px;
+	height: 35px;
+}
+
+#table_bottom tr td nav a {
+	height: 25px;
+}
+
+#table_bottom tr td nav {
+	width: 620px;
+	margin-left: 480px;
+}
+
+#select_div {
+	margin-top: 20px;
+}
+
+#select_div select {
+	height: 25px;
+}
+
+input[type='submit'] {
+	height: 25px;
+}
+.card footer p a, tbody tr td a {
+	color:#998675;
+}
+.pagination-list b{
+	background-color: #998675;
+	border-color: #c7b299;
 }
 </style>
 </head>
 <script>
 	$(document).ready(function() {
 		var rv_no = ${review_detail.rv_no };
+			// 게시글 삭제
 			$('#review_deleteBtn').click(function() {
 				var confirmChk = confirm("정말 삭제 하시겠습니까?");
 				if(confirmChk == true){
 					location.href='${conPath }/reviewDelete.do?rv_no=${review_detail.rv_no }';
 				}
 			});
+			// 후기 게시글 좋아요 처리
 			$('#likeBtn').click(function(){
 				if(${not empty users}){
 					$.ajax({
@@ -123,7 +128,7 @@ b {
 				}
 				
 			});
-
+			// 댓글 더보기 기능
 			var pageNum;
 				var pageCnt = Number('${paging.pageCnt}');
 				var total = Number('${paging.total}');
@@ -151,6 +156,17 @@ b {
 					}); // $.ajax()함수
 				});// 더보기 button 이벤트 처리
 				
+				// 댓글 삭제
+				$('.reviewcoment_delete').click(function(){
+					var c_no = $(this).attr("data-rno");
+					var confirmChk = confirm(c_no+'번 글삭제  하시겠습니까?');
+					if(confirmChk == true){
+						alert(c_no+'번 글삭제');
+						location.href='${conPath }/reviewComentDelete.do?c_no='+c_no+'&rv_no='+rv_no;
+					}
+				});
+				
+				// 댓글 쓰기
 				$('#reviewcoment_wirte').click(function(){
 					var c_content = $('#c_content').val();
 					var rv_no = ${review_detail.rv_no };
@@ -162,6 +178,7 @@ b {
 							success : function(data){
 								$('#c_content').val('');
 								$('#insertMemo').html(data+$('#insertMemo').html());
+								
 							}
 						}); // $.ajax()함수
 					}else{
@@ -169,14 +186,6 @@ b {
 					}
 				});
 				
-				$('.reviewcoment_delete').on("click", function(){
-					var c_no = $(this).attr("data-rno");
-					var confirmChk = confirm(c_no+'번 글삭제  하시겠습니까?');
-					if(confirmChk == true){
-						alert(c_no+'번 글삭제');
-						location.href='${conPath }/reviewComentDelete.do?c_no='+c_no+'&rv_no='+rv_no;
-					}
-				});
 	});
 			
 </script>
@@ -194,42 +203,46 @@ b {
 	<jsp:include page="../main/header.jsp" />
 		<div id="content_hole"></div>
 		<div id="content_wrap">
-			<table>
-			<tr>
-				<td><b>${review_detail.rv_name }</b> |	<b>후기 게시판</b>
-					<div id="line_div"></div>
-					<div>
-						${review_detail.u_id }
-					</div></td>
-			</tr>
-			<tr>
-				<td><div id="content_div">${review_detail.rv_content }</div></td>
-			</tr>
-			<tr>
-				<td><div>
-						<ul>
-							<li>댓글</li>
-							<li>3</li>
-							<li>|</li>
-							<li>조회수</li>
-							<li>${review_detail.rv_hit }</li>
-							<li>|</li>
-							<li>좋아요</li>
-							<li>${review_detail.likecnt }</li>
-							<c:if test="${not empty sessionScope.users }">
-								<li><input type="button" value="♥"
-										<c:if test="${freeLikesCnt != 0}">
-											onclick="likeClicked();"
-										</c:if>
-										<c:if test="${freeLikesCnt == 0}">
-											onclick="${conPath }/reviewlike.do?rv_no=${review_detail.rv_no }&pageNum=${pageNum}'"
-										</c:if>>
-								</li>
-							</c:if>
-						</ul>
-					</div></td>
-			</tr>
-		</table>
+			<table class="table is-striped is-narrow is-hoverable">
+				<caption>Review</caption>
+				<tbody>
+				<tr>
+					<th>
+						제목
+					</th>
+					<td>
+						${review_detail.rv_name }
+					</td>
+				</tr>
+				<tr>
+					<th>
+						좋아요
+					</th>
+					<td>
+						${review_detail.likecnt }
+					</td>
+				</tr>
+				<tr>
+					<th>
+						조회수
+					</th>
+					<td>
+						${review_detail.rv_hit }
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						${review_detail.rv_content }
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<a href="${conPath }/reviewlike.do?rv_no=${review_detail.rv_no }&pageNum=${pageNum}"></a>
+						<p id="likeBtn" class="button is-link is-focused">좋아요</p>
+					</td>
+				</tr>
+				</tbody>
+			</table>
 			<table id="table_bottom">
 			<tr>
 				<td>
@@ -272,14 +285,14 @@ b {
 			                 		<div>
 			                    	<c:forEach items="${rvcoment_list}" var="coment_list">
 			                    		<div id="${coment_list.c_no }">
+			                    			<!--  <img alt="" src="${conPath }/usersImgFileUp/${coment_list.u_image}">--> 
 							    			${coment_list.u_nickname }님
 							    			<br>
 							    			${coment_list.c_content }
 							    			<br>
 							    			작성일${coment_list.c_rdate}
 							    			<br>
-							    			<c:if test="${users.u_id eq coment_list.u_id }">
-							    			<a class="reviewcoment_modify" type="button" data-rno="${coment_list.c_no}">수정</a>						    											    				
+							    			<c:if test="${users.u_id eq coment_list.u_id }">				    											    				
 							    			<button class="reviewcoment_delete" type="button" data-rno="${coment_list.c_no}">삭제</button>	
 							    			</c:if>
 							    		</div>

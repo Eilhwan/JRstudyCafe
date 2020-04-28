@@ -9,39 +9,19 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jr.studycafe.dao.UsersDao;
-import com.jr.studycafe.dto.Messanger;
 import com.jr.studycafe.dto.Users;
-import com.jr.studycafe.service.MessangerService;
-import com.jr.studycafe.service.StudygroupService;
 import com.jr.studycafe.service.UsersService;
-import com.jr.studycafe.util.Paging;
 
 @Controller
 public class UsersController {
 	@Autowired
 	private UsersService uService;
-	@Autowired
 	private UsersDao usersDao;
-	@Autowired
-	private MessangerService mService;
-	@Autowired
-	private StudygroupService sgService;
-	
-	@ModelAttribute
-	public String messageCnt(HttpSession session, Model model) {
-		if (session.getAttribute("users") != null) {
-			Users user = (Users) session.getAttribute("users");
-			String u_id = user.getU_id();			
-			model.addAttribute("msgcnt", mService.unReadMsgCnt(u_id));
-		}
-		return "main/header";
-	}
 	@RequestMapping(value = "main")
 	public String main() {
 		
@@ -177,71 +157,10 @@ public class UsersController {
 			return "forward:modifyView";
 		}
 	}
-
-	//메신저 리스트
-	@RequestMapping(value="MessangerList", method = RequestMethod.GET)
-	public String MessangerList(Messanger messanger, String pageNum, HttpSession session, Model model) {
-		
-		int pageSize = 10;
-		int blockSize = 10;
-		Users users = (Users) session.getAttribute("users");
-		String u_id = users.getU_id();
-		System.out.println(u_id);
-		Paging paging = new Paging(mService.msgCnt(u_id), pageNum, pageSize, blockSize);
-		messanger.setStartRow(paging.getStartRow());
-		messanger.setEndRow(paging.getEndRow());
-		messanger.setM_reciever(u_id);
-		model.addAttribute("messages", mService.messangerList(messanger));
-		model.addAttribute("paging", paging);
-		return "users/message_list";
-	}
-	//메시지 확인
-	@RequestMapping(value="messageDetail", method = RequestMethod.GET)
-	public String messageDetail(int m_no, Model model) {
-		Messanger messanger = mService.messageDetail(m_no);
-		if (messanger.getM_status() == 2) {
-			mService.readMessage(m_no);			
-		}
-		model.addAttribute("message", messanger);
-		return "users/message_detail";
-	}
-	@RequestMapping(value="messageDelete", method = RequestMethod.GET)
-	public String messageDelete(String checked[], Model model) {
-		
-		if(mService.deleteMessage(checked) == 1) {
-			model.addAttribute("resultmsg", checked.length + " 개의 메시지를 성공적으로 삭제 했습니다.");
-		}else {
-			model.addAttribute("resultmsg", "메시지 삭제를 실패하였습니다.");			
-		}
-		
-		return "forward:MessangerList.do";
-	}
-	@RequestMapping(value="userMessagnerSendView", method=RequestMethod.GET)
-	public String userMessagnerSendView() {
-		
-		return "users/user_message";
-	}
-	@RequestMapping(value="userMessagnerSend", method=RequestMethod.POST)
-	public String userMessagnerSend(Messanger messanger, HttpSession session, Model model) {
-		Users users = (Users) session.getAttribute("users");
-		messanger.setM_sender(users.getU_id());
-		int result = mService.messangerSend(messanger);
-		if (result == 0) {
-			model.addAttribute("resultmsg", "수신자가 존재하지 않습니다.");
-			return "users/user_message";
-		}
-		return "redirect:MessangerList.do";
-	}
-	@RequestMapping(value="userProfile", method=RequestMethod.GET)
-	public String userProfile(String u_id, HttpSession session, Model model) {
-		model.addAttribute("groups", sgService.leader_studygroup_list(session));
-		model.addAttribute("user", uService.u_getUsers(u_id));
-		if (uService.boards_lists(uService.u_getUsers(u_id), model) == 1) {
+	// join 뷰페이지
+		@RequestMapping(value = "dum", method = RequestMethod.GET)
+		public String dum() {
 			
-		}else {
-			model.addAttribute("result", "게시물이 존재하지 않습니다.");			
+			return"dum";
 		}
-		return "users/user_profile";
-	}
-
 }

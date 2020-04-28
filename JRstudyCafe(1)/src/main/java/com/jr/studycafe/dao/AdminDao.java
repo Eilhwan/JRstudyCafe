@@ -18,5 +18,4 @@ public interface AdminDao {
 	public List<Admin> list_admins(Admin admin);
 	public List<Users> search_user(Admin admin);
 	public Users users_profile(String u_id);
-	public int black_user(String u_id);
 }

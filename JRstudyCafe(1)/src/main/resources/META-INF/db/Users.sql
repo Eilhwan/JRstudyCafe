@@ -28,14 +28,14 @@ ALTER TABLE SAMPLE DROP COLUMN TEST_VARCHAR2;
 -- �Ϲ� ȸ������ Users.xml / id = u_join        u_status= 0(ȸ��Ż��) / 1 (���ԵȻ���)
 
 INSERT INTO USERS (u_id, u_pw, u_name, u_nickname, u_phone, u_tel, u_email, u_addr, u_birth, u_status, u_image)
-    VALUES ('aaa','111','ȫ�浿','�г���','','01049337210','sss111@gamil.com','�ּ�','2000-01-01',1,'noImg.png');
+    VALUES ('aaa','111','이름','닉넴','','01049337210','sss111@gamil.com','주소','2000-01-01',1,'noImg.png');
     
 INSERT INTO USERS (u_id, u_pw, u_name, u_nickname, u_phone, u_tel, u_email, u_addr, u_birth, u_status)
-    VALUES ('bbb','111','이도엽','�г���','','01049337210','sss111@gamil.com','�ּ�','2000-01-01',1);
+    VALUES ('bbb','111','ȫ�浿','�г���','','01049337210','sss111@gamil.com','�ּ�','2000-01-01',1);
 
 select * from Users;
 -- ���̵� �ߺ�üũ Users.xml / id = u_idCofirm 
-UPDATE USERS SET U_STATUS = 0 WHERE U_ID = 'aaa';
+
 SELECT COUNT(*) FROM USERS WHERE u_Id='aaa';
 
 -- ���� DTO ���� ����  Users.xml / id = u_getUsers
@@ -55,10 +55,7 @@ UPDATE Users SET u_pw='222',
                  u_birth='1999-02-11',
                  u_image='noImg.png'
                  WHERE u_id='bbb';
-SELECT * FROM USERS;
-UPDATE USERS SET u_status=1;
+                
+UPDATE USERS SET u_status=0 WHERE u_id='aaa';
 
 COMMIT;
-
-
-SELECT * FROM USERS U, FREEBOARD F, RECRUITBOARD RB, REVIEWBOARD RV, ASKBOARD A WHERE F.U_ID = U.U_ID AND RB.U_ID = U.U_ID AND RV.U_ID = U.U_ID;

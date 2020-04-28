@@ -53,5 +53,8 @@
 		</if>   
 		           WHERE u_id=#{u_id}
 	</update>
+	<update id="u_pwfind" parameterType="Users">
+		UPDATE USERS SET u_pw=#{u_pw} WHERE u_id=#{u_id}
+	</update>
 	
 </mapper>

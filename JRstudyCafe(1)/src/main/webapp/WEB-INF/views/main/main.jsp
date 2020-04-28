@@ -41,7 +41,6 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	
 	<div class="slider">
 		<ul class="slider-list cycle-slideshow" data-cycle-fx="scrollHorz"
 			data-cycle-timeout="0" data-cycle-slides="> li"

@@ -1621,7 +1621,9 @@ a.box:active {
   color: #363636;
 }
 
-
+.button:focus:not(:active), .button.is-focused:not(:active) {
+  box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
 
 .button:active, .button.is-active {
   border-color: #4a4a4a;
@@ -2211,7 +2213,7 @@ fieldset[disabled] .button.is-primary.is-inverted.is-outlined {
   color: #fff;
 }
 
-.button.is-link:focus, .button.is-link.is-focused, .button.is-link.is-focused.btn {
+.button.is-link:focus, .button.is-link.is-focused {
   background-color: #998675;
    border-color: transparent;
   color: #fff;
@@ -7563,7 +7565,7 @@ a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-i
 }
 
 .pagination-link.is-current {
-  background-color: #998675;
+  background-color: black;
   border-color: #998675;
   color: #fff;
 }

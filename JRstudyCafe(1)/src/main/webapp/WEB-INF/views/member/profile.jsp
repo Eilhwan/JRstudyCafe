@@ -56,11 +56,6 @@
 	margin-top:50px;
 }
 </style>
-<script>
-	function open_messanger (){
-		window.open('${conPath}/admin/adminMessagner.do', '관리자 메시지', 'width=400, height=450')
-		}
-</script>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp" />
@@ -69,21 +64,21 @@
 		<div class="card">
 			<div class="card-image">
 				<div id="card_button">
-					<button class="button" onclick="open_messanger()">메시지 보내기</button>
-					<button class="button" onclick="">블랙리스트 추가</button>
+					<button class="button">전 게시글 보기</button>
+					<button class="button">스터디로 초대하기</button>
 				</div>
 			</div>
 			<div class="card-content">
 				<div class="media">
 					<div class="media-left">
 						<figure class="image is-48x48">
-							<img src="${conPath }/images/${users.u_image}"
+							<img src="https://bulma.io/images/placeholders/96x96.png"
 								alt="Placeholder image">
 						</figure>
 					</div>
 					<div class="media-content">
-						<p class="title is-4">${users.u_name }</p>
-						<p class="subtitle is-6">${users.u_email }</p>
+						<p class="title is-4">John Smith</p>
+						<p class="subtitle is-6">tjoeun@google.com</p>
 					</div>
 				</div>
 

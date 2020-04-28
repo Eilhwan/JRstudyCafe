@@ -53,5 +53,11 @@ public class RoomDaoImpl implements RoomDao {
 		return template.update("room_delete", r_no);
 	}
 
+	@Override
+	public List<Room> room_booklist() {
+		
+		return template.selectList("room_booklist");
+	}
+
 
 }
