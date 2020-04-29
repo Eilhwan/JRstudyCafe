@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS TABLE2;
 -- Book
 DROP TABLE IF EXISTS Book;
 
--- 스터디모임
+-- ���͵����
 DROP TABLE IF EXISTS StudyGroup;
 
 -- Room
@@ -19,40 +19,40 @@ DROP TABLE IF EXISTS Messanger;
 -- Board
 DROP TABLE IF EXISTS FreeBoard;
 
--- 게시판첨부파일
+-- �Խ���÷������
 DROP TABLE IF EXISTS FreeBoardFile;
 
--- 방옵션
+-- ��ɼ�
 DROP TABLE IF EXISTS RoomOption;
 
--- 방등록페이지
+-- ����������
 DROP TABLE IF EXISTS RoomEnroll;
 
--- 등록페이지첨부파일
+-- ���������÷������
 DROP TABLE IF EXISTS RoomFile;
 
--- 게시판타입
+-- �Խ���Ÿ��
 DROP TABLE IF EXISTS BoardType;
 
--- 스터디맴버
+-- ���͵�ɹ�
 DROP TABLE IF EXISTS StudyMember;
 
--- 새 테이블
+-- �� ���̺�
 DROP TABLE IF EXISTS RecruitComments;
 
--- 새 테이블2
+-- �� ���̺�2
 DROP TABLE IF EXISTS FreeLikes;
 
--- 새 테이블3
+-- �� ���̺�3
 DROP TABLE IF EXISTS Admin;
 
--- 새 테이블4
+-- �� ���̺�4
 DROP TABLE IF EXISTS StudyType;
 
--- 새 테이블5
+-- �� ���̺�5
 DROP TABLE IF EXISTS BookMark;
 
--- 새 테이블6
+-- �� ���̺�6
 DROP TABLE IF EXISTS Studyboard;
 
 -- Board2
@@ -64,19 +64,19 @@ DROP TABLE IF EXISTS ReviewBoard;
 -- Board4
 DROP TABLE IF EXISTS RecruitBoard;
 
--- 새 테이블7
+-- �� ���̺�7
 DROP TABLE IF EXISTS RvLikes;
 
--- 새 테이블8
+-- �� ���̺�8
 DROP TABLE IF EXISTS Likes2;
 
--- 새 테이블9
+-- �� ���̺�9
 DROP TABLE IF EXISTS RvComments;
 
--- 새 테이블10
+-- �� ���̺�10
 DROP TABLE IF EXISTS FreeComments;
 
--- 게시판첨부파일2
+-- �Խ���÷������2
 DROP TABLE IF EXISTS RBoardFile;
 
 -- userPrimary
@@ -96,7 +96,7 @@ CREATE TABLE Users (
 
 -- userPrimary
 ALTER TABLE Users
-	ADD CONSTRAINT PK_Users -- userPrimary 기본키
+	ADD CONSTRAINT PK_Users -- userPrimary �⺻Ű
 	PRIMARY KEY (
 		u_Id -- userId
 	);
@@ -119,12 +119,12 @@ CREATE TABLE Book (
 
 -- Book
 ALTER TABLE Book
-	ADD CONSTRAINT PK_Book -- Book 기본키
+	ADD CONSTRAINT PK_Book -- Book �⺻Ű
 	PRIMARY KEY (
-		bk_no -- 예약번호
+		bk_no -- �����ȣ
 	);
 
--- 스터디모임
+-- ���͵����
 CREATE TABLE StudyGroup (
 		sg_no NUMBER(10) NOT NULL,
 		sg_name VARCHAR2(100) NOT NULL,
@@ -134,11 +134,11 @@ CREATE TABLE StudyGroup (
 		st_no NUMBER(10) NULL
 );
 
--- 스터디모임
+-- ���͵����
 ALTER TABLE StudyGroup
-	ADD CONSTRAINT PK_StudyGroup -- 스터디모임 기본키
+	ADD CONSTRAINT PK_StudyGroup -- ���͵���� �⺻Ű
 	PRIMARY KEY (
-		sg_no -- 스터디번호
+		sg_no -- ���͵��ȣ
 	);
 
 -- Room
@@ -153,9 +153,9 @@ CREATE TABLE Room (
 
 -- Room
 ALTER TABLE Room
-	ADD CONSTRAINT PK_Room -- Room 기본키
+	ADD CONSTRAINT PK_Room -- Room �⺻Ű
 	PRIMARY KEY (
-		r_No -- 방번호
+		r_No -- ���ȣ
 	);
 
 -- UserMessage
@@ -170,7 +170,7 @@ CREATE TABLE Messanger (
 
 -- UserMessage
 ALTER TABLE Messanger
-	ADD CONSTRAINT PK_Messanger -- UserMessage 기본키
+	ADD CONSTRAINT PK_Messanger -- UserMessage �⺻Ű
 	PRIMARY KEY (
 		m_No -- MessageNo
 	);
@@ -188,12 +188,12 @@ CREATE TABLE FreeBoard (
 
 -- Board
 ALTER TABLE FreeBoard
-	ADD CONSTRAINT PK_FreeBoard -- Board 기본키
+	ADD CONSTRAINT PK_FreeBoard -- Board �⺻Ű
 	PRIMARY KEY (
-		fb_no -- 자유게시판번호
+		fb_no -- �����Խ��ǹ�ȣ
 	);
 
--- 게시판첨부파일
+-- �Խ���÷������
 CREATE TABLE FreeBoardFile (
 		bf_no NUMBER(10) NOT NULL,
 		bf_name VARCHAR2(100) NOT NULL,
@@ -202,14 +202,14 @@ CREATE TABLE FreeBoardFile (
 		fb_no NUMBER(10) NOT NULL
 );
 
--- 게시판첨부파일
+-- �Խ���÷������
 ALTER TABLE FreeBoardFile
-	ADD CONSTRAINT PK_FreeBoardFile -- 게시판첨부파일 기본키
+	ADD CONSTRAINT PK_FreeBoardFile -- �Խ���÷������ �⺻Ű
 	PRIMARY KEY (
-		bf_no -- 파일번호
+		bf_no -- ���Ϲ�ȣ
 	);
 
--- 방옵션
+-- ��ɼ�
 CREATE TABLE RoomOption (
 		r_No NUMBER(10) NOT NULL,
 		ro_air NUMBER(1) NOT NULL,
@@ -222,14 +222,14 @@ CREATE TABLE RoomOption (
 		ro_board NUMBER(1) NOT NULL
 );
 
--- 방옵션
+-- ��ɼ�
 ALTER TABLE RoomOption
-	ADD CONSTRAINT PK_RoomOption -- 방옵션 기본키
+	ADD CONSTRAINT PK_RoomOption -- ��ɼ� �⺻Ű
 	PRIMARY KEY (
-		r_No -- 방번호
+		r_No -- ���ȣ
 	);
 
--- 방등록페이지
+-- ����������
 CREATE TABLE RoomEnroll (
 		re_no NUMBER(10) NOT NULL,
 		re_name VARCHAR2(100) NOT NULL,
@@ -238,14 +238,14 @@ CREATE TABLE RoomEnroll (
 		r_No NUMBER(10) NULL
 );
 
--- 방등록페이지
+-- ����������
 ALTER TABLE RoomEnroll
-	ADD CONSTRAINT PK_RoomEnroll -- 방등록페이지 기본키
+	ADD CONSTRAINT PK_RoomEnroll -- ���������� �⺻Ű
 	PRIMARY KEY (
-		re_no -- 방등록번호
+		re_no -- ���Ϲ�ȣ
 	);
 
--- 등록페이지첨부파일
+-- ���������÷������
 CREATE TABLE RoomFile (
 		rf_no NUMBER(10) NOT NULL,
 		rf_name VARCHAR2(100) NOT NULL,
@@ -254,42 +254,42 @@ CREATE TABLE RoomFile (
 		re_no NUMBER(10) NOT NULL
 );
 
--- 등록페이지첨부파일
+-- ���������÷������
 ALTER TABLE RoomFile
-	ADD CONSTRAINT PK_RoomFile -- 등록페이지첨부파일 기본키
+	ADD CONSTRAINT PK_RoomFile -- ���������÷������ �⺻Ű
 	PRIMARY KEY (
-		rf_no -- 파일번호
+		rf_no -- ���Ϲ�ȣ
 	);
 
--- 게시판타입
+-- �Խ���Ÿ��
 CREATE TABLE BoardType (
 		bt_No NUMBER(10) NOT NULL,
 		bt_Name VARCHAR2(20) NOT NULL,
 		bt_Type VARCHAR2(20) NOT NULL
 );
 
--- 게시판타입
+-- �Խ���Ÿ��
 ALTER TABLE BoardType
-	ADD CONSTRAINT PK_BoardType -- 게시판타입 기본키
+	ADD CONSTRAINT PK_BoardType -- �Խ���Ÿ�� �⺻Ű
 	PRIMARY KEY (
-		bt_No -- 타입번호
+		bt_No -- Ÿ�Թ�ȣ
 	);
 
--- 스터디맴버
+-- ���͵�ɹ�
 CREATE TABLE StudyMember (
 		sm_no NUMBER(10) NOT NULL,
 		u_Id VARCHAR2(50) NOT NULL,
 		sg_no NUMBER(10) NOT NULL
 );
 
--- 스터디맴버
+-- ���͵�ɹ�
 ALTER TABLE StudyMember
-	ADD CONSTRAINT PK_StudyMember -- 스터디맴버 기본키
+	ADD CONSTRAINT PK_StudyMember -- ���͵�ɹ� �⺻Ű
 	PRIMARY KEY (
-		sm_no -- 맴버번호
+		sm_no -- �ɹ���ȣ
 	);
 
--- 새 테이블
+-- �� ���̺�
 CREATE TABLE RecruitComments (
 		c_no NUMBER(10) NOT NULL,
 		u_Id VARCHAR2(50) NOT NULL,
@@ -298,28 +298,28 @@ CREATE TABLE RecruitComments (
 		rb_no NUMBER(10) NULL
 );
 
--- 새 테이블
+-- �� ���̺�
 ALTER TABLE RecruitComments
-	ADD CONSTRAINT PK_RecruitComments -- 새 테이블 기본키
+	ADD CONSTRAINT PK_RecruitComments -- �� ���̺� �⺻Ű
 	PRIMARY KEY (
-		c_no -- 댓글 번호
+		c_no -- ��� ��ȣ
 	);
 
--- 새 테이블2
+-- �� ���̺�2
 CREATE TABLE FreeLikes (
 		likeno NUMBER(10) NOT NULL,
 		fb_no NUMBER(10) NULL,
 		u_Id VARCHAR2(50) NULL
 );
 
--- 새 테이블2
+-- �� ���̺�2
 ALTER TABLE FreeLikes
-	ADD CONSTRAINT PK_FreeLikes -- 새 테이블2 기본키
+	ADD CONSTRAINT PK_FreeLikes -- �� ���̺�2 �⺻Ű
 	PRIMARY KEY (
-		likeno -- 좋아요 번호
+		likeno -- ���ƿ� ��ȣ
 	);
 
--- 새 테이블3
+-- �� ���̺�3
 CREATE TABLE Admin (
 		a_id VARCHAR2(100) NOT NULL,
 		a_pw VARCHAR2(30) NULL,
@@ -327,33 +327,33 @@ CREATE TABLE Admin (
 		a_status NUMBER(1) NULL
 );
 
--- 새 테이블3
+-- �� ���̺�3
 ALTER TABLE Admin
-	ADD CONSTRAINT PK_Admin -- 새 테이블3 기본키
+	ADD CONSTRAINT PK_Admin -- �� ���̺�3 �⺻Ű
 	PRIMARY KEY (
-		a_id -- 관리자아이디
+		a_id -- �����ھ��̵�
 	);
 
--- 새 테이블4
+-- �� ���̺�4
 CREATE TABLE StudyType (
 		st_no NUMBER(10) NOT NULL,
 		st_name VARCHAR2(20) NOT NULL
 );
 
--- 새 테이블4
+-- �� ���̺�4
 ALTER TABLE StudyType
-	ADD CONSTRAINT PK_StudyType -- 새 테이블4 기본키
+	ADD CONSTRAINT PK_StudyType -- �� ���̺�4 �⺻Ű
 	PRIMARY KEY (
-		st_no -- 스터디타입 번호
+		st_no -- ���͵�Ÿ�� ��ȣ
 	);
 
--- 새 테이블5
+-- �� ���̺�5
 CREATE TABLE BookMark (
-		bm_no <데이터 타입 없음> NULL,
-		bm_name <데이터 타입 없음> NULL
+		bm_no <������ Ÿ�� ����> NULL,
+		bm_name <������ Ÿ�� ����> NULL
 );
 
--- 새 테이블6
+-- �� ���̺�6
 CREATE TABLE Studyboard (
 		sb_no NUMBER(10) NOT NULL,
 		sb_title VARCHAR2(100) NOT NULL,
@@ -364,11 +364,11 @@ CREATE TABLE Studyboard (
 		u_Id VARCHAR2(50) NOT NULL
 );
 
--- 새 테이블6
+-- �� ���̺�6
 ALTER TABLE Studyboard
-	ADD CONSTRAINT PK_Studyboard -- 새 테이블6 기본키
+	ADD CONSTRAINT PK_Studyboard -- �� ���̺�6 �⺻Ű
 	PRIMARY KEY (
-		sb_no -- 스터디게시판 번호
+		sb_no -- ���͵�Խ��� ��ȣ
 	);
 
 -- Board2
@@ -384,9 +384,9 @@ CREATE TABLE AskBoard (
 
 -- Board2
 ALTER TABLE AskBoard
-	ADD CONSTRAINT PK_AskBoard -- Board2 기본키
+	ADD CONSTRAINT PK_AskBoard -- Board2 �⺻Ű
 	PRIMARY KEY (
-		ab_no -- 문의게시판번호
+		ab_no -- ���ǰԽ��ǹ�ȣ
 	);
 
 -- Board3
@@ -401,9 +401,9 @@ CREATE TABLE ReviewBoard (
 
 -- Board3
 ALTER TABLE ReviewBoard
-	ADD CONSTRAINT PK_ReviewBoard -- Board3 기본키
+	ADD CONSTRAINT PK_ReviewBoard -- Board3 �⺻Ű
 	PRIMARY KEY (
-		rv_no -- 후기게시판번호
+		rv_no -- �ı�Խ��ǹ�ȣ
 	);
 
 -- Board4
@@ -418,38 +418,38 @@ CREATE TABLE RecruitBoard (
 
 -- Board4
 ALTER TABLE RecruitBoard
-	ADD CONSTRAINT PK_RecruitBoard -- Board4 기본키
+	ADD CONSTRAINT PK_RecruitBoard -- Board4 �⺻Ű
 	PRIMARY KEY (
-		rb_no -- 모집게시판번호
+		rb_no -- �����Խ��ǹ�ȣ
 	);
 
--- 새 테이블7
+-- �� ���̺�7
 CREATE TABLE RvLikes (
 		likeno NUMBER(10) NOT NULL,
 		rv_no NUMBER(10) NULL,
 		u_Id VARCHAR2(50) NULL
 );
 
--- 새 테이블7
+-- �� ���̺�7
 ALTER TABLE RvLikes
-	ADD CONSTRAINT PK_RvLikes -- 새 테이블7 기본키
+	ADD CONSTRAINT PK_RvLikes -- �� ���̺�7 �⺻Ű
 	PRIMARY KEY (
-		likeno -- 좋아요 번호
+		likeno -- ���ƿ� ��ȣ
 	);
 
--- 새 테이블8
+-- �� ���̺�8
 CREATE TABLE Likes2 (
 		likeno NUMBER(10) NOT NULL
 );
 
--- 새 테이블8
+-- �� ���̺�8
 ALTER TABLE Likes2
-	ADD CONSTRAINT PK_Likes2 -- 새 테이블8 기본키
+	ADD CONSTRAINT PK_Likes2 -- �� ���̺�8 �⺻Ű
 	PRIMARY KEY (
-		likeno -- 좋아요 번호
+		likeno -- ���ƿ� ��ȣ
 	);
 
--- 새 테이블9
+-- �� ���̺�9
 CREATE TABLE RvComments (
 		c_no NUMBER(10) NOT NULL,
 		c_content VARCHAR2(400) NOT NULL,
@@ -458,14 +458,14 @@ CREATE TABLE RvComments (
 		u_Id VARCHAR2(50) NULL
 );
 
--- 새 테이블9
+-- �� ���̺�9
 ALTER TABLE RvComments
-	ADD CONSTRAINT PK_RvComments -- 새 테이블9 기본키
+	ADD CONSTRAINT PK_RvComments -- �� ���̺�9 �⺻Ű
 	PRIMARY KEY (
-		c_no -- 댓글 번호
+		c_no -- ��� ��ȣ
 	);
 
--- 새 테이블10
+-- �� ���̺�10
 CREATE TABLE FreeComments (
 		c_no NUMBER(10) NOT NULL,
 		u_Id VARCHAR2(50) NOT NULL,
@@ -474,14 +474,14 @@ CREATE TABLE FreeComments (
 		fb_no NUMBER(10) NULL
 );
 
--- 새 테이블10
+-- �� ���̺�10
 ALTER TABLE FreeComments
-	ADD CONSTRAINT PK_FreeComments -- 새 테이블10 기본키
+	ADD CONSTRAINT PK_FreeComments -- �� ���̺�10 �⺻Ű
 	PRIMARY KEY (
-		c_no -- 댓글 번호
+		c_no -- ��� ��ȣ
 	);
 
--- 게시판첨부파일2
+-- �Խ���÷������2
 CREATE TABLE RBoardFile (
 		bf_no NUMBER(10) NOT NULL,
 		bf_name VARCHAR2(100) NOT NULL,
@@ -490,11 +490,11 @@ CREATE TABLE RBoardFile (
 		rv_no NUMBER(10) NULL
 );
 
--- 게시판첨부파일2
+-- �Խ���÷������2
 ALTER TABLE RBoardFile
-	ADD CONSTRAINT PK_RBoardFile -- 게시판첨부파일2 기본키
+	ADD CONSTRAINT PK_RBoardFile -- �Խ���÷������2 �⺻Ű
 	PRIMARY KEY (
-		bf_no -- 파일번호
+		bf_no -- ���Ϲ�ȣ
 	);
 
 -- Book
@@ -511,37 +511,37 @@ ALTER TABLE Book
 ALTER TABLE Book
 	ADD CONSTRAINT FK_Room_TO_Book -- Room -> Book
 	FOREIGN KEY (
-		r_No -- 방번호
+		r_No -- ���ȣ
 	)
 	REFERENCES Room ( -- Room
-		r_No -- 방번호
+		r_No -- ���ȣ
 	);
 
--- 스터디모임
+-- ���͵����
 ALTER TABLE StudyGroup
-	ADD CONSTRAINT FK_Users_TO_StudyGroup -- userPrimary -> 스터디모임
+	ADD CONSTRAINT FK_Users_TO_StudyGroup -- userPrimary -> ���͵����
 	FOREIGN KEY (
-		u_Id -- 방장
+		u_Id -- ����
 	)
 	REFERENCES Users ( -- userPrimary
 		u_Id -- userId
 	);
 
--- 스터디모임
+-- ���͵����
 ALTER TABLE StudyGroup
-	ADD CONSTRAINT FK_StudyType_TO_StudyGroup -- 새 테이블4 -> 스터디모임
+	ADD CONSTRAINT FK_StudyType_TO_StudyGroup -- �� ���̺�4 -> ���͵����
 	FOREIGN KEY (
-		st_no -- 스터디타입 번호
+		st_no -- ���͵�Ÿ�� ��ȣ
 	)
-	REFERENCES StudyType ( -- 새 테이블4
-		st_no -- 스터디타입 번호
+	REFERENCES StudyType ( -- �� ���̺�4
+		st_no -- ���͵�Ÿ�� ��ȣ
 	);
 
 -- UserMessage
 ALTER TABLE Messanger
 	ADD CONSTRAINT FK_Users_TO_Messanger -- userPrimary -> UserMessage
 	FOREIGN KEY (
-		u_reciever -- 수신자
+		u_reciever -- ������
 	)
 	REFERENCES Users ( -- userPrimary
 		u_Id -- userId
@@ -551,7 +551,7 @@ ALTER TABLE Messanger
 ALTER TABLE Messanger
 	ADD CONSTRAINT FK_Users_TO_Messanger2 -- userPrimary -> UserMessage2
 	FOREIGN KEY (
-		u_sender -- 발신자
+		u_sender -- �߽���
 	)
 	REFERENCES Users ( -- userPrimary
 		u_Id -- userId
@@ -569,57 +569,57 @@ ALTER TABLE FreeBoard
 
 -- Board
 ALTER TABLE FreeBoard
-	ADD CONSTRAINT FK_Admin_TO_FreeBoard -- 새 테이블3 -> Board
+	ADD CONSTRAINT FK_Admin_TO_FreeBoard -- �� ���̺�3 -> Board
 	FOREIGN KEY (
-		a_id -- 관리자아이디
+		a_id -- �����ھ��̵�
 	)
-	REFERENCES Admin ( -- 새 테이블3
-		a_id -- 관리자아이디
+	REFERENCES Admin ( -- �� ���̺�3
+		a_id -- �����ھ��̵�
 	);
 
--- 게시판첨부파일
+-- �Խ���÷������
 ALTER TABLE FreeBoardFile
-	ADD CONSTRAINT FK_FreeBoard_TO_FreeBoardFile -- Board -> 게시판첨부파일
+	ADD CONSTRAINT FK_FreeBoard_TO_FreeBoardFile -- Board -> �Խ���÷������
 	FOREIGN KEY (
-		fb_no -- 자유게시판번호
+		fb_no -- �����Խ��ǹ�ȣ
 	)
 	REFERENCES FreeBoard ( -- Board
-		fb_no -- 자유게시판번호
+		fb_no -- �����Խ��ǹ�ȣ
 	);
 
--- 방옵션
+-- ��ɼ�
 ALTER TABLE RoomOption
-	ADD CONSTRAINT FK_Room_TO_RoomOption -- Room -> 방옵션
+	ADD CONSTRAINT FK_Room_TO_RoomOption -- Room -> ��ɼ�
 	FOREIGN KEY (
-		r_No -- 방번호
+		r_No -- ���ȣ
 	)
 	REFERENCES Room ( -- Room
-		r_No -- 방번호
+		r_No -- ���ȣ
 	);
 
--- 방등록페이지
+-- ����������
 ALTER TABLE RoomEnroll
-	ADD CONSTRAINT FK_Room_TO_RoomEnroll -- Room -> 방등록페이지
+	ADD CONSTRAINT FK_Room_TO_RoomEnroll -- Room -> ����������
 	FOREIGN KEY (
-		r_No -- 방번호
+		r_No -- ���ȣ
 	)
 	REFERENCES Room ( -- Room
-		r_No -- 방번호
+		r_No -- ���ȣ
 	);
 
--- 등록페이지첨부파일
+-- ���������÷������
 ALTER TABLE RoomFile
-	ADD CONSTRAINT FK_RoomEnroll_TO_RoomFile -- 방등록페이지 -> 등록페이지첨부파일
+	ADD CONSTRAINT FK_RoomEnroll_TO_RoomFile -- ���������� -> ���������÷������
 	FOREIGN KEY (
-		re_no -- 방등록번호
+		re_no -- ���Ϲ�ȣ
 	)
-	REFERENCES RoomEnroll ( -- 방등록페이지
-		re_no -- 방등록번호
+	REFERENCES RoomEnroll ( -- ����������
+		re_no -- ���Ϲ�ȣ
 	);
 
--- 스터디맴버
+-- ���͵�ɹ�
 ALTER TABLE StudyMember
-	ADD CONSTRAINT FK_Users_TO_StudyMember -- userPrimary -> 스터디맴버
+	ADD CONSTRAINT FK_Users_TO_StudyMember -- userPrimary -> ���͵�ɹ�
 	FOREIGN KEY (
 		u_Id -- userId
 	)
@@ -627,19 +627,19 @@ ALTER TABLE StudyMember
 		u_Id -- userId
 	);
 
--- 스터디맴버
+-- ���͵�ɹ�
 ALTER TABLE StudyMember
-	ADD CONSTRAINT FK_StudyGroup_TO_StudyMember -- 스터디모임 -> 스터디맴버
+	ADD CONSTRAINT FK_StudyGroup_TO_StudyMember -- ���͵���� -> ���͵�ɹ�
 	FOREIGN KEY (
-		sg_no -- 스터디번호
+		sg_no -- ���͵��ȣ
 	)
-	REFERENCES StudyGroup ( -- 스터디모임
-		sg_no -- 스터디번호
+	REFERENCES StudyGroup ( -- ���͵����
+		sg_no -- ���͵��ȣ
 	);
 
--- 새 테이블
+-- �� ���̺�
 ALTER TABLE RecruitComments
-	ADD CONSTRAINT FK_Users_TO_RecruitComments -- userPrimary -> 새 테이블
+	ADD CONSTRAINT FK_Users_TO_RecruitComments -- userPrimary -> �� ���̺�
 	FOREIGN KEY (
 		u_Id -- userId
 	)
@@ -647,29 +647,29 @@ ALTER TABLE RecruitComments
 		u_Id -- userId
 	);
 
--- 새 테이블
+-- �� ���̺�
 ALTER TABLE RecruitComments
-	ADD CONSTRAINT FK_RecruitBoard_TO_RecruitCo -- Board4 -> 새 테이블
+	ADD CONSTRAINT FK_RecruitBoard_TO_RecruitCo -- Board4 -> �� ���̺�
 	FOREIGN KEY (
-		rb_no -- 모집게시판번호
+		rb_no -- �����Խ��ǹ�ȣ
 	)
 	REFERENCES RecruitBoard ( -- Board4
-		rb_no -- 모집게시판번호
+		rb_no -- �����Խ��ǹ�ȣ
 	);
 
--- 새 테이블2
+-- �� ���̺�2
 ALTER TABLE FreeLikes
-	ADD CONSTRAINT FK_FreeBoard_TO_FreeLikes -- Board -> 새 테이블2
+	ADD CONSTRAINT FK_FreeBoard_TO_FreeLikes -- Board -> �� ���̺�2
 	FOREIGN KEY (
-		fb_no -- 자유게시판번호
+		fb_no -- �����Խ��ǹ�ȣ
 	)
 	REFERENCES FreeBoard ( -- Board
-		fb_no -- 자유게시판번호
+		fb_no -- �����Խ��ǹ�ȣ
 	);
 
--- 새 테이블2
+-- �� ���̺�2
 ALTER TABLE FreeLikes
-	ADD CONSTRAINT FK_Users_TO_FreeLikes -- userPrimary -> 새 테이블2
+	ADD CONSTRAINT FK_Users_TO_FreeLikes -- userPrimary -> �� ���̺�2
 	FOREIGN KEY (
 		u_Id -- userId
 	)
@@ -677,19 +677,19 @@ ALTER TABLE FreeLikes
 		u_Id -- userId
 	);
 
--- 새 테이블6
+-- �� ���̺�6
 ALTER TABLE Studyboard
-	ADD CONSTRAINT FK_StudyGroup_TO_Studyboard -- 스터디모임 -> 새 테이블6
+	ADD CONSTRAINT FK_StudyGroup_TO_Studyboard -- ���͵���� -> �� ���̺�6
 	FOREIGN KEY (
-		sg_no -- 스터디번호
+		sg_no -- ���͵��ȣ
 	)
-	REFERENCES StudyGroup ( -- 스터디모임
-		sg_no -- 스터디번호
+	REFERENCES StudyGroup ( -- ���͵����
+		sg_no -- ���͵��ȣ
 	);
 
--- 새 테이블6
+-- �� ���̺�6
 ALTER TABLE Studyboard
-	ADD CONSTRAINT FK_Users_TO_Studyboard -- userPrimary -> 새 테이블6
+	ADD CONSTRAINT FK_Users_TO_Studyboard -- userPrimary -> �� ���̺�6
 	FOREIGN KEY (
 		u_Id -- userId
 	)
@@ -709,12 +709,12 @@ ALTER TABLE AskBoard
 
 -- Board2
 ALTER TABLE AskBoard
-	ADD CONSTRAINT FK_Admin_TO_AskBoard -- 새 테이블3 -> Board2
+	ADD CONSTRAINT FK_Admin_TO_AskBoard -- �� ���̺�3 -> Board2
 	FOREIGN KEY (
-		a_id -- 관리자아이디
+		a_id -- �����ھ��̵�
 	)
-	REFERENCES Admin ( -- 새 테이블3
-		a_id -- 관리자아이디
+	REFERENCES Admin ( -- �� ���̺�3
+		a_id -- �����ھ��̵�
 	);
 
 -- Board3
@@ -737,19 +737,19 @@ ALTER TABLE RecruitBoard
 		u_Id -- userId
 	);
 
--- 새 테이블7
+-- �� ���̺�7
 ALTER TABLE RvLikes
-	ADD CONSTRAINT FK_ReviewBoard_TO_RvLikes -- Board3 -> 새 테이블7
+	ADD CONSTRAINT FK_ReviewBoard_TO_RvLikes -- Board3 -> �� ���̺�7
 	FOREIGN KEY (
-		rv_no -- 후기게시판번호
+		rv_no -- �ı�Խ��ǹ�ȣ
 	)
 	REFERENCES ReviewBoard ( -- Board3
-		rv_no -- 후기게시판번호
+		rv_no -- �ı�Խ��ǹ�ȣ
 	);
 
--- 새 테이블7
+-- �� ���̺�7
 ALTER TABLE RvLikes
-	ADD CONSTRAINT FK_Users_TO_RvLikes -- userPrimary -> 새 테이블7
+	ADD CONSTRAINT FK_Users_TO_RvLikes -- userPrimary -> �� ���̺�7
 	FOREIGN KEY (
 		u_Id -- userId
 	)
@@ -757,19 +757,19 @@ ALTER TABLE RvLikes
 		u_Id -- userId
 	);
 
--- 새 테이블9
+-- �� ���̺�9
 ALTER TABLE RvComments
-	ADD CONSTRAINT FK_ReviewBoard_TO_RvComments -- Board3 -> 새 테이블9
+	ADD CONSTRAINT FK_ReviewBoard_TO_RvComments -- Board3 -> �� ���̺�9
 	FOREIGN KEY (
-		rv_no -- 후기게시판번호
+		rv_no -- �ı�Խ��ǹ�ȣ
 	)
 	REFERENCES ReviewBoard ( -- Board3
-		rv_no -- 후기게시판번호
+		rv_no -- �ı�Խ��ǹ�ȣ
 	);
 
--- 새 테이블9
+-- �� ���̺�9
 ALTER TABLE RvComments
-	ADD CONSTRAINT FK_Users_TO_RvComments -- userPrimary -> 새 테이블9
+	ADD CONSTRAINT FK_Users_TO_RvComments -- userPrimary -> �� ���̺�9
 	FOREIGN KEY (
 		u_Id -- userId
 	)
@@ -777,19 +777,19 @@ ALTER TABLE RvComments
 		u_Id -- userId
 	);
 
--- 새 테이블10
+-- �� ���̺�10
 ALTER TABLE FreeComments
-	ADD CONSTRAINT FK_FreeBoard_TO_FreeComments -- Board -> 새 테이블10
+	ADD CONSTRAINT FK_FreeBoard_TO_FreeComments -- Board -> �� ���̺�10
 	FOREIGN KEY (
-		fb_no -- 자유게시판번호
+		fb_no -- �����Խ��ǹ�ȣ
 	)
 	REFERENCES FreeBoard ( -- Board
-		fb_no -- 자유게시판번호
+		fb_no -- �����Խ��ǹ�ȣ
 	);
 
--- 새 테이블10
+-- �� ���̺�10
 ALTER TABLE FreeComments
-	ADD CONSTRAINT FK_Users_TO_FreeComments -- userPrimary -> 새 테이블10
+	ADD CONSTRAINT FK_Users_TO_FreeComments -- userPrimary -> �� ���̺�10
 	FOREIGN KEY (
 		u_Id -- userId
 	)
@@ -797,12 +797,12 @@ ALTER TABLE FreeComments
 		u_Id -- userId
 	);
 
--- 게시판첨부파일2
+-- �Խ���÷������2
 ALTER TABLE RBoardFile
-	ADD CONSTRAINT FK_ReviewBoard_TO_RBoardFile -- Board3 -> 게시판첨부파일2
+	ADD CONSTRAINT FK_ReviewBoard_TO_RBoardFile -- Board3 -> �Խ���÷������2
 	FOREIGN KEY (
-		rv_no -- 후기게시판번호
+		rv_no -- �ı�Խ��ǹ�ȣ
 	)
 	REFERENCES ReviewBoard ( -- Board3
-		rv_no -- 후기게시판번호
+		rv_no -- �ı�Խ��ǹ�ȣ
 	);

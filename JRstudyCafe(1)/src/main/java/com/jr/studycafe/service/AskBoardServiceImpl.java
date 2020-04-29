@@ -47,7 +47,7 @@ public class AskBoardServiceImpl implements AskBoardService {
 	}
 
 	@Override
-	public int ask_boardmodify(AskBoard askboard, HttpSession httpSession) {
+	public int ask_boardmodify(AskBoard askboard) {
 		return askboardDao.ask_boardmodify(askboard);
 	}
 
@@ -62,7 +62,8 @@ public class AskBoardServiceImpl implements AskBoardService {
 	}
 
 	@Override
-	public int ask_reWrite(AskBoard askboard) {
+	public int ask_reWrite(AskBoard askboard, HttpSession httpSession) {
+		askboardDao.ask_preReplyStepA(askboard);
 		return askboardDao.ask_reWrite(askboard);
 	}
 }

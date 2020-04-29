@@ -111,20 +111,21 @@ input[type='submit'] {
 		<table class="table is-striped is-narrow is-hoverable">
 			<caption>${content.ab_no }번 문의글 보기</caption>
 			<tbody>
-				<tr><th>작성자</th><td>${users.u_name }</td></tr>
+				<tr><th>작성자</th><td>${writer }</td></tr>
 				<tr><th>제 목</th><td>${content.ab_name }</td></tr>
 				<tr><th>문의내용</th><td><pre>${content.ab_content }</pre></td></tr>
 				<tr><th>작성일</th><td><fmt:formatDate value="${content.ab_rdate }" pattern="MM/dd(E)"/>
 				<tr><th>조회수</th><td>${content.ab_hit }</td></tr>
+				<tr><th>그룹</th><td>${content.ab_group }</td></tr>
 			</tbody>
 		</table>
 		<table id="table_bottom">
 		  <c:if test="${empty admin && not empty users}">
 			<tr>
 				<td><input type="button" value="수정하기"
-					onclick="location.href='${conPath }/askModifyView.do?ab_no=${content.ab_no }&u_id=${users.u_id }&u_name=${users.u_name }&ab_name=${content.ab_name }&ab_content=${content.ab_content }'"
+					onclick="location.href='${conPath }/askModifyView.do?ab_no=${content.ab_no }'"
 					class="button is-link is-focused">
-					<input type="button" value="문의삭제"
+					<input type="button" value="글 지우기"
 					onclick="location.href='${conPath }/askDelete.do?ab_no=${content.ab_no }'"
 					class="button is-link is-focused">
 					<input type="button"
@@ -135,9 +136,9 @@ input[type='submit'] {
 		 <c:if test="${not empty admin}">
 		    <tr>
 				<td><input type="button" value="답변하기"
-					onclick="location.href='${conPath }/askReplyView.do?ab_no=${content.ab_no }&ab_name=${content.ab_name }&ab_group=${content.ab_group }&ab_step=${content.ab_step }&ab_indent=${content.ab_indent }'"
+					onclick="location.href='${conPath }/askReplyView.do?ab_no=${content.ab_no }'"
 					class="button is-link is-focused">
-					<input type="button" value="문의삭제"
+					<input type="button" value="글 지우기"
 					onclick="location.href='${conPath }/askDelete.do?ab_no=${content.ab_no }'"
 					class="button is-link is-focused">
 					<input type="button"

@@ -13,8 +13,8 @@ public interface AskBoardService {
 	public int ask_hitUp(int ab_no);
 	public AskBoard ask_contentboard(int ab_no);
 	public AskBoard ask_modifyView_replyView(int ab_no);
-	public int ask_boardmodify(AskBoard askboard, HttpSession httpSession);
+	public int ask_boardmodify(AskBoard askboard);
 	public int ask_boarddelete(int ab_no);
 	public int ask_preReplyStepA(AskBoard askboard);
-	public int ask_reWrite(AskBoard askboard);
+	public int ask_reWrite(AskBoard askboard, HttpSession httpSession);
 }

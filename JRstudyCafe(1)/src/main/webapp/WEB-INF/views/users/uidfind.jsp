@@ -89,11 +89,11 @@ a{
     <div class="tab_cnt">
         <form action="${conPath}/idfind.do" method="get">
             <div class="inpbx">
-    			<input type="text" class="u_name" name="u_name" placeholder="이름 입력" value="${u_name }">
+    			<input type="text" class="u_name" name="u_name" placeholder="가입하신 이름 입력">
     		</div>
-    		<div style="color: red;">${resultId}</div>
+    		<div style="color: red;">${resultName}</div>
     		<div class="inpbx">
-    			<input type="text" class="u_email" name="u_email" placeholder="이메일 입력" value="${u_email }">
+    			<input type="text" class="u_email" name="u_email" placeholder="이메일 입력">
     		</div>
     		<div style="color: red;">${resultEmail}</div>
             <input class="insub" type="submit" value="아이디 찾기">          
@@ -101,7 +101,7 @@ a{
     	<ul>
             <li class="li1"><a href="${conPath}/joinView.do">회원가입 </a></li>
             <li class="li1"> <a href="${conPath }/loginView.do">로그인</a></li>
-            <li> <a href="${conPath }/idfindView.do">아이디 찾기</a></li>
+            <li> <a href="${conPath }/pwfindView.do">비밀번호 찾기</a></li>
         </ul>
 		</div>
 	</div>

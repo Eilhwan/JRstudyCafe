@@ -108,15 +108,16 @@ input[type='submit'] {
 	<jsp:include page="../main/header.jsp" />
 	<div id="content_hole"></div>
 	<div id="content_wrap">
-	<form action="${conPath }/askWrite.do?u_id=${users.u_id }&u_name=${users.u_name }" method="post">
+	<form action="${conPath }/askWrite.do?u_id=${users.u_id }" method="post">
 	<input type="hidden" value="${u_id }">
+	<input type="hidden" value="${u_name }">
 	    	
 		<table class="table is-striped is-narrow is-hoverable">
 			<caption>문의하기</caption>
 			<tbody>
 				<tr>
 					<th>작성자</th>
-					<td><input type="text" name="u_nickname" readonly="readonly" value="${u_name }"></td>
+					<td><input type="text" name="u_name" readonly="readonly" value="${u_name }"></td>
 				</tr>
 				<tr>
 					<th>제목</th>

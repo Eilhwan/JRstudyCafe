@@ -19,5 +19,4 @@ public interface AdminService {
 	public List<Admin> list_admins(String pageNum);
 	public List<Users> search_user(Admin admin);
 	public Users user_profile(String u_id);
-	public int black_user(String u_id);
 }

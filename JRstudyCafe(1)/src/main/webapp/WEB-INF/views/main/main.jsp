@@ -41,7 +41,6 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	
 	<div class="slider">
 		<ul class="slider-list cycle-slideshow" data-cycle-fx="scrollHorz"
 			data-cycle-timeout="0" data-cycle-slides="> li"
@@ -169,6 +168,9 @@
 		</section>
 		<!--//latest_projects -->
 	</main>
+	<div>
+         <a href="${conPath }/admin/adminLoginView.do">admin 로그인</a>      
+      </div>
 	<jsp:include page="side.jsp" />
 	<c:if test="${not empty admin}">
 		<ul>

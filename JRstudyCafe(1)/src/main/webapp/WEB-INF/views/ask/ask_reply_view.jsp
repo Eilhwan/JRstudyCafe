@@ -108,15 +108,15 @@ input[type='submit'] {
 	<jsp:include page="../main/header.jsp" />
 	<div id="content_hole"></div>
 	<div id="content_wrap">
-	<form action="${conPath }/askReply.do?a_id=${admin.a_id }&a_name=${admin.a_name }" method="post">
-	    <input type="hidden" value="${a_id }">
-	    <input type="hidden" name="pageNum" value="${param.pageNum }">
-     	<input type="hidden" name="ab_group" value="${ab_group }">
-    	<input type="hidden" name="ab_step" value="${ab_step }">
-    	<input type="hidden" name="ab_indent" value="${ab_indent }">
-	    	
+	<form action="${conPath }/askReply.do?a_id=${admin.a_id }" method="post">
+	    <input type="hidden" name="ab_no" value="${ask_modifyView_replyView.ab_no }">
+	    <input type="hidden" name="a_name" value="${a_name }">
+    	<input type="hidden" name="u_id" value="${u_id }">
+    	<input type="hidden" name="ab_group" value="${ask_modifyView_replyView.ab_group }">
+	    <input type="hidden" name="ab_step" value="${ask_modifyView_replyView.ab_step }">
+	    <input type="hidden" name="ab_indent" value="${ask_modifyView_replyView.ab_indent }">
 		<table class="table is-striped is-narrow is-hoverable">
-			<caption>문의하기</caption>
+			<caption>답변하기</caption>
 			<tbody>
 				<tr>
 					<th>작성자</th>
@@ -124,11 +124,23 @@ input[type='submit'] {
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="ab_name" required="required" value="[답]${ab_name.substring(0,2) }"></td>
+					<td><input type="text" name="ab_name" required="required" value="[답]${ask_modifyView_replyView.ab_name.substring(0,2) }"></td>
 				</tr>
 				<tr id="write_area">
 					<th>문의내용</th>
 					<td><textarea rows="5" cols="30" name="ab_content" required="required"></textarea>
+				</tr>
+				<tr>
+					<th>그룹</th>
+					<td>${ask_modifyView_replyView.ab_group }</td>
+				</tr>
+				<tr>
+					<th>스텝</th>
+					<td>${ask_modifyView_replyView.ab_step }</td>
+				</tr>
+				<tr>
+					<th>인덴트</th>
+					<td>${ask_modifyView_replyView.ab_indent }</td>
 				</tr>
 			</tbody>
 		</table>
@@ -144,8 +156,6 @@ input[type='submit'] {
 	</form>
 	</div>	
 			
-		
-	
 	<jsp:include page="../main/side.jsp" />
 	<jsp:include page="../main/footer.jsp" />
 

@@ -7,32 +7,16 @@
 		<typeAlias alias="Users" type="com.jr.studycafe.dto.Users"/>
 		<typeAlias alias="Admin" type="com.jr.studycafe.dto.Admin"/>
 		<typeAlias alias="Room" type="com.jr.studycafe.dto.Room"/>
-		<typeAlias alias="Messanger" type="com.jr.studycafe.dto.Messanger"/>
-		<typeAlias alias="Studygroup" type="com.jr.studycafe.dto.Studygroup"/>
-		<typeAlias alias="RecruitBoard" type="com.jr.studycafe.dto.RecruitBoard"/>
-		<typeAlias alias="RecruitComments" type="com.jr.studycafe.dto.RecruitComments"/>
-		<typeAlias alias="Review" type="com.jr.studycafe.dto.Review"/>
-		<typeAlias alias="ReviewComent" type="com.jr.studycafe.dto.ReviewComent"/>
 		<typeAlias alias="AskBoard" type="com.jr.studycafe.dto.AskBoard"/>
-		<typeAlias alias="FreeBoard" type="com.jr.studycafe.dto.FreeBoard"/>
-		<typeAlias alias="Studymember" type="com.jr.studycafe.dto.Studymember"/>
-		<typeAlias alias="StudyBoard" type="com.jr.studycafe.dto.StudyBoard"/>
-		<typeAlias alias="SbComment" type="com.jr.studycafe.dto.SbComment"/>
+		<typeAlias alias="Book" type="com.jr.studycafe.dto.Book"/>
 		
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mapper/Users.xml"/>
 		<mapper resource="META-INF/sqlmap/mapper/Admin.xml"/>
 		<mapper resource="META-INF/sqlmap/mapper/Room.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/Messanger.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/Studygroup.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/RecruitBoard.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/RecruitComments.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/Review.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/ReviewComent.xml"/>
 		<mapper resource="META-INF/sqlmap/mapper/AskBoard.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/FreeBoard.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/StudyBoard.xml"/>
-		<mapper resource="META-INF/sqlmap/mapper/SbComment.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Book.xml"/>
+		
 	</mappers>
 </configuration>
