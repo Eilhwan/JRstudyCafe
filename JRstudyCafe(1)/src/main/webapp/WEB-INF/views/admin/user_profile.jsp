@@ -6,6 +6,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+<c:if test="${empty admin }">
+	<script>
+		alert('비정상적인 접근입니다.');
+		history.back();
+	</script>
+</c:if>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script
@@ -57,20 +63,38 @@
 }
 </style>
 <script>
-	function open_messanger (){
-		window.open('${conPath}/admin/adminMessagner.do', '관리자 메시지', 'width=400, height=450')
+	function open_admin_messanger (){
+		window.open('${conPath}/admin/adminMessagner.do?u_id=${param.u_id}', '관리자 메시지', 'width=400, height=450')
 		}
 </script>
 </head>
 <body>
 	<jsp:include page="../main/header.jsp" />
 	<div id="content_hole"></div>
+	<!-- 회원 블랙리스트 모달입니다. -->
+	<div class="modal" id="black_user_modal">
+        <div class="modal-background" onclick="is_unactive()"></div>
+	        <div class="modal-card">
+	          <header class="modal-card-head">
+	            <p class="modal-card-title">회원 블랙리스트 설정</p>
+	            <button class="delete" aria-label="close" onclick="is_unactive()"></button>
+	          </header>
+	          <section class="modal-card-body">
+	            <h1>해당회원의 권한을 모두 없애겠습니까?</h1>
+	          </section>
+	          <footer class="modal-card-foot">
+	            <button class="button is-success" onclick="location.href='${conPath}/admin/userBlack.do?u_id=${users.u_id }'">확인</button>
+	            <button class="button" onclick="is_unactive()">취소</button>
+	          </footer>
+	        </div>
+    </div>
+      
 	<div id="content">
 		<div class="card">
 			<div class="card-image">
 				<div id="card_button">
-					<button class="button" onclick="open_messanger()">메시지 보내기</button>
-					<button class="button" onclick="">블랙리스트 추가</button>
+					<button class="button" onclick="open_admin_messanger()">메시지 보내기</button>
+					<button class="button" onclick="is_active()">블랙리스트 추가</button>
 				</div>
 			</div>
 			<div class="card-content">
@@ -117,5 +141,14 @@
 	</div>
 	<jsp:include page="../main/side.jsp" />
 	<jsp:include page="../main/footer.jsp" />
+	<script>
+          let modal = document.getElementById('black_user_modal');
+          function is_active() {
+              modal.setAttribute('class', 'is-active');
+          }
+          function is_unactive() {
+              modal.setAttribute('class', "modal-close");
+          }
+      </script>
 </body>
 </html>

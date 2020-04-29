@@ -38,7 +38,11 @@ public class UsersDaoImpl implements UsersDao {
 		return sqlTemplate.selectOne("u_getUsers", u_id);
 	}
 
-	
+	@Override
+	public Users u_idfind(Users users) {
+		
+		return sqlTemplate.selectOne("u_idfind", users);
+	}
 
 	@Override
 	public int u_modify(Users users) {
@@ -74,9 +78,13 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
-	public int u_idfind(Users users) {
-		
-		return sqlTemplate.selectOne("u_idfind", users);
+	public boolean u_findId(String u_email, String u_name) {
+		Users u = u_getId(u_email, u_name);
+		if( u != null) {
+			String id = u.getU_id();
+			return true;
+		}
+		return false;
 	}
 	@Override
 	public int u_pwfind(Users users) {

@@ -23,8 +23,8 @@ public class BookController {
 	
 	@RequestMapping(value="bookingView")
 	public String booking(Model model, Book book, Room room) {
-		model.addAttribute("room_booklist", roomService.room_booklist());
-		//model.addAttribute("book_list", bookService.bookList(book));
+		
+		model.addAttribute("book_list", bookService.bookList(book));
 		model.addAttribute("book_list", bookService.bookviewlist(book));
 		return "book/book_view";
 	}

@@ -109,17 +109,23 @@ input[type='submit'] {
 	<div id="content_hole"></div>
 	<div id="content_wrap">
 	<form action="${conPath }/askModify.do" method="post">
-	    <input type="hidden" name="ab_no" value="${ask_modify.ab_no }">
+	    <input type="hidden" name="u_id" value="${users.u_id }">
+	    <input type="hidden" name="u_name" value="${users.u_name }">
+	    <input type="hidden" name="ab_no" value="${askboard.ab_no }">
 		<table class="table is-striped is-narrow is-hoverable">
-			<caption>${ask_modify.ab_no }문의글 수정하기</caption>
+			<caption>${askboard.ab_no }문의글 수정하기</caption>
 			<tbody>
+				<tr>                                                                                                                                                                                               
+					<th>작성자</th>                                                                                                                                                                                                                                                                                                                                                                 
+					<td><input type="text" name="u_id" readonly="readonly" value="${u_name }"></td>
+				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" name="ab_name" required="required" value="${ask_modify.ab_name }"></td>
+					<td><input type="text" name="ab_name" required="required" value="${ab_name }"></td>
 				</tr>
 				<tr id="write_area">
 					<th>문의내용</th>
-					<td><textarea rows="5" cols="30" name="ab_content" required="required">${ask_modify.ab_content }</textarea>
+					<td><textarea rows="5" cols="30" name="ab_content" required="required">${ab_content }</textarea>
 				</tr>
 			</tbody>
 		</table>

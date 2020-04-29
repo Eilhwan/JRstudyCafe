@@ -42,55 +42,45 @@ public class AskBoardController {
 		return "redirect:askListView.do";
 	}
 	@RequestMapping(value="askContent", method = RequestMethod.GET )
-	public String detail(int ab_no, Model model, String pageNum, String u_name, String writer) {
+	public String detail(int ab_no, Model model, String pageNum) {
 		model.addAttribute("content", askBoardService.ask_contentboard(ab_no));
-		model.addAttribute("u_name", u_name);
-		model.addAttribute("writer", writer);
 		return "ask/ask_content_view";
 	}
-	@RequestMapping(value="askModifyView")
-	public String ModifyView(AskBoard askboard, Model model) {
-		askboard = askBoardService.ask_contentboard(askboard.getAb_no());
-		model.addAttribute("ask_modify", askboard);
+	@RequestMapping(value="askModifyView", method = RequestMethod.GET)
+	public String ModifyView(int ab_no, Model model, String u_id, String u_name, String ab_name, String ab_content, String pageNum) {
+		model.addAttribute("modify", askBoardService.ask_contentboard(ab_no));
+		model.addAttribute("u_id", u_id);
+		model.addAttribute("u_name", u_name);
+		model.addAttribute("ab_name", ab_name);
+		model.addAttribute("ab_content", ab_content);
 		return "ask/ask_modify_view";
 	}
 	@RequestMapping(value="askModify", method= RequestMethod.POST )
-	public String modify(AskBoard askboard, Model model) {
-		int result = askBoardService.ask_boardmodify(askboard);
-		if(result==1) {
-			model.addAttribute("askModifyResult", "글수정 성공");
-			return "forward:askListView.do";
-		}else {
-			model.addAttribute("askModifyResult", "글수정 실패");
-			return "foward:askListView.do";
-		}
-	}
-	@RequestMapping(value="askReplyView", method = RequestMethod.GET)
-	public String askReplyView(AskBoard askboard, Model model,int ab_no, String a_id, String a_name) {
-		model.addAttribute("ask_modifyView_replyView", askBoardService.ask_modifyView_replyView(ab_no));
+	public String modify(AskBoard askboard, Model model, String u_id, String u_name, HttpSession httpSession) {
+		model.addAttribute("ask_modify", askBoardService.ask_boardmodify(askboard, httpSession));
+		model.addAttribute("u_id", u_id);
+		model.addAttribute("u_name", u_name);
+		return "forward:askListView.do";
+    }
+	@RequestMapping(value="askReplyView")
+	public String askReplyView(AskBoard askboard, Model model, String a_id, String a_name, String ab_no, String ab_name, int ab_group, int ab_step, int ab_indent) {
 		model.addAttribute("a_id", a_id);
 		model.addAttribute("a_name", a_name);
+		model.addAttribute("ab_name", ab_name);
+		model.addAttribute("ab_group", ab_group);
+		model.addAttribute("ab_step", ab_step);
+		model.addAttribute("ab_indent", ab_indent);
+		model.addAttribute("ask_preReplyStepA", askBoardService.ask_preReplyStepA(askboard));
 		return "ask/ask_reply_view";
-		/*model.addAttribute("ask_preReplyStepA", askBoardService.ask_preReplyStepA(askboard));*/
 	}
 	@RequestMapping(value="askReply", method=RequestMethod.POST)
-	public String askReply(AskBoard askboard, Model model, HttpSession httpSession, int ab_group, int ab_step, int ab_indent, String u_id, String a_id, String a_name) {
+	public String askReply(AskBoard askboard, Model model, String a_id, String a_name) {
+		
+		model.addAttribute("reply", askBoardService.ask_reWrite(askboard));
 		model.addAttribute("a_id", a_id);
 		model.addAttribute("a_name", a_name);
-		int result = askBoardService.ask_reWrite(askboard, httpSession);
-		if(result==1) {
-			model.addAttribute("askWriteResult", "답변쓰기 성공");
-			return "forward:askListView.do";
-		}else {
-			model.addAttribute("askWriteResult", "답변쓰기 실패");
-			return "forward:askListView.do";
-		}
+		return "redirect:askListView.do";
 	}
-		/*model.addAttribute("reply", askBoardService.ask_reWrite(askboard));
-		model.addAttribute("a_id", a_id);
-		model.addAttribute("a_name", a_name);
-		model.addAttribute("u_name", u_name);
-		return "forward:askListView.do";*/
 	@RequestMapping(value="askDelete")
 	public String askDelete(int ab_no, Model model) {
 		model.addAttribute("askDelete", askBoardService.ask_boarddelete(ab_no));

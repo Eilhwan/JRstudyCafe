@@ -5,14 +5,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jr.studycafe.dto.Admin;
+import com.jr.studycafe.dto.Messanger;
 import com.jr.studycafe.dto.Room;
 import com.jr.studycafe.dto.Users;
 import com.jr.studycafe.service.AdminService;
+import com.jr.studycafe.service.MessangerService;
 import com.jr.studycafe.service.RoomService;
 import com.jr.studycafe.util.Paging;
 
@@ -23,6 +26,17 @@ public class AdminController {
 	private AdminService aService;
 	@Autowired
 	private RoomService rService;
+	@Autowired
+	private MessangerService mService;
+	@ModelAttribute
+	public String messageCnt(HttpSession session, Model model) {
+		if (session.getAttribute("users") != null) {
+			Users user = (Users) session.getAttribute("users");
+			String u_id = user.getU_id();			
+			model.addAttribute("msgcnt", mService.unReadMsgCnt(u_id));
+		}
+		return "main/header";
+	}
 	
 	@RequestMapping(value="adminLoginView", method=RequestMethod.GET)
 	public String adminLoginView() {
@@ -30,10 +44,10 @@ public class AdminController {
 	}
 	@RequestMapping(value="adminLogin", method=RequestMethod.POST)
 	public String adminLogin(Admin admin, HttpSession session, Model model) {
-		aService.login_admin(admin, session);
 		if (aService.loginChk_admin(admin) == 0) {
 			model.addAttribute("result_msg", "아이디와 비밀번호를 확인해주세요.");
 		}else {
+			aService.login_admin(admin, session);
 			model.addAttribute("result_msg", "로그인 되었습니다.");
 			
 		}
@@ -140,9 +154,33 @@ public class AdminController {
 		return "admin/admin_message";
 	}
 	//여기부터
-	@RequestMapping(value="adminMessagnerSend", method=RequestMethod.GET)
-	public String adminMessagnerSend(Users users) {
-		
+	@RequestMapping(value="adminMessagnerSend", method=RequestMethod.POST)
+	public String adminMessagnerSend(Messanger messanger, HttpSession session) {
+		Admin admin = (Admin) session.getAttribute("admin");
+		messanger.setM_sender(admin.getA_id());
+		System.out.println(messanger);
+		mService.messangerSend(messanger);
 		return "admin/admin_message";
+	}
+	@RequestMapping(value="userBlack", method=RequestMethod.GET)
+	public String adminMessagnerSend(String u_id) {
+		aService.black_user(u_id);
+		
+		return "forward:listUser.do";
+	}
+	@RequestMapping(value="deleteRoom", method=RequestMethod.GET)
+	public String deleteRoom(int r_no) {
+		rService.room_delete(r_no);
+		return "forward:studyroomList.do";
+	}
+	@RequestMapping(value="studyroomModifyView", method=RequestMethod.GET)
+	public String modifyRoomView(int r_no, Model model) {
+		model.addAttribute("room", rService.room_detail(r_no));
+		return "admin/studyroom_modify_view";
+	}
+	@RequestMapping(value="studyroomModify", method=RequestMethod.POST)
+	public String modifyRoom(MultipartHttpServletRequest mRequest, Room room) {
+		rService.room_modify(room, mRequest);
+		return "forward:studyroomList.do";
 	}
 }

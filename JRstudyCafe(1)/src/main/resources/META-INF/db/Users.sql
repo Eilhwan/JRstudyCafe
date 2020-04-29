@@ -16,7 +16,7 @@ CREATE TABLE Users (
 
 -- userPrimary
 ALTER TABLE Users
-	ADD CONSTRAINT PK_User -- userPrimary ╠Б╨╩е╟
+	ADD CONSTRAINT PK_User -- userPrimary О©╫Б╨╩е╟
 	PRIMARY KEY (
 		u_Id -- userId
 );
@@ -25,37 +25,40 @@ ALTER TABLE Users ADD u_image VARCHAR(100) DEFAULT 'noImg.png' NOT NULL;
 
 ALTER TABLE SAMPLE DROP COLUMN TEST_VARCHAR2;
 
--- юо╧щ х╦©Ь╟║ют Users.xml / id = u_join        u_status= 0(х╦©Ье╩еП) / 1 (╟║ют╣х╩Себ)
+-- О©╫о╧О©╫ х╦О©╫О©╫О©╫О©╫О©╫О©╫ Users.xml / id = u_join        u_status= 0(х╦О©╫О©╫е╩О©╫О©╫) / 1 (О©╫О©╫О©╫т╣х╩О©╫О©╫О©╫)
 
 INSERT INTO USERS (u_id, u_pw, u_name, u_nickname, u_phone, u_tel, u_email, u_addr, u_birth, u_status, u_image)
-    VALUES ('aaa','111','х╚╠Ф╣©','╢пЁвюс','','01049337210','sss111@gamil.com','аж╪р','2000-01-01',1,'noImg.png');
+    VALUES ('aaa','111','х╚О©╫Ф╣©','О©╫пЁО©╫О©╫О©╫','','01049337210','sss111@gamil.com','О©╫ж╪О©╫','2000-01-01',1,'noImg.png');
     
 INSERT INTO USERS (u_id, u_pw, u_name, u_nickname, u_phone, u_tel, u_email, u_addr, u_birth, u_status)
-    VALUES ('bbb','111','х╚╠Ф╣©','╢пЁвюс','','01049337210','sss111@gamil.com','аж╪р','2000-01-01',1);
+    VALUES ('bbb','111','Л²╢К▐└Л≈╫','О©╫пЁО©╫О©╫О©╫','','01049337210','sss111@gamil.com','О©╫ж╪О©╫','2000-01-01',1);
 
 select * from Users;
--- ╬фюл╣П аъ╨╧ц╪е╘ Users.xml / id = u_idCofirm 
-
+-- О©╫О©╫О©╫л╣О©╫ О©╫ъ╨О©╫ц╪е╘ Users.xml / id = u_idCofirm 
+UPDATE USERS SET U_STATUS = 0 WHERE U_ID = 'aaa';
 SELECT COUNT(*) FROM USERS WHERE u_Id='aaa';
 
--- ю╞юЗ DTO ╟║а╝ ©ю╠Б  Users.xml / id = u_getUsers
+-- О©╫О©╫О©╫О©╫ DTO О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫  Users.xml / id = u_getUsers
 
 SELECT * FROM USERS WHERE u_id ='aaa';
 
--- ╬фюл╣П цё╠Б Users.xml / id = u_idfind   
-SELECT * FROM USERS WHERE u_email='sss222@gamil.com' AND u_name='х╚╠Ф╣©';
+-- О©╫О©╫О©╫л╣О©╫ цёО©╫О©╫ Users.xml / id = u_idfind   
+SELECT * FROM USERS WHERE u_email='sss222@gamil.com' AND u_name='х╚О©╫Ф╣©';
 
--- х╦©Ь а╓╨╦ ╪Жа╓ Users.xml / id = u_modify 
+-- х╦О©╫О©╫ О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫ Users.xml / id = u_modify 
 UPDATE Users SET u_pw='222',
-                 u_nickname='╢пЁш',
+                 u_nickname='О©╫пЁО©╫',
                  u_phone='01099999999',
                  u_tel='01088888888',
                  u_email='sss222@gamil.com',
-                 u_addr='аж╪р',
+                 u_addr='О©╫ж╪О©╫',
                  u_birth='1999-02-11',
                  u_image='noImg.png'
                  WHERE u_id='bbb';
-                
-UPDATE USERS SET u_status=0 WHERE u_id='aaa';
+SELECT * FROM USERS;
+UPDATE USERS SET u_status=1;
 
 COMMIT;
+
+
+SELECT * FROM USERS U, FREEBOARD F, RECRUITBOARD RB, REVIEWBOARD RV, ASKBOARD A WHERE F.U_ID = U.U_ID AND RB.U_ID = U.U_ID AND RV.U_ID = U.U_ID;

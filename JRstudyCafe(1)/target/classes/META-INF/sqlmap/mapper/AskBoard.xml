@@ -76,7 +76,7 @@
   </update>
   <insert id="ask_reWrite" parameterType="AskBoard">
     INSERT INTO ASKBOARD (ab_no, ab_name, ab_content, ab_group, ab_step,ab_indent, u_id, a_id)
-     VALUES (ASKBOARD_SEQ.NEXTVAL, #{ab_name}, #{ab_content}, #{ab_group}, #{ab_step}+1, #{ab_indent}+1, #{u_id}, #{a_id})
+     VALUES (ASKBOARD_SEQ.NEXTVAL, #{ab_name}, #{ab_content}, #{ab_group}, #{ab_step}+1, #{ab_indent}+1, null, #{a_id})
   </insert>
   <update id="ask_boarddelete" parameterType="int">
     UPDATE ASKBOARD SET ab_status=0 where ab_no=#{ab_no}

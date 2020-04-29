@@ -27,8 +27,8 @@
 	$(document).ready(function() {
 
 	});
-	function trClicked(ab_no, writer) {
-		location.href = '${conPath}/askContent.do?ab_no=' + ab_no+'&writer='+writer;
+	function trClicked(ab_no) {
+		location.href = '${conPath}/askContent.do?ab_no=' + ab_no;
 	}
 </script>
 <style>
@@ -48,8 +48,6 @@
 	width: 250px;
 	border: 1px solid lightgray;
 }
-
-.left{text-align: left;}
 
 caption {
 	font-size: 1.8em;
@@ -125,10 +123,11 @@ input[type='submit'] {
 	<c:if test="${writeResult==FAIL }">
 		<script>alert('글쓰기 실패');</script>
 	</c:if>
-	<c:if test="${not empty askModifyResult }">
-		<script>
-		alert("${askModifyResult }");
-		</script>
+	<c:if test="${modifyResult==SUCCESS }">
+		<script>alert('글수정 성공');</script>
+	</c:if>
+	<c:if test="${modifyResult==FAIL }">
+		<script>alert('글수정 실패');</script>
 	</c:if>
 	<c:if test="${askboard.ab_status==FAIL }">
 		<script>alert('글삭제 성공');</script>
@@ -163,10 +162,11 @@ input[type='submit'] {
 		</div>
 		<table class="table is-striped is-narrow is-hoverable">
 			<caption>문의 / 질문 게시판</caption>
-			<c:set var="oNum" value="${orderNum }"/>
+			<c:set var="iNum" value="${inverseNum }"/>
 			<thead>
 				<tr>
 					<th><abbr title="Position">No</abbr></th>
+					<td>역순</td>
 					<th>작성자</th>
 					<th>글제목</th>
 					<th>작성일</th>
@@ -176,16 +176,17 @@ input[type='submit'] {
 			
 				<tbody>
 					<c:forEach items="${askList}" var="askboard">
-					  <c:if test="${not empty sessionScope.admin || (users.u_name eq askboard.writer  && not empty sessionScope.users)|| (users.u_name eq askboard.writer && askboard.ab_group eq ask_modifyView_replyView.ab_group )}">
-						<tr onclick="trClicked('${askboard.ab_no}','${askboard.writer}')">
-							<td>${oNum }</td>
+					  <c:if test="${not empty sessionScope.admin || (users.u_name eq askboard.writer  && not empty sessionScope.users)}">
+						<tr onclick="trClicked('${askboard.ab_no}')">
+							<td>${askboard.ab_no}</td>
+							<td>${iNum }</td>
 							<td>${askboard.writer}</td>
 							<td class="left">
-							        <c:forEach var="i" begin="1" end="${askboard.ab_indent }">
-									<c:if test="${i==askboard.ab_indent }">
+							        <c:forEach var="i" begin="1" end="${ab_indent }">
+									<c:if test="${i==ab_indent }">
   								└─
   							</c:if>
-									<c:if test="${i!=askboard.ab_indent }">
+									<c:if test="${i!=ab_indent }">
   								&nbsp; &nbsp; &nbsp;
   							</c:if>
 								</c:forEach> ${askboard.ab_name}</td>
@@ -196,30 +197,18 @@ input[type='submit'] {
 					  </c:if>
 					  <c:if test="${empty sessionScope.admin && (users.u_name ne askboard.writer  || empty sessionScope.users)}">
 					    <tr>
-						    <td>${oNum }</td>
-						    <td>${askboard.writer}</td>
-						    <td class="left">
-							        <c:forEach var="i" begin="1" end="${askboard.ab_indent }">
-									<c:if test="${i==askboard.ab_indent }">
-  								└─
-  							</c:if>
-									<c:if test="${i!=askboard.ab_indent }">
-  								&nbsp; &nbsp; &nbsp;
-  							</c:if>
-								</c:forEach>비밀글입니다</td>
-						    <td><fmt:formatDate value="${askboard.ab_rdate}"
-									pattern="yy/MM/dd" /></td>
-							<td>${askboard.ab_hit}</td>
+						    <td>${askboard.ab_no}</td>
+						    <td colspan="4">비밀글입니다</td>
 				    	</tr>
 				      </c:if>
-				      <c:set var="oNum" value="${oNum+1 }"/>
+				      <c:set var="iNum" value="${iNum-1 }"/>
 					</c:forEach>
 				</tbody>
 		</table>
 		<table id="table_bottom">
 			<tr>
 				<td><input type="button" value="글쓰기"
-					onclick="location.href='${conPath }/askWriteView.do'"
+					onclick="location.href='${conPath }/askWriteView.do?u_id=${users.u_id }&u_name=${users.u_name }'"
 					class="button is-link is-focused"> <input type="button"
 					value="목록" onclick="location.href='${conPath }/askListView.do'"
 					class="button is-link is-focused"></td>

@@ -9,19 +9,39 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.jr.studycafe.dao.UsersDao;
+import com.jr.studycafe.dto.Messanger;
 import com.jr.studycafe.dto.Users;
+import com.jr.studycafe.service.MessangerService;
+import com.jr.studycafe.service.StudygroupService;
 import com.jr.studycafe.service.UsersService;
+import com.jr.studycafe.util.Paging;
 
 @Controller
 public class UsersController {
 	@Autowired
 	private UsersService uService;
+	@Autowired
 	private UsersDao usersDao;
+	@Autowired
+	private MessangerService mService;
+	@Autowired
+	private StudygroupService sgService;
+	
+	@ModelAttribute
+	public String messageCnt(HttpSession session, Model model) {
+		if (session.getAttribute("users") != null) {
+			Users user = (Users) session.getAttribute("users");
+			String u_id = user.getU_id();			
+			model.addAttribute("msgcnt", mService.unReadMsgCnt(u_id));
+		}
+		return "main/header";
+	}
 	@RequestMapping(value = "main")
 	public String main() {
 		
@@ -85,38 +105,23 @@ public class UsersController {
 	@RequestMapping(value = "idfindView", method = RequestMethod.GET)
 	public String idfindView() {
 			
-	return"users/uidfind";
+	return"users/uidfind_view";
 	}
 	
-	
-	
-	// 아이디 찾기 
-		@RequestMapping(value = "idfind", method = RequestMethod.GET)
-		public String idfind(Model model, Users users) {
-			Users us = uService.u_getUsers(users.getU_id());
-			if(us.getU_name()!=null && !users.getU_name().equals("")) {
-				if(us!=null) {
-					if(us.getU_email().equals(users.getU_email())) {
-						model.addAttribute("u_name", users.getU_name());
-						model.addAttribute("resultuidfind", "아이디 검색 성공");
-						uService.u_idfind(users);
-						return "forward:uidfindConfirm.do";
-					}else {
-						model.addAttribute("resultEmail", "이메일을 확인하세요");
-						model.addAttribute("u_name", users.getU_name());
-						model.addAttribute("u_email", users.getU_email());
-						return "forward:idfindView.do";
-					}
-				}else {
-					model.addAttribute("resultName", "없는 이름입니다.");
-					model.addAttribute("u_name", users.getU_name());
-					return "forward:idfindView.do";
-				}
-			}else {
-				model.addAttribute("resultName", "이름을 입력하세요.");
-				return "forward:idfindView.do";
-			}
-		}
+	// 아이디 찾기
+	@RequestMapping(value = "idfind", method = RequestMethod.POST)
+	public String u_findId(String u_email, String u_name, HttpServletResponse response) throws IOException {
+	response.setCharacterEncoding("UTF-8");
+	PrintWriter out = response.getWriter();
+	if(usersDao.u_findId(u_email, u_name) == true) {
+		Users u = usersDao.u_getId(u_email, u_name);
+		String id= u.getU_id();
+		out.write("({'result':입력하신 정보와 일치하는 아이디는 " +id+"입니다.'})");
+	}else {
+		out.write("({'result': '입력하신 정보로 찾을 수 없습니다.'})");
+	}
+	return"users/login_view";
+	}
 	
 	// 비밀번호 찾기 뷰페이지
 	@RequestMapping(value = "pwfindView", method = RequestMethod.GET)
@@ -172,4 +177,71 @@ public class UsersController {
 			return "forward:modifyView";
 		}
 	}
+
+	//메신저 리스트
+	@RequestMapping(value="MessangerList", method = RequestMethod.GET)
+	public String MessangerList(Messanger messanger, String pageNum, HttpSession session, Model model) {
+		
+		int pageSize = 10;
+		int blockSize = 10;
+		Users users = (Users) session.getAttribute("users");
+		String u_id = users.getU_id();
+		System.out.println(u_id);
+		Paging paging = new Paging(mService.msgCnt(u_id), pageNum, pageSize, blockSize);
+		messanger.setStartRow(paging.getStartRow());
+		messanger.setEndRow(paging.getEndRow());
+		messanger.setM_reciever(u_id);
+		model.addAttribute("messages", mService.messangerList(messanger));
+		model.addAttribute("paging", paging);
+		return "users/message_list";
+	}
+	//메시지 확인
+	@RequestMapping(value="messageDetail", method = RequestMethod.GET)
+	public String messageDetail(int m_no, Model model) {
+		Messanger messanger = mService.messageDetail(m_no);
+		if (messanger.getM_status() == 2) {
+			mService.readMessage(m_no);			
+		}
+		model.addAttribute("message", messanger);
+		return "users/message_detail";
+	}
+	@RequestMapping(value="messageDelete", method = RequestMethod.GET)
+	public String messageDelete(String checked[], Model model) {
+		
+		if(mService.deleteMessage(checked) == 1) {
+			model.addAttribute("resultmsg", checked.length + " 개의 메시지를 성공적으로 삭제 했습니다.");
+		}else {
+			model.addAttribute("resultmsg", "메시지 삭제를 실패하였습니다.");			
+		}
+		
+		return "forward:MessangerList.do";
+	}
+	@RequestMapping(value="userMessagnerSendView", method=RequestMethod.GET)
+	public String userMessagnerSendView() {
+		
+		return "users/user_message";
+	}
+	@RequestMapping(value="userMessagnerSend", method=RequestMethod.POST)
+	public String userMessagnerSend(Messanger messanger, HttpSession session, Model model) {
+		Users users = (Users) session.getAttribute("users");
+		messanger.setM_sender(users.getU_id());
+		int result = mService.messangerSend(messanger);
+		if (result == 0) {
+			model.addAttribute("resultmsg", "수신자가 존재하지 않습니다.");
+			return "users/user_message";
+		}
+		return "redirect:MessangerList.do";
+	}
+	@RequestMapping(value="userProfile", method=RequestMethod.GET)
+	public String userProfile(String u_id, HttpSession session, Model model) {
+		model.addAttribute("groups", sgService.leader_studygroup_list(session));
+		model.addAttribute("user", uService.u_getUsers(u_id));
+		if (uService.boards_lists(uService.u_getUsers(u_id), model) == 1) {
+			
+		}else {
+			model.addAttribute("result", "게시물이 존재하지 않습니다.");			
+		}
+		return "users/user_profile";
+	}
+
 }
