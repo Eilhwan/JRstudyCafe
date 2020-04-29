@@ -62,16 +62,20 @@ public class StudygroupController {
 		
 	}
 	@RequestMapping(value="studygroupView", method = RequestMethod.GET)
-	public String studygroupView(int sg_no, Model model) {
+	public String studygroupView(int sg_no, Model model, HttpSession session) {
 		StudyBoard sb = new StudyBoard();
 		SbComment sc = new SbComment();
+		Studymember sm = new Studymember();
 		
 		sb.setSg_no(sg_no);
 		sb.setStartRow(1);
 		sb.setEndRow(3);
-
 		sc.setSg_no(sg_no);
+		sm.setSg_no(sg_no);
 		
+		
+		model.addAttribute("members", sgService.studymember_list(sg_no));
+		model.addAttribute("member", sgService.studymember_view(sm, session));
 		model.addAttribute("sg", sgService.studygroup_view(sg_no));
 		model.addAttribute("sm_cnt", sgService.studymember_cnt(sg_no));
 		model.addAttribute("notice", sbService.notice_sb(sb));
@@ -81,7 +85,7 @@ public class StudygroupController {
 		return "studygroup/studygroup_view";
 		
 	}
-	@RequestMapping(value="studygroupJoin", method = RequestMethod.GET)
+	@RequestMapping(value="studygroupJoin")
 	public String studygroupJoin(Studymember studymember, HttpSession session, Model model) {
 		Users users = (Users) session.getAttribute("users");
 		studymember.setU_id(users.getU_id());
@@ -92,8 +96,10 @@ public class StudygroupController {
 		
 	}
 	@RequestMapping(value="studyNotice", method = RequestMethod.GET)
-	public String studyNotice(StudyBoard studyBoard, Model model) {
+	public String studyNotice(StudyBoard studyBoard, Model model, HttpSession session, Studymember sm) {
 		model.addAttribute("notices", sbService.notice_sb(studyBoard));
+		model.addAttribute("member", sgService.studymember_view(sm, session));
+
 		return "studygroup/studygroup_notice";
 	}
 	@RequestMapping(value="studyNoticeDetail", method = RequestMethod.GET)
@@ -143,8 +149,10 @@ public class StudygroupController {
 		member.setSg_name(studygroup.getSg_name());
 		member.setU_id(users.getU_id());
 		member.setSm_status(5);
-		System.out.println(member);
 		sgService.studygroupOpen(studygroup, mRequest);
+		int sg_no = sgService.findWithsgname(studygroup.getSg_name()).getSg_no();
+		member.setSg_no(sg_no);
+		System.out.println(member);
 		sgService.studygroup_invite(member);
 		return "studygroup/studygroup_form";
 	}
@@ -157,6 +165,25 @@ public class StudygroupController {
 		}
 		model.addAttribute("comments", scService.list_sc(sc));
 		return "studygroup/s";
+	}
+	@RequestMapping(value="sbWriteView", method = RequestMethod.GET)
+	public String sbWriteView(int sg_no, Model model) {
+		model.addAttribute("sg", sgService.studygroup_view(sg_no));
+		return "studygroup/sb_write_view";
+	}
+	
+	@RequestMapping(value="sbWrite", method = RequestMethod.POST)
+	public String sbWrite(StudyBoard studyBoard, Model model, String sb_notice, HttpSession session) {
+		int sb_status = 1;
+		if (sb_notice == null) {
+			sb_status = 1;
+		
+		}else {
+			sb_status = 2;
+		}
+		studyBoard.setSb_status(sb_status);
+		sbService.write_sb(studyBoard, session);
+		return "studygroup/sb_write_view";
 	}
 	
 }

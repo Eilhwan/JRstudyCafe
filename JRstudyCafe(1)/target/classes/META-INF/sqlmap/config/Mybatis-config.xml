@@ -18,6 +18,7 @@
 		<typeAlias alias="Studymember" type="com.jr.studycafe.dto.Studymember"/>
 		<typeAlias alias="StudyBoard" type="com.jr.studycafe.dto.StudyBoard"/>
 		<typeAlias alias="SbComment" type="com.jr.studycafe.dto.SbComment"/>
+		<typeAlias alias="Book" type="com.jr.studycafe.dto.Book"/>
 		
 	</typeAliases>
 	<mappers>
@@ -34,5 +35,6 @@
 		<mapper resource="META-INF/sqlmap/mapper/FreeBoard.xml"/>
 		<mapper resource="META-INF/sqlmap/mapper/StudyBoard.xml"/>
 		<mapper resource="META-INF/sqlmap/mapper/SbComment.xml"/>
+		<mapper resource="META-INF/sqlmap/mapper/Book.xml"/>
 	</mappers>
 </configuration>

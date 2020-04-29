@@ -69,9 +69,24 @@ header {
 			<div>
 				<span><a>맴버 ${sm_cnt }</a> | <a ::before>리더 ${sg.u_id } </a></span>
 			</div>
-			<div>
-				<button class="join-btn">그룹 가입하기</button>
-			</div>
+			<c:if test="${not empty users }">
+				<c:if test="${member.u_id ne sessionScope.users.u_id }">
+					<div>
+						<button class="join-btn" id="join-btn">그룹 가입하기</button>
+					</div>
+				</c:if>
+				<c:if test="${member.u_id eq sessionScope.users.u_id }">
+					<div>
+						<button class="join-btn" id="write-btn">글 작성하기</button>
+					</div>
+				</c:if>
+			</c:if>
+			<c:if test="${empty users }">
+				<div>
+					<button class="join-btn" id="join-btn">그룹 가입하기</button>
+					<input type="hidden" id="login_status" value="1">
+				</div>
+			</c:if>
 		</div>
 		<div class="content-wrap midContent">
 			<div class="content-box">

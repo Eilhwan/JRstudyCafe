@@ -70,9 +70,24 @@ header {
 			<div>
 				<span><a>맴버 ${sm_cnt }</a> | <a ::before>리더 ${sg.u_id } </a></span>
 			</div>
-			<div>
-				<button class="join-btn">그룹 가입하기</button>
-			</div>
+			<c:if test="${not empty users }">
+				<c:if test="${member.u_id ne sessionScope.users.u_id }">
+					<div>
+						<button class="join-btn" id="join-btn">그룹 가입하기</button>
+					</div>
+				</c:if>
+				<c:if test="${member.u_id eq sessionScope.users.u_id }">
+					<div>
+						<button class="join-btn" id="write-btn">글 작성하기</button>
+					</div>
+				</c:if>
+			</c:if>
+			<c:if test="${empty users }">
+				<div>
+					<button class="join-btn" id="join-btn">그룹 가입하기</button>
+					<input type="hidden" id="login_status" value="1">
+				</div>
+			</c:if>
 		</div>
 		<div class="content-wrap midContent">
 			<div class="search-box">
@@ -191,25 +206,41 @@ header {
 	<script>
 		$(document).ready(function(){
 			$('#join-btn').click(function(){
-				var result = confirm('$정말로 {sg.sg_name} 그룹에 가입하시겠습니까?' );
-				if(result){
-
-				}else{ //yes
+				if($('#login_status').val() > 0){
+						alert('로그인 후에 이용해주세요.');
+						$(location).attr('href','${conPath}/loginView.do');
+					}else{
+						var result = confirm('정말로 ${sg.sg_name} 그룹에 가입하시겠습니까?' );
+						if(result){
+							$.ajax({
+								  type: 'POST',
+								  url: '${conPath}/studygroupJoin.do',
+								  dataType: 'html',
+								  data: 'u_id=${users.u_id}&sg_no=${param.sg_no}',
+								  success: function(data){
+									alert('가입 성공!');
+								  }
+								  
+								});
+						}else{ //yes
 				
-				}// no
+						}// no
+						}
 			});
+			//join-btn
+			
 			$('.comment-writer').click(function(){
 				if($('#'+sb_no+'content').text("")){
 					alert('댓글을 입력해주세요.');
 					return false;
 					}
 				var sb_no = $(this).attr('id').subString(0, $(this).attr('id').length - 3);
-				var c_content = $('#'+sb_no+'content').text();
+				var c_content = $('#'+$(this).attr('id').subString(0, $(this).attr('id').length - 3)+'content').text();
 				$.ajax({
 					url: "${conPath}/sbCommentWrite.do",
 					type : "POST",
 					dataType : "html",
-					data : "sb_no=" + sb_no + "&c_content=" + c_content + "&sg_no=" = "${param.sg_no}",
+					data : "sb_no=" + sb_no + "&c_content=" + c_content + "&sg_no=" + "${param.sg_no}",
 					success : function(data){
 						
 					}
@@ -247,10 +278,14 @@ header {
 					$('.modal').css('display', 'none');								     
 			    }
 			});
-			
+			$('#write-btn').click(function(){
+				$(location).attr('href','${conPath}/sbWriteView.do?sg_no=${param.sg_no}');
+				
+
+			});
+
 	
 		}); //jquery
-		
 	</script>
 </body>
 

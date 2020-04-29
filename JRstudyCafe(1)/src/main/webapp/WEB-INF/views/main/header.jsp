@@ -40,7 +40,7 @@
 						<li><a href="${conPath }/freeBoardList.do">자유게시판</a></li>
 						<li><a href="${conPath }/reviewListView.do">사용후기</a></li>
 						<li><a href="${conPath }/recruitBoard.do">스터디모집 게시판</a></li>
-						<li><a href="${conPath }/book.do">스터디룸 예약</a></li>
+						<li><a href="${conPath }/bookingView.do">스터디룸 예약</a></li>
 						<li><a href="${conPath }/askListView.do">Q&A</a></li>
 					</ul>
 					<ul class="user-menu">

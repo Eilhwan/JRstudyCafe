@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.jr.studycafe.dao.StudyBoardDao;
 import com.jr.studycafe.dto.StudyBoard;
+import com.jr.studycafe.dto.Users;
 
 @Service
 public class StudyBoardServiceImpl implements StudyBoardService {
@@ -34,8 +35,18 @@ public class StudyBoardServiceImpl implements StudyBoardService {
 
 	@Override
 	public int write_sb(StudyBoard studyBoard, HttpSession session) {
-		// TODO Auto-generated method stub
-		return 0;
+		if (session.getAttribute("users") == null) {
+			return 0;
+			
+		}else {
+			Users users = (Users) session.getAttribute("users");
+			String u_id = users.getU_id();
+			
+			studyBoard.setU_id(u_id);
+			
+			
+			return sbDao.write_sb(studyBoard);
+		}
 	}
 
 	@Override

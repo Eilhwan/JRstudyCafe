@@ -18,6 +18,18 @@
 			${notice.sb_content }
 		</div>
 		<div class="modal-footer">
+		<div class="comment-form">
+			<c:if test="${sessionScope.users.u_name ne null}">
+				<label class="id">${sessionScope.users.u_name }</label>
+				<div>
+					<textarea rows="5" cols="20" name="c_content" id="${sb.sb_no }content" placeholder="내용을 입력하세요."></textarea>
+					<button type="button" class="comment-writer" id="${sb.sb_no }cmt">등록</button>
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.users.u_name eq null}">
+				<h3>로그인 후에 이용해 주세요.</h3>
+			</c:if>
+		</div>
 			<c:forEach items="${comments }" var="sc">
 				<div id="comment_area">
 					<div class="comment_inner">

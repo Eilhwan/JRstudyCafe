@@ -13,4 +13,7 @@ public interface StudygroupDao {
 	public int studymember_cnt(int sg_no);
 	public int studygroup_invite(Studymember studymember);
 	public int dropout_member(String u_id);
+	public List<Studymember> studymember_list(int sg_no);
+	public Studymember studymember_view(Studymember studyMember);
+	public Studygroup findWithsgname(String sg_name);
 }

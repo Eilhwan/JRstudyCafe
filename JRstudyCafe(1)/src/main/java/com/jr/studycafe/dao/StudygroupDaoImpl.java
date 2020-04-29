@@ -50,4 +50,19 @@ public class StudygroupDaoImpl implements StudygroupDao {
 		return template.selectOne("studymember_cnt", sg_no);
 	}
 
+	@Override
+	public List<Studymember> studymember_list(int sg_no) {
+		return template.selectList("studymember_list", sg_no);
+	}
+
+	@Override
+	public Studymember studymember_view(Studymember studyMember) {
+		return template.selectOne("studymember_view", studyMember);
+	}
+
+	@Override
+	public Studygroup findWithsgname(String sg_name) {
+		return template.selectOne("findWithsgname", sg_name);
+	}
+
 }

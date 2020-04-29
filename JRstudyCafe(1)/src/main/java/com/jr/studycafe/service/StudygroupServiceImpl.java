@@ -141,6 +141,31 @@ public class StudygroupServiceImpl implements StudygroupService {
 		return sdao.studymember_cnt(sg_no);
 	}
 
+
+	@Override
+	public List<Studymember> studymember_list(int sg_no) {
+		return sdao.studymember_list(sg_no);
+	}
+
+
+	@Override
+	public Studymember studymember_view(Studymember studyMember, HttpSession session) {
+		Users user = (Users) session.getAttribute("users");
+		if (user == null) {
+			return studyMember;
+		}
+		String u_id = user.getU_id();
+		studyMember.setU_id(u_id);
+		return sdao.studymember_view(studyMember);
+		
+	}
+
+
+	@Override
+	public Studygroup findWithsgname(String sg_name) {
+		return sdao.findWithsgname(sg_name);
+	}
+
 	
 
 }

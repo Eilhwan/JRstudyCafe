@@ -12,10 +12,18 @@
  	<select id="studygroup_view" parameterType="int" resultType="Studygroup">
  		SELECT * FROM STUDYGROUP WHERE SG_NO = #{sg_no}
  	</select>
+ 	<select id="studymember_list" parameterType="int" resultType="StudyMember">
+ 		SELECT * FROM STUDYMEMBER WHERE SG_NO = #{sg_no}
+ 	</select>
+ 	<select id="studymember_view" parameterType="StudyMember" resultType="StudyMember">
+ 		SELECT * FROM STUDYMEMBER WHERE SG_NO = #{sg_no} AND U_ID = #{u_id}
+ 	</select>
  	<select id="studymember_cnt" parameterType="int" resultType="int">
  		SELECT COUNT(*) FROM STUDYMEMBER WHERE SG_NO = #{sg_no}
  	</select>
- 	
+ 	<select id="findWithsgname" parameterType="String" resultType="Studygroup">
+ 		SELECT *  FROM STUDYGROUP WHERE SG_NAME = #{sg_name}
+ 	</select>
  	<insert id="studygroup_open" parameterType="Studygroup">
  		INSERT INTO STUDYGROUP(SG_NO, SG_NAME, U_ID, SG_PERSON, SG_EXPLAIN, SG_IMG, ST_NO)
  		 VALUES(SG_NO_SQ.NEXTVAL, #{sg_name}, #{u_id}, 50, #{sg_explain}, #{sg_img}, #{st_no})
