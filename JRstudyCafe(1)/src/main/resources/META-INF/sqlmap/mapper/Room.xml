@@ -27,7 +27,7 @@
 		SELECT * FROM ROOM R, ROOMOPTION O WHERE R.R_NO = O.R_NO AND R.R_NO = #{r_no} AND R_STATUS > 0
 	</select>
 	<select id="room_list" parameterType="Room" resultMap="RoomMap">
-		SELECT * FROM (SELECT ROWNUM RN, R.* FROM (SELECT * FROM ROOM) R) M, ROOMOPTION O WHERE M.R_NO = O.R_NO AND RN BETWEEN #{startRow} AND #{endRow}
+		SELECT * FROM (SELECT ROWNUM RN, R.* FROM (SELECT * FROM ROOM) R) M, ROOMOPTION O WHERE M.R_NO = O.R_NO AND RN BETWEEN #{startRow} AND #{endRow} AND R_STATUS > 0
 	</select>
 	<select id="room_cnt" resultType="int">
 		SELECT COUNT(*) FROM ROOM WHERE R_STATUS > 0

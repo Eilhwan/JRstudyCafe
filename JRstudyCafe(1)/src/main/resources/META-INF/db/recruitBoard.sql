@@ -14,7 +14,7 @@ INSERT INTO RECRUITBOARD (RB_NO, RB_NAME, RB_CONTENT, RB_STATUS, RB_HIT, U_ID)
         VALUES(RB_SQ.NEXTVAL, 'TITLE', 'CONTENT', 1, 0, 'aaa');
 --COMMENT-WRITING
 INSERT INTO RECRUITCOMMENTS(C_NO, U_ID, C_CONTENT, C_STATUS, RB_NO)
-                        VALUES(RB_COM_SQ.NEXTVAL, 'sedongdong', 'COMMENT', 1, 2);
+                        VALUES(RB_COM_SQ.NEXTVAL, 'aaa', 'COMMENT', 1, 2);
 select count(*) from recruitcomments where rb_no = 1;                        
 --DETAIL
 SELECT * FROM RECRUITBOARD WHERE RB_NO = 1;

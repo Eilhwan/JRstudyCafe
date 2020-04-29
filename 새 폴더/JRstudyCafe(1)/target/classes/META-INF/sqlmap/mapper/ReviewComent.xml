@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewComent">
+	<resultMap type="ReviewComent" id="ReviewComentResult">
+		<result column="c_no" 		property="c_no"/>
+		<result column="c_content" 	property="c_content"/>
+		<result column="c_status"   property="c_status"/>
+		<result column="c_rdate"    property="c_rdate"/>
+		<result column="rv_no"      property="rv_no"/>
+		<result column="u_id"       property="u_id"/>
+		<result column="u_nickname" property="u_nickname"/>
+	</resultMap>
+	
+	<select id="rvcoment_list" parameterType="ReviewComent" resultMap="ReviewComentResult">	
+		SELECT * FROM (SELECT ROWNUM RN, A.* FROM 
+			(SELECT R.*, U.U_NICKNAME,U_IMAGE,U_NAME FROM RvComments R, USERS U WHERE R.U_ID= U.U_ID AND C_STATUS=1 AND RV_NO = #{rv_no} ORDER BY C_RDATE DESC)A) 
+			WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="rvcoment_cnt" parameterType="int" resultType="int">
+		SELECT COUNT(*)FROM RvComments WHERE C_STATUS=1 AND RV_NO = #{rv_no}
+	</select>
+	<insert id="rvcoment_write" parameterType="ReviewComent">
+		INSERT INTO RvComments (C_NO,C_CONTENT,C_STATUS,RV_NO,U_ID) 
+    		VALUES (RV_CNO_SQ.NEXTVAL, #{c_content}, 1, #{rv_no}, #{u_id})
+	</insert>
+	<update id="rvcoment_delete" parameterType="int">
+		UPDATE RvComments SET 
+        	C_STATUS = 0
+        	WHERE C_NO= #{c_no}
+	</update>
+	
+</mapper>

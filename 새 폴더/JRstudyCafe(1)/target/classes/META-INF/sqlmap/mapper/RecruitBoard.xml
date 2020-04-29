@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RecruitBoard">
+	<select id="list_rb" parameterType="RecruitBoard" resultType="RecruitBoard">
+		SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  FROM 
+		(SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="detail_rb" parameterType="int" resultType="RecruitBoard">
+		SELECT * FROM RECRUITBOARD WHERE RB_NO = #{rb_no} AND RB_STATUS > 0
+	</select>
+	<select id="cnt_rb" parameterType="RecruitBoard" resultType="int">
+		<if test="schItem == null">
+		SELECT COUNT(*) FROM RECRUITBOARD WHERE RB_STATUS > 0			
+		</if>
+		<if test="schItem == 1">
+		SELECT COUNT(*) FROM RECRUITBOARD WHERE U_ID LIKE '%'||#{schWord}||'%' AND RB_STATUS > 0		
+		</if>
+		<if test="schItem == 2">
+		SELECT COUNT(*) FROM RECRUITBOARD WHERE RB_NAME LIKE '%'||#{schWord}||'%' AND RB_STATUS > 0		
+		</if>
+		<if test="schItem == 3">
+		SELECT COUNT(*) FROM RECRUITBOARD WHERE RB_CONTENT LIKE '%'||#{schWord}||'%'
+		</if>
+		<if test="schItem == 4">
+		SELECT COUNT(*) FROM RECRUITBOARD WHERE RB_CONTENT LIKE '%'||#{schWord}||'%' OR RB_NAME LIKE '%'||#{schWord}||'%' AND RB_STATUS > 0		
+		</if>
+	</select>
+	<select id="search_rb" parameterType="RecruitBoard" resultType="RecruitBoard">
+		<if test="schItem == 1">
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE 
+			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
+			WHERE RN BETWEEN #{startRow} AND #{endRow} AND U_ID LIKE '%'||#{schWord}||'%'
+		</if>
+		<if test="schItem == 2">
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  
+			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
+			WHERE RN BETWEEN #{startRow} AND #{endRow} AND RB_NAME LIKE '%'||#{schWord}||'%'
+		</if>
+		<if test="schItem == 3">
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  
+			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
+			WHERE RN BETWEEN #{startRow} AND #{endRow} AND RB_CONTENT LIKE '%'||#{schWord}||'%'
+		</if>
+		<if test="schItem == 4">
+			SELECT RN, RB_NO, RB_NAME, RB_CONTENT, RB_HIT, U_ID, TO_CHAR(RB_RDATE, 'YYYY-MM-DD HH:MI:SS') RB_RDATE  
+			FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM RECRUITBOARD WHERE RB_STATUS > 0 ORDER BY RB_NO DESC) A) 
+			WHERE RN BETWEEN #{startRow} AND #{endRow} AND RB_CONTENT LIKE '%'|| #{schWord} ||'%' OR RB_NAME LIKE '%'||#{schWord}||'%'
+		</if>
+	</select>
+	<update id="modify_rb" parameterType="RecruitBoard">
+		UPDATE RECRUITBOARD 
+		SET RB_NAME = #{rb_name}, RB_CONTENT = #{rb_content}, RB_RDATE = SYSTIMESTAMP - INTERVAL '1' minute 
+		WHERE RB_NO = #{rb_no}
+	</update>
+	<update id="delete_rb" parameterType="int">
+		UPDATE RECRUITBOARD SET RB_STATUS = 0 WHERE RB_NO = #{rb_no}
+	</update>
+	<update id="hit_rb" parameterType="int">
+		UPDATE RECRUITBOARD SET RB_HIT = RB_HIT + 1 WHERE RB_NO = #{rb_no}
+	</update>
+	<insert id="write_rb" parameterType="RecruitBoard">
+		INSERT INTO RECRUITBOARD (RB_NO, RB_NAME, RB_CONTENT, RB_STATUS, RB_HIT, U_ID)
+        VALUES(RB_SQ.NEXTVAL, #{rb_name}, #{rb_content}, 1, 0, #{u_id})
+	</insert>
+	<select id="user_rb_post" parameterType="Users" resultType="RecruitBoard">
+		select * from RECRUITBOARD WHERE U_ID = #{u_id} AND RB_STATUS > 0 ORDER BY rb_rdate DESC
+	</select>
+</mapper>

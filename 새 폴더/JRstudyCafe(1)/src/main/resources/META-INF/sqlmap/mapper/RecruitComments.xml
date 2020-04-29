@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="RecruitComments">
+    	<select id="list_rb_co" parameterType="int" resultType="RecruitComments">
+    		SELECT C_NO, U_ID, C_CONTENT, TO_CHAR(C_RDATE, 'YY-MM-DD HH:MI:SS') c_rdate 
+    		FROM RECRUITCOMMENTS WHERE RB_NO = #{rb_no} AND C_STATUS > 0
+    	</select>
+    	<select id="cnt_rb_co" parameterType="int" resultType="int">
+    		SELECT COUNT(*) FROM RECRUITCOMMENTS WHERE RB_NO = #{RB_NO} AND C_STATUS > 0
+    	</select>
+    	<insert id="write_rb_co" parameterType="RecruitComments">
+    		INSERT INTO RECRUITCOMMENTS(C_NO, U_ID, C_CONTENT, C_STATUS, RB_NO)
+            VALUES(RB_COM_SQ.NEXTVAL, #{u_id}, #{c_content}, 1, #{rb_no})
+    	</insert>
+    	<update id="modify_rb_co" parameterType="RecruitComments">
+    		UPDATE RECRUITCOMMENTS 
+    		SET C_CONTENT = #{c_content}, C_RDATE = SYSTIMESTAMP - INTERVAL '1' minute 
+    		WHERE C_NO = #{c_no}
+    	</update>
+    	<update id="delete_rb_co" parameterType="RecruitComments">
+    		UPDATE RECRUITCOMMENTS SET C_STATUS = 0 WHERE C_NO = #{c_no}
+    	</update>
+    </mapper>

@@ -136,9 +136,9 @@ SELECT * FROM FreeBoard;
 CREATE SEQUENCE fb_no MAXVALUE 9999999999 NOCYCLE NOCACHE;
 -- 1. 글쓰기
 INSERT INTO FreeBoard (fb_no, fb_name, fb_content, fb_status, fb_hit, u_Id, a_id) 
-    VALUES (fb_no.NEXTVAL, '자유게시판이름','자유게시판내용',1,0,'user',NULL);
+    VALUES (fb_no.NEXTVAL, '자유게시판이름','자유게시판내용',1,0,'aaa',NULL);
 INSERT INTO FreeBoard (fb_no, fb_name, fb_content, fb_status, fb_hit, u_Id, a_id) 
-    VALUES (fb_no.NEXTVAL, '자유게시판이름2','자유게시판내용2',0,0,'user',NULL);
+    VALUES (fb_no.NEXTVAL, '자유게시판이름2','자유게시판내용2',0,0,'aaa',NULL);
 INSERT INTO FreeBoard (fb_no, fb_name, fb_content, fb_status, fb_hit, u_Id, a_id) 
     VALUES (fb_no.NEXTVAL, '자유게시판이름2','자유게시판내용2',-1,0,NULL,'admin');
 -- 2. 글갯수

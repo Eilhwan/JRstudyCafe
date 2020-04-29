@@ -27,7 +27,7 @@ CREATE TABLE Room (
 		r_status NUMBER(1) DEFAULT 1 NOT NULL
 );
 INSERT INTO room(r_no, r_name, r_ppr, r_pph)
-        values(ROOM_SEQ.nextval, '��ù�', 4, 5000);  
+        values(ROOM_SEQ.nextval, '805호', 4, 5000);  
 
 
 -- ����Ʈ ���
@@ -43,7 +43,13 @@ INSERT INTO room(r_no, r_name, r_ppr, r_pph)
  INSERT INTO BOOK (bk_no, bk_date, bk_stime, bk_tp, bk_tt, bk_etime, u_id, r_no)
           values (book_seq.nextval, to_date('20200424', 'YYYY-MM-DD'), to_timestamp('2020/04/24/14'), 10000, 2, to_timestamp('2020-04-24 18:00:00'), 'aaa', 3); 
 INSERT INTO BOOK (bk_no, bk_date, bk_stime, bk_tp, bk_tt, bk_etime, u_id, r_no)
-          values (book_seq.nextval, to_date('20200424', 'YYYY-MM-DD'), to_timestamp('2020-04-24 12:00:00'), 10000, 2, to_timestamp('2020-04-24 14:00:00'), 'aaaaa', 3); 
+          values (book_seq.nextval, to_date('2020-04-30', 'YYYY-MM-DD'), to_timestamp('2020-04-30 12:00:00'), 10000, 2, to_timestamp('2020-04-30 14:00:00'), 'aaa', 3);
+INSERT INTO BOOK (bk_no, bk_date, bk_stime, bk_tp, bk_tt, bk_etime, u_id, r_no)
+          values (book_seq.nextval, to_date('2020-05-01', 'YYYY-MM-DD'), to_timestamp('2020-05-01 12:00:00'), 10000, 2, to_timestamp('2020-05-01 14:00:00'), 'aaa', 3);
+INSERT INTO BOOK (bk_no, bk_date, bk_stime, bk_tp, bk_tt, bk_etime, u_id, r_no)
+          values (book_seq.nextval, to_date('2020-05-02', 'YYYY-MM-DD'), to_timestamp('2020-05-02 12:00:00'), 10000, 2, to_timestamp('2020-05-02 14:00:00'), 'aaa', 3);
+INSERT INTO BOOK (bk_no, bk_date, bk_stime, bk_tp, bk_tt, bk_etime, u_id, r_no)
+          values (book_seq.nextval, to_date('2020-05-03', 'YYYY-MM-DD'), to_timestamp('2020-05-03 12:00:00'), 10000, 2, to_timestamp('2020-05-03 14:00:00'), 'aaa', 3);
 -- �󼼺���
  select * from book where r_no=3;
 -- �����ϱ�

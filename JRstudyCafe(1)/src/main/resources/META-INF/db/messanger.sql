@@ -14,7 +14,7 @@ CREATE TABLE Messanger (
 		m_status NUMBER(1) NOT NULL,
 		m_reciever VARCHAR2(50),
 		m_sender VARCHAR2(50) NOT NULL,
-         m_sendtime varchar2(50) default sysdate
+        m_sendtime varchar2(50) default sysdate
 );
 CREATE SEQUENCE M_NO_SQ;
 --메시지 전송

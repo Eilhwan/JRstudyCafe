@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SbComment">
+	<select id="get_sc" parameterType="int" resultType="SbComment">
+		SELECT SC.*, U_NAME, U_IMAGE 
+		FROM SB_COMMENT SC, USERS U 
+		WHERE C_STATUS > 0 AND SC_NO = #{sc_no} AND SC.U_ID = U.U_ID
+	</select>
+	<select id="list_sc" parameterType="SbComment" resultType="SbComment">
+		SELECT * 
+		FROM (SELECT ROWNUM RN, A.* 
+		FROM (SELECT SC.*, U.U_NAME, U.U_IMAGE FROM SB_COMMENT SC, USERS U
+		WHERE C_STATUS > 0 AND SG_NO = #{sg_no} ORDER BY C_RDATE DESC) A)
+	</select>
+	<select id="detail_sc" parameterType="int" resultType="SbComment">
+		SELECT * FROM SB_COMMENT sb, users u 
+		WHERE SB_NO = #{sb_no} AND C_STATUS > 0 and sb.u_id = u.u_id
+	</select>
+	<select id="cnt_sc" parameterType="int" resultType="int">
+		SELECT COUNT(*) 
+		FROM SB_COMMENT 
+		WHERE SB_NO = #{sb_no} AND C_STATUS > 0
+	</select>
+	<insert id="write_sc">
+		INSERT INTO SB_COMMENT (SC_NO, U_ID, C_CONTENT, SB_NO, SG_NO)
+            VALUES(SC_NO_SQ.NEXTVAL, #{u_id}, #{c_content}, #{sb_no}, #{sg_no})
+	</insert>
+	<update id="modify_sc" parameterType="SbComment">
+		UPDATE SB_COMMENT 
+		SET C_CONTENT = #{c_content}, C_RDATE = SYSTIMESTAMP 
+		WHERE SC_NO = #{sc_no}
+	</update>
+	<update id="delete_sc" parameterType="int">
+		UPDATE SB_COMMENT SET C_STATUS = 0 
+		WHERE SC_NO = #{sc_no}
+	</update>
+	
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="Studygroup">
+ 	<select id="user_studygroup_list" parameterType="String" resultType="Studygroup">
+ 		SELECT * FROM STUDYGROUP SG, STUDYMEMBER SM WHERE SG.SG_NO = SM.SG_NO AND SM.U_ID = #{u_id}
+ 	</select>
+ 	<select id="leader_studygroup_list" parameterType="String" resultType="Studygroup">
+ 		SELECT * FROM STUDYGROUP SG, USERS U WHERE SG.U_ID = U.U_ID AND U.U_ID = #{u_id}
+ 	</select>
+ 	<select id="studygroup_view" parameterType="int" resultType="Studygroup">
+ 		SELECT * FROM STUDYGROUP WHERE SG_NO = #{sg_no}
+ 	</select>
+ 	<select id="studymember_cnt" parameterType="int" resultType="int">
+ 		SELECT COUNT(*) FROM STUDYMEMBER WHERE SG_NO = #{sg_no}
+ 	</select>
+ 	
+ 	<insert id="studygroup_open" parameterType="Studygroup">
+ 		INSERT INTO STUDYGROUP(SG_NO, SG_NAME, U_ID, SG_PERSON, SG_EXPLAIN, SG_IMG, ST_NO)
+ 		 VALUES(SG_NO_SQ.NEXTVAL, #{sg_name}, #{u_id}, 50, #{sg_explain}, #{sg_img}, #{st_no})
+ 	</insert>
+ 	<insert id="studygroup_invite" parameterType="Studymember">
+ 		<if test="sm_status == 5">
+	 		INSERT INTO STUDYMEMBER(SM_NO, U_ID, SG_NO, SM_STATUS)
+	                VALUES (SM_NO_SQ.NEXTVAL, #{u_id}, ${sg_no}, 5)
+ 		</if>
+ 		<if test="sm_status == 1">
+	 		INSERT INTO STUDYMEMBER(SM_NO, U_ID, SG_NO, SM_STATUS)
+	                VALUES (SM_NO_SQ.NEXTVAL, #{u_id}, ${sg_no}, 1)
+ 		</if>
+ 	</insert> 
+ 	<delete id="dropout_member" parameterType="String">
+ 		DELETE FROM STUDYMEMBER WHERE U_ID = #{u_id}
+ 	</delete>
+ </mapper>
