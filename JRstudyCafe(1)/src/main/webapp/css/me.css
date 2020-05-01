@@ -1,0 +1,36 @@
+body{
+    background-color: #ccc;
+}
+.messanger-table{
+    margin: 10px;
+    
+}
+.messanger-table tr{
+    margin: 10px;
+}
+.messanger-table td{
+    margin-bottom: 10px;
+}
+.messanger-table input[type=text]{
+    width: 100%;
+    padding: 5px;
+    border: none;
+}
+.messanger-table textarea{
+    border: none;
+    width: 100%;
+    height: 150px;
+    resize: none;
+    padding: 5px;
+}
+.btn-send{
+    position: relative;
+    left: 0;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    width: 50%;
+    height: 30px;
+    font-weight: bold;
+    
+}

@@ -20,6 +20,7 @@ $(function() {
 });
 </script>
 <link rel="stylesheet" href="${conPath }/css/bulma.css">
+<link rel="stylesheet" href="${conPath }/css/me.css">
 </head>
 <body>
 <c:if test="${not empty resultmsg}">
@@ -40,7 +41,7 @@ $(function() {
             });
       </script>
 	<form action="${conPath }/userMessagnerSend.do" method="post">
-	<table>
+	<table class="messanger-table">
 		<tr>
 			<th>제목</th>
 			<td><input type="text" name="m_title"></td>
@@ -56,7 +57,7 @@ $(function() {
 		<tr>
 
 			<td><span id="counter">###</span></td>
-			<td><input type="submit" value="메시지 전송"></td>
+			<td class="btn-wrap"><input type="submit" value="메시지 전송" class="btn-send"></td>
 		</tr>
 	</table>
 	</form>
