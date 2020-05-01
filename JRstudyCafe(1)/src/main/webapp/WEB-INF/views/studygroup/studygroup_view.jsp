@@ -149,7 +149,7 @@ header {
 					<div class="content-line">
 						<pre>${sb.sb_content }</pre>
 						<div>
-							♥ 5 댓글 10<span>▼</span> 공유 1
+							댓글 10<span>▼</span> 공유 1
 						</div>
 						<div class="btn" style="border-bottom: 1px solid #ccc">공유하기</div>
 					</div>

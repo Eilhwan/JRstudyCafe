@@ -114,7 +114,7 @@ public class StudygroupController {
 	public String studyIntro(int sg_no, Model model) {
 		model.addAttribute("sg", sgService.studygroup_view(sg_no));
 		return "studygroup/studygroup_intro";
-	}
+	}	
 	
 	@RequestMapping(value="sbList", method = RequestMethod.GET)
 	public String sbList(String pageNum, int sg_no, Model model) {
