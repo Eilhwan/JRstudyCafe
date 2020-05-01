@@ -161,4 +161,9 @@ public class RoomServiceImpl implements RoomService {
 		}
 		return isCopy;
 	}
+	@Override
+	   public List<Room> room_booklist() {
+	      
+	      return rdao.room_booklist();
+	   }
 }

@@ -8,6 +8,8 @@ public interface BookDao {
 	public List<Book> bookList(Book book);
 	public List<Book> bookList_present(Book book);
 	public List<Book> bookList_past(Book book);
+	public int bookcnt_present(String u_id);
+	public int bookcnt_past(String u_id);
 	public int bookcnt(Book book);
 	public int booking(Book book);
 	public Book book_detail(int bk_no);

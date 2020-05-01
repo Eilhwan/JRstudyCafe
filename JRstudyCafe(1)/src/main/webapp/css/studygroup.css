@@ -72,6 +72,11 @@ body{
 	border-bottom: 1px solid #ccc;
 
 	}
+.notice-line-none{
+	
+	border-bottom: 1px solid #ccc;
+
+	}
 .notice-line:last-child{
 	border-bottom: none;
 }
@@ -173,4 +178,23 @@ color:gray;
     background-color: transparent;
     border-radius: 0;
     cursor: pointer;
+}
+.textarea{
+ width: 95%;
+ resize: none;
+ margin: 10px;
+}
+.id{
+	color: #ccc;
+	font-weight: bold;
+	margin: 10px;
+}
+.comment-writer{
+	width: 100px;
+	border: none;
+	background-color: #ccc;
+	color: #fff;
+	height: 40px;
+	line-height: 40px;
+	margin: 10px;
 }

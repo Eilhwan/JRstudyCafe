@@ -111,7 +111,7 @@ header {
 				</div>
 				<div class="content-line" id="notice-box">
 					<c:if test="${empty notice }">
-						<h4 class="notice-line">등록된 공지사항이 없습니다.</h4>
+						<h4 class="notice-line-none">등록된 공지사항이 없습니다.</h4>
 					</c:if>
 					<c:forEach items="${notice }" var="no">
 						<h4 class="notice-line" id="${no.sb_no }">${no.sb_title }</h4>
@@ -126,7 +126,7 @@ header {
 			<c:if test="${empty list }">
 				<div class="content-box">
 					<div class="content-line" id="notice-box">
-						<h4 class="notice-line">새 글이 없습니다. 어서 작성해보세요!</h4>
+						<h4 class="notice-line-none">새 글이 없습니다. 어서 작성해보세요!</h4>
 					</div>
 				</div>
 			</c:if>
@@ -158,7 +158,7 @@ header {
 							<c:if test="${sessionScope.users.u_name ne null}">
 								<label class="id">${sessionScope.users.u_name }</label>
 								<div>
-									<textarea rows="5" cols="20" name="c_content" id="${sb.sb_no }content" placeholder="내용을 입력하세요."></textarea>
+									<textarea rows="5" cols="20" name="c_content" id="${sb.sb_no }content" placeholder="내용을 입력하세요." class="textarea"></textarea>
 									<button type="button" class="comment-writer" id="${sb.sb_no }cmt">등록</button>
 								</div>
 							</c:if>
@@ -230,12 +230,12 @@ header {
 			//join-btn
 			
 			$('.comment-writer').click(function(){
-				if($('#'+sb_no+'content').text("")){
+				var sb_no = $(this).attr('id').subString(0, $(this).attr('id').length - 3);
+				var sb_no_content = ('#')+sb_no + "content";
+				if($(sb_no_content).text("")){
 					alert('댓글을 입력해주세요.');
 					return false;
 					}
-				var sb_no = $(this).attr('id').subString(0, $(this).attr('id').length - 3);
-				var c_content = $('#'+$(this).attr('id').subString(0, $(this).attr('id').length - 3)+'content').text();
 				$.ajax({
 					url: "${conPath}/sbCommentWrite.do",
 					type : "POST",

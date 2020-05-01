@@ -1,0 +1,111 @@
+@charset "UTF-8";
+#wrap {
+	height:1700px;
+	overflow:hidden;
+	background-color: #f5f5f5;
+}
+.gray {
+	float:left;
+	background-color: #f5f5f5;
+	width:12%;
+	height:1700px;
+}
+.join {
+	float:left;
+	width:76%;
+	margin:0 auto;
+	height:1700px;
+	background-color: white;
+	padding-top : 90px;
+}
+#join_span {
+	margin-left:300px;
+}
+#caption {
+	padding-bottom:5px;
+	font-size:2.3em;
+	margin-bottom:20px;
+	width: 1100px;
+	margin : 0 auto;
+}
+#info {
+	width: 1100px;
+	margin : 0 auto;
+}
+#info caption {
+	width: 1100px;
+	text-align: left;
+	padding:5px;
+	border-bottom: 1px solid black;
+	margin:50px 0 5px 0;
+}
+#caption_big {
+	font-weight: bold;
+	font-size:1.3em;
+}
+#caption_small {
+	color:red;
+	font-weight: bold;
+}
+#info tr {
+	width: 1100px;
+}
+#info td,th {
+ 	border-bottom: 1px dotted #cccccc; 
+}
+#info th {
+	text-align: left;
+}
+#info tr td:not(.not_height), #info tr th:not(.not_height) {
+	height:75px;
+	padding:15px;
+	font-weight: bold;
+	color:gray;
+	line-height: 75px;
+}
+.not_height {
+	height:140px;
+	padding:15px;
+	font-weight: bold;
+	color:gray;
+	line-height:70px;
+}
+#info tr th b {
+	color:red;
+	font-weight: bold;
+}
+#info input[type="text"], #info input[type="password"],#info input[type="tel"],#info input[type="email"],#info input[type="date"]{
+	width:350px;
+	height:32px;
+	padding-left:10px;
+	color:darkgray;
+	background-color: #f0f0f0;
+	border: 0;
+	outline:0;
+}
+#info input[type="text"]:focus,#info input[type="password"]:focus,#info input[type="tel"]:focus,#info input[type="email"]:focus, #info input[type="date"]:focus {
+	background-color: white;
+	border: 1px solid red;
+	outline:0;
+}  
+.subtn {
+	width:380px;
+	margin:0 auto;
+}
+.resetbtn, .joinbtn {
+	width:180px;
+	height:50px;
+	color:white;
+	font-weight: bold;
+	font-size:1.1em;
+	border:none;
+}
+.resetbtn {
+	background-color: black;
+}
+.joinbtn {
+	background-color: red;
+}
+.ext_btn {
+	height: 40px;
+}

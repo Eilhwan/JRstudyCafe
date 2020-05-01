@@ -220,7 +220,7 @@ ul {
 			var bk_date =$("#datepicker").val();
 				if(roomname == '방선택'){
 					roomname = '';
-				}   
+				}
 	   			$.ajax({
 				   	url : '${conPath }/bookingViewList.do',
 					dataType : "html",
@@ -268,7 +268,7 @@ ul {
 			var bk_date =$("#datepicker").val();
 			if(roomname == '방선택'){
 				roomname = '';
-			} 
+			}
 			if(bk_date!=''){
 				$.ajax({
 				   	url : '${conPath }/bookingViewList.do',
@@ -311,6 +311,7 @@ ul {
 			var bk_stime = bk_date+' '+stime+":00:00";
 			var bk_etime = bk_date+' '+etime+":00:00";
 			var r_no = $('#r_no').val();
+			
 			if($("#r_no").val()==''){
 				alert('방을 선택하세요');
 				$("#r_no").css({
@@ -340,11 +341,11 @@ ul {
 				return false;
 			}
 			alert("시작시간"+bk_stime+"/종료시간"+bk_etime);
-			location.href='${conPath}/booking.do?bk_date='+bk_date+'&bk_stime='+bk_stime+'&bk_etime='+bk_etime+'&r_no='+r_no+'&bk_no='+bk_no;
+			location.href='${conPath}/booking.do?bk_date='+bk_date+'&bk_stime='+bk_stime+'&bk_etime='+bk_etime+'&r_no='+r_no;
 	    });
 		$('#r_no').change(function(){
 
-			});	   
+			});
 	} );//ready함수
 	  </script>
 </head>
@@ -361,9 +362,9 @@ ul {
 				<ul>
 					<li class="step_ov"><b>STEP1</b> <br><span>이용인원 및 날짜선택</span></li>
 					<li class="step_arrow"> &gt; </li>
-					<li class="step_off"><b>STEP2</b> <br><span>이용정보입력 및 비용결제</span></li>
+					<li class="step_off"><b>STEP2</b> <br><span>선택사항 확인 및 예약</span></li>
 					<li class="step_arrow"> &gt; </li>
-					<li class="step_off"><b>예약완료</b> <br><span>예약안내메일 수신</span></li>
+					<li class="step_off"><b>예약완료</b> <br><span></span></li>
 				</ul>
 	</div>
 	<div class="book_noti01">
@@ -383,9 +384,18 @@ ul {
 	<div class="book_table">
 	<h2 style="border:none">STEP1.이용일시 및 인원선택</h2>
 	<form action="bookView.do">
-	
+	<input type="hidden" value="bk_no">
 	<table>
 		<tbody>
+		    
+		    <tr>
+		    	<td class="td1">
+		    		예약자
+		    	</td>
+		    	<td>
+		    	<input type="text" name="u_name" readonly="readonly" value="${users.u_name }">
+		    	</td>
+		    </tr>
 			<tr>
 				<td class="td1">
 					스터디룸

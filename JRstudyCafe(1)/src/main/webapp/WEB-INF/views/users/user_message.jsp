@@ -20,7 +20,7 @@ $(function() {
 });
 </script>
 <link rel="stylesheet" href="${conPath }/css/bulma.css">
-<link rel="stylesheet" href="${conPath }/css/me.css">
+
 </head>
 <body>
 <c:if test="${not empty resultmsg}">
@@ -41,23 +41,23 @@ $(function() {
             });
       </script>
 	<form action="${conPath }/userMessagnerSend.do" method="post">
-	<table class="messanger-table">
+	<table class="table is-fullwidth">
 		<tr>
 			<th>제목</th>
-			<td><input type="text" name="m_title"></td>
+			<td><input type="text" name="m_title" class="input"></td>
 		</tr>
 		<tr>
 			<th>수신자</th>
-			<td><input type="text" name="m_reciever" value="${param.u_id }"></td>
+			<td><input type="text" name="m_reciever" value="${param.u_id }" class="input"></td>
 		</tr>
 		<tr>
 			<th>본문</th>
-			<td><textarea rows="20" cols="5" maxlength="160" id="content" name="m_content"></textarea> </td>
+			<td><textarea rows="20" cols="5" maxlength="160" id="content" name="m_content" class="textarea" style="resize: none; overflow: scroll;"></textarea> </td>
 		</tr>
 		<tr>
 
 			<td><span id="counter">###</span></td>
-			<td class="btn-wrap"><input type="submit" value="메시지 전송" class="btn-send"></td>
+			<td class="btn-wrap"><input type="submit" value="메시지 전송" class="button is-dark"></td>
 		</tr>
 	</table>
 	</form>

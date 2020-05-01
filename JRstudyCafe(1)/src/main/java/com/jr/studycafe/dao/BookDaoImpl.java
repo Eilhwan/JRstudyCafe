@@ -21,6 +21,16 @@ public class BookDaoImpl implements BookDao {
 	public int bookcnt(Book book) {
 		return template.selectOne("bookcnt", book);
 	}
+	
+	@Override
+	public int bookcnt_present(String u_id) {
+		return template.selectOne("bookcnt_present", u_id);
+	}
+	
+	@Override
+	public int bookcnt_past(String u_id) {
+		return template.selectOne("bookcnt_past", u_id);
+	}
 
 	@Override
 	public int booking(Book book) {

@@ -13,5 +13,5 @@ public interface RoomDao {
 	public int room_modify(Room room);
 	public int room_option_modify(Room room);
 	public int room_delete(int r_no);
-	
+	public List<Room> room_booklist();
 }

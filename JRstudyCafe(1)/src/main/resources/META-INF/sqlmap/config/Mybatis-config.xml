@@ -19,7 +19,6 @@
 		<typeAlias alias="StudyBoard" type="com.jr.studycafe.dto.StudyBoard"/>
 		<typeAlias alias="SbComment" type="com.jr.studycafe.dto.SbComment"/>
 		<typeAlias alias="Book" type="com.jr.studycafe.dto.Book"/>
-		
 	</typeAliases>
 	<mappers>
 		<mapper resource="META-INF/sqlmap/mapper/Users.xml"/>

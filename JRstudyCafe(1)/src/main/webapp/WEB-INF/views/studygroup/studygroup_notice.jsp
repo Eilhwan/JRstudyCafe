@@ -131,6 +131,53 @@ header {
 		</div>
 	</div>
 	<script>
+		$(document).ready(function(){
+			$('#join-btn').click(function(){
+				if($('#login_status').val() > 0){
+						alert('로그인 후에 이용해주세요.');
+						$(location).attr('href','${conPath}/loginView.do');
+					}else{
+						var result = confirm('정말로 ${sg.sg_name} 그룹에 가입하시겠습니까?' );
+						if(result){
+							$.ajax({
+								  type: 'POST',
+								  url: '${conPath}/studygroupJoin.do',
+								  dataType: 'html',
+								  data: 'u_id=${users.u_id}&sg_no=${param.sg_no}',
+								  success: function(data){
+									alert('가입 성공!');
+								  }
+								  
+								});
+						}else{ //yes
+				
+						}// no
+						}
+			});
+			//join-btn
+			
+			$('.comment-writer').click(function(){
+				if($('#'+sb_no+'content').text("")){
+					alert('댓글을 입력해주세요.');
+					return false;
+					}
+				var sb_no = $(this).attr('id').subString(0, $(this).attr('id').length - 3);
+				var c_content = $('#'+$(this).attr('id').subString(0, $(this).attr('id').length - 3)+'content').text();
+				$.ajax({
+					url: "${conPath}/sbCommentWrite.do",
+					type : "POST",
+					dataType : "html",
+					data : "sb_no=" + sb_no + "&c_content=" + c_content + "&sg_no=" + "${param.sg_no}",
+					success : function(data){
+						
+					}
+				});
+			});
+				
+		});
+	</script>
+	<script>
+	
 		$(function(){
 			$('.content-box').click(function(){
 				var sb_no = $(this).attr('id');

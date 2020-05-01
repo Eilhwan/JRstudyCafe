@@ -28,7 +28,8 @@
 
 	});
 	function trClicked(ab_no, writer) {
-		location.href = '${conPath}/askContent.do?ab_no=' + ab_no+'&writer='+writer;
+		location.href = '${conPath}/askContent.do?ab_no=' + ab_no + '&writer='
+				+ writer;
 	}
 </script>
 <style>
@@ -49,7 +50,9 @@
 	border: 1px solid lightgray;
 }
 
-.left{text-align: left;}
+.left {
+	text-align: left;
+}
 
 caption {
 	font-size: 1.8em;
@@ -61,11 +64,39 @@ table {
 	margin: 10px auto;
 }
 
-table:not (#table_bottom ) {
-	border-bottom: 2px solid black;
-	border-top: 2px solid black;
-}
+table
+:not
+ 
+(
+#table_bottom
+ 
+)
+{
+border-bottom
+:
+ 
+2
+px
+ 
+solid
+ 
+black
+;
 
+	
+border-top
+:
+ 
+2
+px
+ 
+solid
+ 
+black
+;
+
+
+}
 #content_hole {
 	height: 120px;
 	background-image: url('images/mainslide_02.jpg');
@@ -113,24 +144,37 @@ input[type='submit'] {
 	background-color: #998675;
 	border-color: #c7b299;
 }
+
 .subtap2 {
-    width: 1200px;
-    margin: 0 auto;
+	width: 1200px;
+	margin: 0 auto;
 }
+
 .subtap2 ul {
-    margin: 70px 0 30px 0;
-    overflow: hidden;
-    padding: 0;
+	margin: 70px 0 30px 0;
+	overflow: hidden;
+	padding: 0;
 }
+
+.subtap2 .on {
+	padding: 20px 0 0 0;
+	border: 2px solid #ffb400;
+	text-align: center;
+	color: #333;
+	width: 245px;
+	height: 63px;
+	font-weight: bold;
+}
+
 .subtap2 li {
-    padding: 20px 0 0 0;
-    color: #999999;
-    font-size: 18px;
-    float: left;
-    border: 2px solid #d6d6d6;
-    text-align: center;
-    width: 245px;
-    height: 63px;
+	padding: 20px 0 0 0;
+	color: #999999;
+	font-size: 18px;
+	float: left;
+	border: 2px solid #d6d6d6;
+	text-align: center;
+	width: 245px;
+	height: 63px;
 }
 #998675
 </style>
@@ -155,19 +199,18 @@ input[type='submit'] {
 				</p>
 			</footer>
 		</div>
-		 <div class="subtap2">
+		<div class="subtap2">
 			<ul>
-				<li style="cursor:Pointer; width:230px;" class="" onclick="location.href='${conPath }/bookListView_present.do">예약내역</li>
-				<li style="cursor:Pointer; width:230px;" class="on" onclick="document.location.href = '/order/Order.List.php?dateType=regDate&amp;date1=2020-02-27&amp;date2=2020-04-27&amp;valueType=&amp;value=&amp;status=completed';">과거이용내역</li>
-				<li style="cursor:Pointer; width:230px;" class="" onclick="document.location.href = '/order/Order.List.php?dateType=regDate&amp;date1=2020-02-27&amp;date2=2020-04-27&amp;valueType=&amp;value=&amp;status=cancel_pending';">취소신청내역</li>
-				<li style="cursor:Pointer; width:230px;" class="" onclick="document.location.href = '/order/Order.List.php?dateType=regDate&amp;date1=2020-02-27&amp;date2=2020-04-27&amp;valueType=&amp;value=&amp;status=canceled';">취소완료내역</li>
-				<li style="cursor:Pointer; width:230px;" class="" onclick="document.location.href = '/order/Order.List.php?dateType=regDate&amp;date1=2020-02-27&amp;date2=2020-04-27&amp;valueType=&amp;value=&amp;status=pending';">미결제내역</li>
+				<li style="cursor: Pointer; width: 230px;" class=""><a
+					href="${conPath }/bookListView_present.do"> 예약내역 </a></li>
+				<li style="cursor: Pointer; width: 230px;" class="on"><a
+					href="${conPath }/bookListView_past.do"> 과거이용내역 </a></li>
 			</ul>
-	      </div>
+		</div>
 		<table class="table is-striped is-narrow is-hoverable">
-		   
-			<caption>문의 / 질문 게시판</caption>
-			<c:set var="oNum" value="${orderNum }"/>
+
+			<caption>예약이력</caption>
+			<c:set var="oNum" value="${orderNum }" />
 			<thead>
 				<tr>
 					<th><abbr title="Position">No</abbr></th>
@@ -180,36 +223,47 @@ input[type='submit'] {
 					<th>예약상태</th>
 				</tr>
 			</thead>
-			
-				<tbody>
-					<c:forEach items="${bookListView_present}" var="book">
+
+			<tbody>
+				
+					<c:if test="${not empty bookList_past }">	
+					<c:forEach items="${bookList_past}" var="book">			
 						<tr>
 							<td>${oNum }</td>
-							<td>${bookList_present.roomname}</td>
-							<td>${bookList_present.bk_date}</td>
-							<td>${bookList_present.bk_stime}</td>
-							<td>${bookList_present.bk_etime}</td>
-							<td>${bookList_present.bk_tt}</td>
-							<td>${bookList_present.bk_tp}</td>
-							<td><div style="color: white; background-color: #ffb400; width: 20px; display: inline; font-size: 0.7em; border-radius: 2px; padding: 2px;" >예약됨</div> </td>         
+							<td>${book.roomname}</td>
+							<td>${book.bk_date}</td>
+							<td>${book.bk_stime}</td>
+							<td>${book.bk_etime}</td>
+							<td>${book.bk_tt}</td>
+							<td>${book.bk_tp}</td>
+							<td><div
+									style="color: white; background-color: gray; width: 20px; display: inline; font-size: 0.7em; border-radius: 2px; padding: 2px;">이용완료</div>
+							</td>
 						</tr>
-				      <c:set var="oNum" value="${oNum+1 }"/>
-					</c:forEach>
-				</tbody>
+						<c:set var="oNum" value="${oNum+1 }" />
+						</c:forEach>
+					</c:if>	
+				
+				<c:if test="${empty bookList_past }">
+						<tr>
+							<td colspan="8">예약내역이 없습니다.</td>
+						</tr>
+				</c:if>
+			</tbody>
 		</table>
 		<table id="table_bottom">
-			
+
 			<tr>
 				<td>
 					<div class="paging">
 						<nav class="pagination" role="navigation" aria-label="pagination">
 							<c:if test="${paging.startPage>paging.blockSize }">
 								<a class="pagination-previous" title="This is the first page"
-									href="${conPath }/askListView.do?pageNum=${paging.startPage-1}">Previous</a>
+									href="${conPath }/bookListView_past.do?pageNum=${paging.startPage-1}">Previous</a>
 							</c:if>
 							<c:if test="${paging.endPage<paging.pageCnt }">
 								<a class="pagination-next"
-									href="${conPath }/askListView.do?pageNum=${paging.endPage+1}">Next
+									href="${conPath }/bookListView_past.do?pageNum=${paging.endPage+1}">Next
 									page</a>
 							</c:if>
 							<ul class="pagination-list">
@@ -221,7 +275,7 @@ input[type='submit'] {
 									</c:if>
 									<c:if test="${paging.currentPage!=i }">
 										<a class="pagination-link" aria-label="Goto page 2"
-											href="${conPath }/askListView.do?pageNum=${i}">${i }</a>
+											href="${conPath }/bookListView_past.do?pageNum=${i}">${i }</a>
 									</c:if>
 								</c:forEach>
 							</ul>
@@ -233,7 +287,7 @@ input[type='submit'] {
 
 
 
-		
+
 
 	</div>
 	<jsp:include page="../main/side.jsp" />

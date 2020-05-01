@@ -120,7 +120,7 @@ public class UsersController {
 	}else {
 		out.write("({'result': '입력하신 정보로 찾을 수 없습니다.'})");
 	}
-	return"users/login_view";
+	return"users/uidfind";
 	}
 	
 	// 비밀번호 찾기 뷰페이지

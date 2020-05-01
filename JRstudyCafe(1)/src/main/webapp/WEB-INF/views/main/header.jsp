@@ -21,9 +21,9 @@
 			  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
 			  <a href="${conPath }/studygroupPage.do">My 스터디그룹</a>
 			  <div class="line_div"></div>
-			  <a href="#">스터디룸 예약이력</a>
+			  <a href="${conPath }/bookListView_past.do">스터디룸 예약이력</a>
 			  <div class="line_div"></div>
-			  <a href="#">스터디룸 예약현황</a>
+			  <a href="${conPath }/bookListView_present.do">스터디룸 예약현황</a>
 			  <div class="line_div"></div>
 			  <a href="${conPath }/modifyView.do">정보수정</a>
 			  <div class="line_div"></div>

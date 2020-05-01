@@ -22,6 +22,16 @@ public class BookServiceImpl implements BookService {
 	public int bookcnt(Book book) {
 		return bookDao.bookcnt(book);
 	}
+	
+	@Override
+	public int bookcnt_present(String u_id) {
+		return bookDao.bookcnt_present(u_id);
+	}
+	
+	@Override
+	public int bookcnt_past(String u_id) {
+		return bookDao.bookcnt_past(u_id);
+	}
 
 	@Override
 	public int booking(Book book) {

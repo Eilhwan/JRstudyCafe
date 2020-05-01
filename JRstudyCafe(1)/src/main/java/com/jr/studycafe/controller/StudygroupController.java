@@ -154,7 +154,7 @@ public class StudygroupController {
 		member.setSg_no(sg_no);
 		System.out.println(member);
 		sgService.studygroup_invite(member);
-		return "studygroup/studygroup_form";
+		return "redirect:studygroupPage.do";
 	}
 	@RequestMapping(value="sbCommentWrite", method = RequestMethod.POST)
 	public String sbCommentWrite(SbComment sc, HttpSession session, Model model) {
@@ -183,7 +183,8 @@ public class StudygroupController {
 		}
 		studyBoard.setSb_status(sb_status);
 		sbService.write_sb(studyBoard, session);
-		return "studygroup/sb_write_view";
+		model.addAttribute("sg_no", studyBoard.getSg_no());
+		return "redirect:studygroupView.do";
 	}
 	
 }
